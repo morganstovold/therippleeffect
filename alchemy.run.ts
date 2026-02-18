@@ -10,7 +10,9 @@ const app = await alchemy("therippleeffect", {
         }),
 });
 
-export const worker = await Astro("website");
+export const worker = await Astro("website", {
+  domains: ["therippleeffect.stovold.dev"],
+});
 
 if (process.env.PULL_REQUEST) {
   await GitHubComment("preview-comment", {

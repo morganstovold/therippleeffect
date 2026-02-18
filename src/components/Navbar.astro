@@ -46,9 +46,11 @@ import Button from './Button.astro';
 	
 	// Close mobile menu when clicking a link
 	const mobileLinks = mobileMenu?.querySelectorAll('a');
-	mobileLinks?.forEach(link => {
-		link.addEventListener('click', () => {
-			mobileMenu?.classList.add('hidden');
-		});
-	});
+	if (mobileLinks) {
+		for (const link of mobileLinks) {
+			link.addEventListener('click', () => {
+				mobileMenu?.classList.add('hidden');
+			});
+		}
+	}
 </script>
