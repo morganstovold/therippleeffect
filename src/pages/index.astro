@@ -1,11 +1,204 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Navbar from '../components/Navbar.astro';
+import Button from '../components/Button.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<Navbar />
+
+	<main class="mt-[90px]">
+		<section class="relative min-h-[85vh] bg-gradient-to-br from-cream via-white to-[#f5f7fa] overflow-hidden">
+			<!-- Subtle ripple effects -->
+			<div class="absolute inset-0 opacity-15">
+				<div class="ripple-wave absolute rounded-full border-2 border-navy-mid opacity-0 top-[15%] left-[10%] animate-[ripple_12s_ease-out_infinite]"></div>
+				<div class="ripple-wave absolute rounded-full border-2 border-navy-mid opacity-0 top-[55%] right-[15%] animate-[ripple_12s_ease-out_4s_infinite]"></div>
+				<div class="ripple-wave absolute rounded-full border-2 border-gold opacity-0 bottom-[20%] left-[50%] animate-[ripple_12s_ease-out_8s_infinite]"></div>
+			</div>
+			
+			<!-- Main content -->
+			<div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 h-full min-h-[85vh] flex items-center">
+				<div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 md:gap-20 items-center w-full py-12 md:py-20">
+					<!-- Left: Logo - larger and more prominent -->
+					<div class="relative animate-[fadeInUp_1s_ease-out_0.2s_both] order-1 lg:order-none">
+						<img src="/therippleeffect_logo.svg" alt="The Ripple Effect of Life" class="w-full max-w-md mx-auto lg:max-w-none h-auto drop-shadow-[0_30px_60px_rgba(15,41,66,0.15)]" />
+					</div>
+					
+					<!-- Right: Content -->
+					<div class="space-y-6 md:space-y-8 animate-[fadeInUp_1s_ease-out_0.4s_both] order-2 lg:order-none text-center lg:text-left">
+						<!-- Eyebrow -->
+						<div class="flex items-center gap-3 justify-center lg:justify-start">
+							<div class="w-8 md:w-12 h-px bg-gold"></div>
+							<span class="text-navy-mid text-[0.65rem] md:text-xs font-bold tracking-[0.25em] uppercase font-inter">Community Service Scholarship</span>
+						</div>
+						
+						<!-- Main heading -->
+						<h1 class="text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.1] font-bold text-navy-deep font-playfair">
+							Honoring a Legacy of <span class="text-gold italic">Service</span>
+						</h1>
+						
+						<!-- Description -->
+						<p class="text-[0.95rem] md:text-[1.1rem] leading-[1.7] text-text-dark font-light font-inter">
+							Created in honor of <span class="font-semibold text-navy-deep">James Baldwin</span>, a lifelong community leader whose heart for service has touched countless lives across Benicia.
+						</p>
+						
+						<!-- Deadline display - cleaner -->
+						<div class="pt-2">
+							<div class="flex items-baseline gap-2 mb-6 justify-center lg:justify-start">
+								<span class="text-navy-mid text-xs md:text-sm font-semibold tracking-[0.15em] uppercase font-inter">Deadline:</span>
+								<span class="text-[2rem] md:text-[2.75rem] leading-none font-black text-navy-deep font-playfair">April 10</span>
+								<span class="text-navy-mid text-lg md:text-xl font-light font-playfair">2026</span>
+							</div>
+							
+							<!-- CTA buttons -->
+							<div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+								<Button href="https://eddy.pro/pdf/6456025" variant="primary" size="md">View Requirements</Button>
+								<Button href="https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform" variant="gold" size="md">Apply Now</Button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<!-- Simple separator -->
+		<div class="h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+		<section id="james" class="py-16 md:py-32 bg-white">
+			<div class="max-w-[1400px] mx-auto px-6 md:px-12">
+				<div class="grid grid-cols-1 lg:grid-cols-[45%_1fr] gap-12 md:gap-24 items-start">
+					<div class="lg:sticky top-[120px]">
+						<div class="mb-8 md:mb-12">
+							<span class="block text-[0.75rem] md:text-[0.85rem] font-semibold tracking-[0.2em] uppercase text-gold mb-4 font-inter">A Life of Service</span>
+							<h2 class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold text-navy-deep leading-[1.1] font-playfair">James Baldwin's Story</h2>
+						</div>
+						<div class="relative">
+							<div class="absolute -top-5 -left-5 right-5 bottom-5 border-2 border-gold -z-10"></div>
+							<img src="/faminy.jpg" alt="James Baldwin with his loving family" class="w-full h-auto block shadow-[0_20px_60px_rgba(0,0,0,0.15)]" />
+						</div>
+						<div class="text-sm md:text-base italic text-text-mid mt-4 md:mt-6 text-center font-inter">James with his beloved family</div>
+					</div>
+					
+					<div class="pt-0 lg:pt-8">
+						<div>
+							<p class="text-[1.15rem] md:text-[1.35rem] lg:text-[1.5rem] leading-[1.7] text-navy-deep font-normal mb-8 md:mb-12 font-playfair">James Baldwin has spent his life showing up for others. As a lifelong community leader in Benicia, his heart for service has touched countless lives, from coaching youth sports to mentoring young people, from organizing community events to simply being there when someone needed help.</p>
+						</div>
+						
+						<div>
+							<p class="text-[1rem] md:text-[1.125rem] leading-[1.9] text-text-dark mb-6 md:mb-8 font-light font-inter">Today, as James faces his battle with cancer, the community he has given so much to is coming together to honor his legacy. The Ripple Effect of Life was created not as a memorial, but as a living testament to the impact one person can have when they dedicate themselves to serving others.</p>
+							
+							<p class="text-[1rem] md:text-[1.125rem] leading-[1.9] text-text-dark mb-6 md:mb-8 font-light font-inter">James has always believed that small acts of kindness create ripples that spread far beyond what we can see. He's lived that truth every day, whether helping a neighbor, supporting a student, or bringing people together. His influence has shaped not just individuals, but the entire fabric of our community.</p>
+							
+							<p class="text-[1rem] md:text-[1.125rem] leading-[1.9] text-text-dark mb-6 md:mb-8 font-light font-inter">The James Baldwin Community Service Scholarship ensures that his spirit of generosity and community leadership will continue to inspire future generations. By supporting students who share James's commitment to service, we're creating new ripples that will extend his legacy far into the future.</p>
+						</div>
+						
+						<div class="my-10 md:my-16 p-6 md:p-12 bg-cream border-l-4 border-gold">
+							<blockquote class="m-0">
+								<p class="text-[1.25rem] md:text-[1.5rem] lg:text-[1.75rem] italic leading-[1.6] text-navy-deep m-0 mb-4 font-playfair">"The greatest gift we can give is our time, our presence, and our willingness to show up for each other."</p>
+								<cite class="text-sm md:text-base not-italic font-semibold text-gold tracking-[0.05em] font-inter">- James Baldwin</cite>
+							</blockquote>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="scholarship" class="py-16 md:py-32 bg-navy-deep text-white relative overflow-hidden">
+			<div class="absolute top-0 right-0 w-1/2 h-full bg-linear-to-br from-transparent to-[rgba(212,165,116,0.05)]"></div>
+			<div class="max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
+				<div class="max-w-[700px] mb-12 md:mb-20">
+					<span class="block text-[0.75rem] md:text-[0.85rem] font-semibold tracking-[0.2em] uppercase text-gold mb-4 font-inter">Continuing the Legacy</span>
+					<h2 class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold text-white leading-[1.1] mb-6 font-playfair">The Scholarship</h2>
+					<p class="text-[1rem] md:text-[1.25rem] leading-[1.8] text-[rgba(255,255,255,0.8)] font-light font-inter">This scholarship recognizes Benicia High School seniors who embody James's spirit of service and commitment to making a positive impact in their community.</p>
+				</div>
+
+				<div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 md:gap-16 items-start">
+					<div>
+						<h3 class="text-[1.5rem] md:text-[2rem] font-semibold text-white mb-8 md:mb-12 font-playfair">You May Apply If You:</h3>
+						<div class="flex flex-col gap-6 md:gap-10">
+							<div class="flex gap-4 md:gap-8 items-start">
+								<div class="text-[2rem] md:text-[3rem] font-bold text-gold leading-none shrink-0 opacity-60 font-playfair">01</div>
+								<div>
+									<h4 class="text-[1.1rem] md:text-[1.25rem] font-semibold text-white mb-2 tracking-[0.02em] font-inter">Graduating Senior</h4>
+									<p class="text-sm md:text-base leading-[1.7] text-[rgba(255,255,255,0.7)] font-light font-inter">Are a graduating Benicia High School senior</p>
+								</div>
+							</div>
+							<div class="flex gap-4 md:gap-8 items-start">
+								<div class="text-[2rem] md:text-[3rem] font-bold text-gold leading-none shrink-0 opacity-60 font-playfair">02</div>
+								<div>
+									<h4 class="text-[1.1rem] md:text-[1.25rem] font-semibold text-white mb-2 tracking-[0.02em] font-inter">Future Plans</h4>
+									<p class="text-sm md:text-base leading-[1.7] text-[rgba(255,255,255,0.7)] font-light font-inter">Plan to attend college, trade school, or vocational training</p>
+								</div>
+							</div>
+							<div class="flex gap-4 md:gap-8 items-start">
+								<div class="text-[2rem] md:text-[3rem] font-bold text-gold leading-none shrink-0 opacity-60 font-playfair">03</div>
+								<div>
+									<h4 class="text-[1.1rem] md:text-[1.25rem] font-semibold text-white mb-2 tracking-[0.02em] font-inter">Service Record</h4>
+									<p class="text-sm md:text-base leading-[1.7] text-[rgba(255,255,255,0.7)] font-light font-inter">Have participated in community service</p>
+								</div>
+							</div>
+							<div class="flex gap-4 md:gap-8 items-start">
+								<div class="text-[2rem] md:text-[3rem] font-bold text-gold leading-none shrink-0 opacity-60 font-playfair">04</div>
+								<div>
+									<h4 class="text-[1.1rem] md:text-[1.25rem] font-semibold text-white mb-2 tracking-[0.02em] font-inter">Commitment</h4>
+									<p class="text-sm md:text-base leading-[1.7] text-[rgba(255,255,255,0.7)] font-light font-inter">Are committed to making a positive impact</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="lg:sticky top-[120px] bg-gold p-8 md:p-16 text-center border-[3px] border-navy-deep shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+						<div>
+							<div class="text-[0.75rem] md:text-[0.9rem] font-semibold tracking-[0.15em] uppercase text-navy-deep mb-4 md:mb-6 font-inter">Application Deadline</div>
+							<div class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-black text-navy-deep leading-none mb-2 font-playfair">April 10th</div>
+							<div class="text-[1.75rem] md:text-[2.5rem] font-normal text-navy-deep mb-8 md:mb-12 font-playfair">2026</div>
+							<Button href="https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform" variant="primary" size="md" class="w-full">Submit Application</Button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="bg-navy-deep text-[rgba(255,255,255,0.8)] pt-12 md:pt-16 pb-8 border-t border-[rgba(212,165,116,0.2)]">
+		<div class="max-w-[1400px] mx-auto px-6 md:px-12">
+			<div class="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-8 md:gap-16 pb-8 md:pb-12 border-b border-[rgba(255,255,255,0.1)] mb-8">
+				<div>
+					<h3 class="text-[1.4rem] md:text-[1.75rem] font-bold text-white mb-3 md:mb-4 font-playfair">The Ripple Effect of Life</h3>
+					<p class="text-sm md:text-base leading-[1.7] text-[rgba(255,255,255,0.6)] font-light font-inter">Honoring James Baldwin's legacy of service and community leadership</p>
+				</div>
+				
+				<div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+					<div>
+						<h4 class="text-[0.75rem] md:text-[0.85rem] font-semibold tracking-widest uppercase text-gold mb-3 md:mb-4 font-inter">Scholarship</h4>
+						<ul class="list-none p-0 m-0">
+							<li class="mb-2 md:mb-3"><a href="https://eddy.pro/pdf/6456025" class="text-[0.85rem] md:text-[0.95rem] text-[rgba(255,255,255,0.7)] no-underline transition-colors duration-300 font-light hover:text-gold font-inter">Requirements</a></li>
+							<li class="mb-2 md:mb-3"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform" class="text-[0.85rem] md:text-[0.95rem] text-[rgba(255,255,255,0.7)] no-underline transition-colors duration-300 font-light hover:text-gold font-inter">Apply Now</a></li>
+							<li class="mb-2 md:mb-3"><a href="https://eddy.pro/pdf/6442428" class="text-[0.85rem] md:text-[0.95rem] text-[rgba(255,255,255,0.7)] no-underline transition-colors duration-300 font-light hover:text-gold font-inter">Letter Example</a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="text-[0.75rem] md:text-[0.85rem] font-semibold tracking-widest uppercase text-gold mb-3 md:mb-4 font-inter">About</h4>
+						<ul class="list-none p-0 m-0">
+							<li class="mb-2 md:mb-3"><a href="#james" class="text-[0.85rem] md:text-[0.95rem] text-[rgba(255,255,255,0.7)] no-underline transition-colors duration-300 font-light hover:text-gold font-inter">James's Story</a></li>
+							<li class="mb-2 md:mb-3"><a href="#mission" class="text-[0.85rem] md:text-[0.95rem] text-[rgba(255,255,255,0.7)] no-underline transition-colors duration-300 font-light hover:text-gold font-inter">Our Mission</a></li>
+							<li class="mb-2 md:mb-3"><a href="#impact" class="text-[0.85rem] md:text-[0.95rem] text-[rgba(255,255,255,0.7)] no-underline transition-colors duration-300 font-light hover:text-gold font-inter">Community Impact</a></li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="text-[0.75rem] md:text-[0.85rem] font-semibold tracking-widest uppercase text-gold mb-3 md:mb-4 font-inter">Support</h4>
+						<ul class="list-none p-0 m-0">
+							<li class="mb-2 md:mb-3"><a href="#donate" class="text-[0.85rem] md:text-[0.95rem] text-[rgba(255,255,255,0.7)] no-underline transition-colors duration-300 font-light hover:text-gold font-inter">Donate</a></li>
+							<li class="mb-2 md:mb-3"><a href="mailto:info@therippleeffectoflife.com" class="text-[0.85rem] md:text-[0.95rem] text-[rgba(255,255,255,0.7)] no-underline transition-colors duration-300 font-light hover:text-gold font-inter">Contact Us</a></li>
+							<li class="mb-2 md:mb-3"><a href="tel:+1234567890" class="text-[0.85rem] md:text-[0.95rem] text-[rgba(255,255,255,0.7)] no-underline transition-colors duration-300 font-light hover:text-gold font-inter">Questions?</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="text-center">
+				<p class="text-[0.75rem] md:text-[0.9rem] text-[rgba(255,255,255,0.5)] font-light font-inter">&copy; 2026 The Ripple Effect of Life. Creating ripples of positive change in honor of James Baldwin.</p>
+			</div>
+		</div>
+	</footer>
 </Layout>

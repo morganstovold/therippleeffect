@@ -1,0 +1,59 @@
+@import "tailwindcss" source(none);
+
+@source "../**/*.{astro,html,js,jsx,ts,tsx}";
+@source "!../.alchemy/**";
+@source "!../dist/**";
+
+@theme {
+	/* Colors */
+	--color-navy-deep: #0f2942;
+	--color-navy-rich: #1a3a52;
+	--color-navy-mid: #2d5f8d;
+	--color-gold: #d4a574;
+	--color-gold-bright: #f4c542;
+	--color-cream: #faf8f5;
+	--color-text-dark: #1a1a1a;
+	--color-text-mid: #4a5568;
+
+	/* Font Families */
+	--font-family-playfair: 'Playfair Display', serif;
+	--font-family-inter: 'Inter', sans-serif;
+	--font-playfair: 'Playfair Display', serif;
+	--font-inter: 'Inter', sans-serif;
+
+	/* Animation Durations */
+	--transition-duration-400: 400ms;
+	--animate-duration-400: 400ms;
+}
+
+/* Custom animations */
+@keyframes ripple {
+	0% {
+		width: 0;
+		height: 0;
+		opacity: 0.6;
+	}
+	50% {
+		opacity: 0.3;
+	}
+	100% {
+		width: 600px;
+		height: 600px;
+		opacity: 0;
+	}
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+html {
+	scroll-behavior: smooth;
+}

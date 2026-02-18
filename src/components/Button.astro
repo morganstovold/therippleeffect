@@ -1,0 +1,42 @@
+---
+interface Props {
+	href: string;
+	variant?: 'primary' | 'secondary' | 'gold';
+	size?: 'sm' | 'md' | 'lg';
+	class?: string;
+}
+
+const { href, variant = 'primary', size = 'md', class: className = '' } = Astro.props;
+
+const baseClasses = 'inline-block font-semibold uppercase tracking-wider no-underline transition-all relative overflow-hidden group ease-out font-inter tracking-[0.05em]';
+
+const variantClasses = {
+	primary: 'text-white hover:text-[#0f2942]',
+	secondary: 'text-white border-2 border-white hover:text-[#0f2942] hover:border-[#d4a574]',
+	gold: 'text-[#0f2942] border-2 border-[#d4a574] hover:text-white hover:border-[#0f2942]',
+};
+
+const sizeClasses = {
+	sm: 'px-6 py-2.5 text-sm',
+	md: 'px-14 py-5 text-base',
+	lg: 'px-16 py-6 text-lg',
+};
+
+const initialBgClasses = {
+	primary: 'bg-[#0f2942]',
+	secondary: 'bg-transparent',
+	gold: 'bg-[#d4a574]',
+};
+
+const slideColorClasses = {
+	primary: 'bg-[#d4a574]',
+	secondary: 'bg-[#d4a574]',
+	gold: 'bg-[#0f2942]',
+};
+---
+
+<a href={href} class={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} `}>
+	<span class={`absolute inset-0 ${initialBgClasses[variant]}`}></span>
+	<span class={`absolute inset-0 ${slideColorClasses[variant]} origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-400 ease-out`}></span>
+	<span class="relative z-10"><slot /></span>
+</a>
