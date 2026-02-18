@@ -11,6 +11,7 @@ const app = await alchemy("therippleeffect", {
 });
 
 export const worker = await Astro("website", {
+  adopt: true,
   domains: ["therippleeffect.stovold.dev"],
 });
 
