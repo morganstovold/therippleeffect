@@ -12,7 +12,10 @@ const app = await alchemy("therippleeffect", {
 
 export const worker = await Astro("website", {
   adopt: true,
-  domains: ["therippleeffect.stovold.dev"],
+  domains: [{
+    domainName: "therippleeffect.stovold.dev",
+    adopt: true
+  }],
 });
 
 if (process.env.PULL_REQUEST) {

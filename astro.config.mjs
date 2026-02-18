@@ -9,7 +9,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   output: "server",
   adapter: cloudflare({
-    imageService: "cloudflare",
+    imageService: "passthrough",
   }),
 
   vite: {
