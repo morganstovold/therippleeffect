@@ -11,6 +11,16 @@ import "@fontsource/inter/latin-500.css";
 import "@fontsource/inter/latin-600.css";
 import "@fontsource/inter/latin-700.css";
 import "../styles/global.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = "The Ripple Effect of Life",
+	description = "The Ripple Effect of Life is a nonprofit foundation dedicated to honoring James Baldwin's legacy of service by empowering communities through scholarships, events, and giving back."
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -21,8 +31,8 @@ import "../styles/global.css";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="The James Baldwin Community Service Scholarship honors a lifelong community leader in Benicia, CA. Apply by April 10, 2026 — open to graduating Benicia High School seniors committed to service." />
-		<title>The Ripple Effect of Life | James Baldwin Community Service Scholarship</title>
+		<meta name="description" content={description} />
+		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
@@ -33,7 +43,7 @@ import "../styles/global.css";
 	* {
 		box-sizing: border-box;
 	}
-	
+
 	html,
 	body {
 		margin: 0;
@@ -42,7 +52,7 @@ import "../styles/global.css";
 		min-height: 100vh;
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 	}
-	
+
 	body {
 		position: relative;
 	}

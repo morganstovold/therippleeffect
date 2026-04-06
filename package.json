@@ -16,6 +16,7 @@
     "@astrojs/cloudflare": "^12.6.12",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/playfair-display": "^5.2.8",
+    "@rollup/rollup-linux-arm64-gnu": "^4.60.1",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
     "tailwindcss": "^4.1.18"

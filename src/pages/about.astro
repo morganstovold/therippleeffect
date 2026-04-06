@@ -1,0 +1,206 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Button from '../components/Button.astro';
+import familyImage from '../assets/family.jpg';
+---
+
+<Layout title="About Us" description="Learn about The Ripple Effect of Life, a foundation dedicated to community service, scholarships, and empowering future generations through the legacy of James Baldwin.">
+  <Navbar />
+
+  <main class="mt-[90px]">
+    <!-- Page Header -->
+    <PageHeader
+      eyebrow="Our Story"
+      title="About The Ripple Effect of Life"
+      subtitle="A foundation built on the belief that one person's kindness can create a lasting ripple of change across an entire community."
+    />
+
+    <!-- About Section -->
+    <section class="bg-white py-16 md:py-24">
+      <div class="container mx-auto px-6 md:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <!-- Left: Story Text -->
+          <div>
+            <p class="text-lg text-text-mid mb-6 leading-relaxed">
+              The Ripple Effect of Life was created to honor a lifetime of community service and commitment to giving back. Our foundation stands as a testament to the transformative power of one person's dedication to lifting others up.
+            </p>
+            <p class="text-lg text-text-mid mb-6 leading-relaxed">
+              We believe that kindness, mentorship, and service are the cornerstones of a thriving community. Through scholarships, mentorship programs, and community initiatives, we work to create opportunities for those who need them most, empowering future generations to become leaders and changemakers.
+            </p>
+            <p class="text-lg text-text-mid leading-relaxed">
+              Our mission is rooted in the values of compassion, integrity, and the understanding that true legacy is built not through wealth, but through the lives we touch and the positive change we inspire in others.
+            </p>
+          </div>
+
+          <!-- Right: Image Placeholder -->
+          <div class="flex justify-center">
+            <div class="w-full h-96 bg-cream border-4 border-gold rounded-lg shadow-lg overflow-hidden">
+              <img
+                src={familyImage.src}
+                alt="The Ripple Effect community"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- James Baldwin Legacy Section -->
+    <section id="james" class="bg-cream py-16 md:py-24">
+      <div class="container mx-auto px-6 md:px-12">
+        <div class="mb-16">
+          <p class="text-sm font-semibold text-gold-dark uppercase tracking-widest mb-2">A Life of Service</p>
+          <h2 class="text-4xl md:text-5xl font-playfair text-navy-deep mb-6">James Baldwin's Story</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          <!-- Left: Image with Gold Border Offset -->
+          <div class="relative">
+            <div class="absolute -top-4 -left-4 w-full h-full bg-gold rounded-lg"></div>
+            <div class="relative bg-white rounded-lg overflow-hidden shadow-xl">
+              <img
+                src={familyImage.src}
+                alt="James Baldwin"
+                class="w-full h-96 object-cover"
+              />
+            </div>
+          </div>
+
+          <!-- Right: Story Text -->
+          <div>
+            <p class="text-lg text-text-mid mb-6 leading-relaxed">
+              James Baldwin was a lifelong community leader in Benicia, dedicating decades to youth sports coaching, mentoring young people, and organizing community events that brought neighbors together. His presence was felt in every corner of our community—not through grand gestures, but through consistent, steadfast commitment to showing up.
+            </p>
+            <p class="text-lg text-text-mid mb-8 leading-relaxed">
+              As James faces his battle with cancer, the entire community honors his legacy. The Ripple Effect of Life is a living testament to one person's impact—proof that a life devoted to service creates waves of positive change that extend far beyond what any individual could measure.
+            </p>
+
+            <!-- Quote Section -->
+            <div class="bg-white border-l-4 border-gold px-8 py-6 rounded-lg">
+              <blockquote class="text-xl font-playfair text-navy-deep mb-3 italic">
+                "The greatest gift we can give is our time, our presence, and our willingness to show up for each other."
+              </blockquote>
+              <p class="text-text-mid font-semibold">— James Baldwin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Board of Directors Section -->
+    <section id="board" class="bg-white py-16 md:py-24">
+      <div class="container mx-auto px-6 md:px-12">
+        <div class="mb-16">
+          <p class="text-sm font-semibold text-gold-dark uppercase tracking-widest mb-2">Leadership</p>
+          <h2 class="text-4xl md:text-5xl font-playfair text-navy-deep">Board of Directors</h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Board Member Card 1 -->
+          <div class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start mb-6">
+              <div class="w-16 h-16 rounded-full bg-navy-deep text-gold flex items-center justify-center text-2xl font-playfair font-bold mr-4">
+                JB
+              </div>
+            </div>
+            <h3 class="text-xl font-playfair text-navy-deep mb-2">Board Member</h3>
+            <p class="text-sm text-gold-dark font-semibold mb-4">Title Coming Soon</p>
+            <p class="text-text-mid text-sm leading-relaxed">
+              Dedicated to supporting our community and advancing the mission of The Ripple Effect of Life through strategic leadership and service.
+            </p>
+          </div>
+
+          <!-- Board Member Card 2 -->
+          <div class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start mb-6">
+              <div class="w-16 h-16 rounded-full bg-navy-deep text-gold flex items-center justify-center text-2xl font-playfair font-bold mr-4">
+                SM
+              </div>
+            </div>
+            <h3 class="text-xl font-playfair text-navy-deep mb-2">Board Member</h3>
+            <p class="text-sm text-gold-dark font-semibold mb-4">Title Coming Soon</p>
+            <p class="text-text-mid text-sm leading-relaxed">
+              Committed to creating opportunities and empowering the next generation through meaningful community engagement.
+            </p>
+          </div>
+
+          <!-- Board Member Card 3 -->
+          <div class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start mb-6">
+              <div class="w-16 h-16 rounded-full bg-navy-deep text-gold flex items-center justify-center text-2xl font-playfair font-bold mr-4">
+                RC
+              </div>
+            </div>
+            <h3 class="text-xl font-playfair text-navy-deep mb-2">Board Member</h3>
+            <p class="text-sm text-gold-dark font-semibold mb-4">Title Coming Soon</p>
+            <p class="text-text-mid text-sm leading-relaxed">
+              Passionate about building a foundation that honors James Baldwin's legacy and strengthens our community bonds.
+            </p>
+          </div>
+
+          <!-- Board Member Card 4 -->
+          <div class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start mb-6">
+              <div class="w-16 h-16 rounded-full bg-navy-deep text-gold flex items-center justify-center text-2xl font-playfair font-bold mr-4">
+                TM
+              </div>
+            </div>
+            <h3 class="text-xl font-playfair text-navy-deep mb-2">Board Member</h3>
+            <p class="text-sm text-gold-dark font-semibold mb-4">Title Coming Soon</p>
+            <p class="text-text-mid text-sm leading-relaxed">
+              Dedicated to fostering meaningful connections and ensuring our foundation's mission reaches those who need it most.
+            </p>
+          </div>
+
+          <!-- Board Member Card 5 -->
+          <div class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start mb-6">
+              <div class="w-16 h-16 rounded-full bg-navy-deep text-gold flex items-center justify-center text-2xl font-playfair font-bold mr-4">
+                LP
+              </div>
+            </div>
+            <h3 class="text-xl font-playfair text-navy-deep mb-2">Board Member</h3>
+            <p class="text-sm text-gold-dark font-semibold mb-4">Title Coming Soon</p>
+            <p class="text-text-mid text-sm leading-relaxed">
+              Brings vision and expertise to guide The Ripple Effect of Life toward creating lasting positive change in our community.
+            </p>
+          </div>
+
+          <!-- Board Member Card 6 -->
+          <div class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex items-start mb-6">
+              <div class="w-16 h-16 rounded-full bg-navy-deep text-gold flex items-center justify-center text-2xl font-playfair font-bold mr-4">
+                DW
+              </div>
+            </div>
+            <h3 class="text-xl font-playfair text-navy-deep mb-2">Board Member</h3>
+            <p class="text-sm text-gold-dark font-semibold mb-4">Title Coming Soon</p>
+            <p class="text-text-mid text-sm leading-relaxed">
+              Devoted to supporting our mission of scholarships, mentorship, and community service that honor James Baldwin's life.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-navy-deep py-16 md:py-20">
+      <div class="container mx-auto px-6 md:px-12 text-center">
+        <h2 class="text-3xl md:text-4xl font-playfair text-cream mb-8">Want to be part of our story?</h2>
+        <Button
+          href="/get-involved"
+          variant="gold"
+          size="lg"
+        >
+          Get Involved
+        </Button>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

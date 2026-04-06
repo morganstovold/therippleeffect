@@ -1,0 +1,165 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import familyImage from '../assets/family.jpg';
+---
+
+<Layout title="Gallery | The Ripple Effect of Life" description="Explore our gallery of moments from events, community gatherings, and lives we've touched through The Ripple Effect of Life nonprofit.">
+  <Navbar />
+
+  <main class="mt-[90px]">
+    <!-- Page Header -->
+    <PageHeader
+      eyebrow="Moments That Matter"
+      title="Gallery"
+      subtitle="A collection of moments from our events, community, and the lives we've touched."
+    />
+
+    <!-- Gallery Grid Section -->
+    <section class="bg-white py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 md:px-8">
+
+        <!-- Category Filter Tabs -->
+        <div class="flex flex-wrap gap-3 mb-12 md:mb-16 justify-center">
+          <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-[#d4a574] text-[#0f2942] hover:bg-[#8a5e2a] hover:text-white transition-colors">
+            All
+          </button>
+          <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-[#faf8f5] text-[#1a1a1a] border border-[#d4a574] hover:bg-[#d4a574] hover:text-[#0f2942] transition-colors">
+            Events
+          </button>
+          <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-[#faf8f5] text-[#1a1a1a] border border-[#d4a574] hover:bg-[#d4a574] hover:text-[#0f2942] transition-colors">
+            Community
+          </button>
+          <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-[#faf8f5] text-[#1a1a1a] border border-[#d4a574] hover:bg-[#d4a574] hover:text-[#0f2942] transition-colors">
+            Scholarship
+          </button>
+        </div>
+
+        <!-- Masonry Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[300px]">
+
+          <!-- Item 1: Real Family Image - Spans 2 rows -->
+          <div class="md:col-span-2 md:row-span-2 relative overflow-hidden group cursor-pointer">
+            <img
+              src={familyImage.src}
+              alt="The Ripple Effect family moment"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+
+          <!-- Item 2: Placeholder -->
+          <div class="relative overflow-hidden bg-[rgba(15,41,66,0.08)] flex items-center justify-center group cursor-pointer">
+            <div class="text-center">
+              <div class="text-[#2d5f8d] font-inter text-sm">Photo Coming Soon</div>
+            </div>
+            <div class="absolute inset-0 group-hover:bg-black/5 transition-colors duration-300"></div>
+          </div>
+
+          <!-- Item 3: Placeholder -->
+          <div class="relative overflow-hidden bg-[rgba(15,41,66,0.08)] flex items-center justify-center group cursor-pointer">
+            <div class="text-center">
+              <div class="text-[#2d5f8d] font-inter text-sm">Photo Coming Soon</div>
+            </div>
+            <div class="absolute inset-0 group-hover:bg-black/5 transition-colors duration-300"></div>
+          </div>
+
+          <!-- Item 4: Placeholder - Spans 2 rows -->
+          <div class="md:row-span-2 relative overflow-hidden bg-[rgba(15,41,66,0.08)] flex items-center justify-center group cursor-pointer">
+            <div class="text-center">
+              <div class="text-[#2d5f8d] font-inter text-sm">Photo Coming Soon</div>
+            </div>
+            <div class="absolute inset-0 group-hover:bg-black/5 transition-colors duration-300"></div>
+          </div>
+
+          <!-- Item 5: Placeholder -->
+          <div class="relative overflow-hidden bg-[rgba(15,41,66,0.08)] flex items-center justify-center group cursor-pointer">
+            <div class="text-center">
+              <div class="text-[#2d5f8d] font-inter text-sm">Photo Coming Soon</div>
+            </div>
+            <div class="absolute inset-0 group-hover:bg-black/5 transition-colors duration-300"></div>
+          </div>
+
+          <!-- Item 6: Placeholder -->
+          <div class="relative overflow-hidden bg-[rgba(15,41,66,0.08)] flex items-center justify-center group cursor-pointer">
+            <div class="text-center">
+              <div class="text-[#2d5f8d] font-inter text-sm">Photo Coming Soon</div>
+            </div>
+            <div class="absolute inset-0 group-hover:bg-black/5 transition-colors duration-300"></div>
+          </div>
+
+          <!-- Item 7: Placeholder -->
+          <div class="relative overflow-hidden bg-[rgba(15,41,66,0.08)] flex items-center justify-center group cursor-pointer">
+            <div class="text-center">
+              <div class="text-[#2d5f8d] font-inter text-sm">Photo Coming Soon</div>
+            </div>
+            <div class="absolute inset-0 group-hover:bg-black/5 transition-colors duration-300"></div>
+          </div>
+
+          <!-- Item 8: Placeholder -->
+          <div class="relative overflow-hidden bg-[rgba(15,41,66,0.08)] flex items-center justify-center group cursor-pointer">
+            <div class="text-center">
+              <div class="text-[#2d5f8d] font-inter text-sm">Photo Coming Soon</div>
+            </div>
+            <div class="absolute inset-0 group-hover:bg-black/5 transition-colors duration-300"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Moment Section -->
+    <section class="bg-[#faf8f5] py-16 md:py-24">
+      <div class="max-w-5xl mx-auto px-4 md:px-8">
+        <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+
+          <!-- Featured Image -->
+          <div class="w-full md:w-1/2">
+            <img
+              src={familyImage.src}
+              alt="James with his beloved family"
+              class="w-full h-auto rounded-none shadow-sm"
+            />
+          </div>
+
+          <!-- Featured Caption -->
+          <div class="w-full md:w-1/2">
+            <h3 class="font-playfair text-3xl md:text-4xl text-[#0f2942] mb-4">
+              James with his beloved family
+            </h3>
+            <p class="font-inter text-base md:text-lg text-[#4a5568] leading-relaxed mb-6">
+              At the heart of The Ripple Effect of Life is a personal story. James's journey, shaped by the love and support of his family, inspired the creation of this nonprofit. Every scholarship awarded, every community event hosted, and every life touched carries forward the values of compassion, opportunity, and connection that define his family's legacy. This moment captures not just a family, but the ripple of purpose that flows through everything we do.
+            </p>
+            <div class="border-l-4 border-[#d4a574] pl-4">
+              <p class="font-inter text-sm text-[#2d5f8d] italic">
+                "True impact isn't measured in single moments, but in the ripples that extend far beyond what we can see."
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Share CTA Section -->
+    <section class="bg-[#0f2942] py-12 md:py-16">
+      <div class="max-w-3xl mx-auto px-4 md:px-8 text-center">
+        <h3 class="font-playfair text-2xl md:text-3xl text-white mb-4">
+          Have photos to share?
+        </h3>
+        <p class="font-inter text-base md:text-lg text-[#faf8f5] mb-6">
+          We'd love to see your moments from our events and community gatherings.
+        </p>
+        <p class="font-inter text-lg text-[#d4a574] font-medium">
+          <a href="mailto:Info@TheRippleEffectOfLife.com" class="hover:text-[#8a5e2a] transition-colors">
+            Info@TheRippleEffectOfLife.com
+          </a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

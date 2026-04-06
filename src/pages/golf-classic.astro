@@ -1,0 +1,255 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout title="First Inaugural Golf Classic | The Ripple Effect of Life" description="Join us for the First Inaugural Golf Classic on May 28, 2026 at Eagle Vines Golf Club. Four-person scramble tournament supporting The Ripple Effect of Life foundation.">
+  <Navbar />
+
+  <main class="mt-[90px]">
+    {/* Page Header */}
+    <PageHeader
+      eyebrow="May 28, 2026"
+      title="First Inaugural Golf Classic"
+      subtitle="Join us for an unforgettable day of golf, community, and giving at Eagle Vines Golf Club."
+    />
+
+    {/* Event Overview Section */}
+    <section class="bg-white py-16 md:py-24">
+      <div class="container mx-auto px-4 md:px-8 max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+          {/* Left Column - Event Description */}
+          <div>
+            <h2 class="font-playfair text-3xl md:text-4xl font-bold text-navy-deep mb-6">
+              This isn't just a golf tournament—it's a movement.
+            </h2>
+            <p class="font-inter text-lg text-text-mid mb-6 leading-relaxed">
+              Proceeds from our First Inaugural Golf Classic support The Ripple Effect of Life foundation's mission to create lasting positive change in our community.
+            </p>
+            <p class="font-inter text-lg text-text-mid leading-relaxed">
+              Every player, sponsor, and volunteer becomes part of something bigger. Together, we're creating ripples of impact that extend far beyond the course.
+            </p>
+          </div>
+
+          {/* Right Column - Quick Facts Card */}
+          <div class="bg-cream border-l-4 border-gold p-8 md:p-10">
+            <h3 class="font-playfair text-2xl font-bold text-navy-deep mb-8">Event Details</h3>
+
+            <div class="space-y-6 mb-8">
+              <div>
+                <p class="font-inter font-semibold text-text-dark text-sm uppercase tracking-wide text-navy-mid mb-1">Date</p>
+                <p class="font-inter text-lg text-text-dark">Thursday, May 28th, 2026</p>
+              </div>
+
+              <div>
+                <p class="font-inter font-semibold text-text-dark text-sm uppercase tracking-wide text-navy-mid mb-1">Location</p>
+                <p class="font-inter text-lg text-text-dark">Eagle Vines Vineyards & Golf Club</p>
+                <p class="font-inter text-text-mid">580 S Kelly Rd, American Canyon, CA 94503</p>
+              </div>
+
+              <div>
+                <p class="font-inter font-semibold text-text-dark text-sm uppercase tracking-wide text-navy-mid mb-1">Format</p>
+                <p class="font-inter text-lg text-text-dark">Four Person Scramble</p>
+              </div>
+
+              <div>
+                <p class="font-inter font-semibold text-text-dark text-sm uppercase tracking-wide text-navy-mid mb-1">Pricing</p>
+                <p class="font-inter text-text-dark mb-1"><span class="text-lg font-semibold text-navy-deep">$225</span> per individual</p>
+                <p class="font-inter text-text-dark"><span class="text-lg font-semibold text-navy-deep">$900</span> per foursome</p>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <Button
+                href="https://events.golfstatus.com/event/TheRippleEffect"
+                variant="gold"
+                size="md"
+                class="w-full text-center"
+              >
+                Register Now
+              </Button>
+              <Button
+                href="https://events.golfstatus.com/event/TheRippleEffect"
+                variant="primary"
+                size="md"
+                class="w-full text-center"
+              >
+                Become a Sponsor
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* What to Expect Section */}
+    <section class="bg-cream py-16 md:py-24">
+      <div class="container mx-auto px-4 md:px-8 max-w-6xl">
+        <h2 class="font-playfair text-3xl md:text-4xl font-bold text-navy-deep text-center mb-4">What to Expect</h2>
+        <p class="font-inter text-lg text-text-mid text-center mb-12 max-w-2xl mx-auto">
+          An unforgettable day filled with world-class golf, incredible experiences, and meaningful connections.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Feature Card 1 */}
+          <div class="bg-white p-8 rounded-lg border-t-4 border-gold">
+            <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mb-4">
+              <span class="text-2xl font-bold text-gold">★</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-navy-deep mb-3">Tournament Kickoff</h3>
+            <p class="font-inter text-text-mid">Join James Baldwin for an inspiring ceremonial tee shot at 8:30 AM on Hole #2, setting the tone for an incredible day.</p>
+          </div>
+
+          {/* Feature Card 2 */}
+          <div class="bg-white p-8 rounded-lg border-t-4 border-gold">
+            <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mb-4">
+              <span class="text-2xl font-bold text-gold">⛳</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-navy-deep mb-3">Premier Course</h3>
+            <p class="font-inter text-text-mid">Experience 18 holes on a beautiful, challenging championship course designed for competitive and social play alike.</p>
+          </div>
+
+          {/* Feature Card 3 */}
+          <div class="bg-white p-8 rounded-lg border-t-4 border-gold">
+            <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mb-4">
+              <span class="text-2xl font-bold text-gold">👥</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-navy-deep mb-3">Scramble Format</h3>
+            <p class="font-inter text-text-mid">Play in four-person teams, making golf accessible and fun for all skill levels while building camaraderie.</p>
+          </div>
+
+          {/* Feature Card 4 */}
+          <div class="bg-white p-8 rounded-lg border-t-4 border-gold">
+            <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mb-4">
+              <span class="text-2xl font-bold text-gold">🎯</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-navy-deep mb-3">On-Course Contests</h3>
+            <p class="font-inter text-text-mid">Participate in games, interactive experiences, and competitions throughout the course with opportunities to win prizes.</p>
+          </div>
+
+          {/* Feature Card 5 */}
+          <div class="bg-white p-8 rounded-lg border-t-4 border-gold">
+            <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mb-4">
+              <span class="text-2xl font-bold text-gold">🚁</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-navy-deep mb-3">Helicopter Ball Drop</h3>
+            <p class="font-inter text-text-mid">Witness an exciting spectacle with exciting prizes at stake as a helicopter drops balls across the course.</p>
+          </div>
+
+          {/* Feature Card 6 */}
+          <div class="bg-white p-8 rounded-lg border-t-4 border-gold">
+            <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mb-4">
+              <span class="text-2xl font-bold text-gold">🎉</span>
+            </div>
+            <h3 class="font-playfair text-xl font-bold text-navy-deep mb-3">Celebration & Raffle</h3>
+            <p class="font-inter text-text-mid">Enjoy delicious food, premium drinks, raffle drawings, and a vibrant post-tournament reception celebrating our collective impact.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Schedule of Events Section */}
+    <section class="bg-white py-16 md:py-24">
+      <div class="container mx-auto px-4 md:px-8 max-w-4xl">
+        <h2 class="font-playfair text-3xl md:text-4xl font-bold text-navy-deep text-center mb-16">Schedule of Events</h2>
+
+        <div class="space-y-0">
+          {/* Timeline Item 1 */}
+          <div class="flex gap-8 pb-8 relative">
+            <div class="flex flex-col items-center">
+              <div class="w-6 h-6 bg-gold rounded-full border-4 border-white shadow-md relative z-10"></div>
+              <div class="w-1 h-20 bg-gold/30 mt-2"></div>
+            </div>
+            <div class="pt-1 pb-8">
+              <p class="font-playfair text-xl font-bold text-gold">7:00 AM</p>
+              <p class="font-inter text-lg text-navy-deep font-semibold mt-1">Registration Opens</p>
+              <p class="font-inter text-text-mid mt-2">Check in and get ready for an incredible day ahead.</p>
+            </div>
+          </div>
+
+          {/* Timeline Item 2 */}
+          <div class="flex gap-8 pb-8 relative">
+            <div class="flex flex-col items-center">
+              <div class="w-6 h-6 bg-gold rounded-full border-4 border-white shadow-md relative z-10"></div>
+              <div class="w-1 h-20 bg-gold/30 mt-2"></div>
+            </div>
+            <div class="pt-1 pb-8">
+              <p class="font-playfair text-xl font-bold text-gold">8:30 AM</p>
+              <p class="font-inter text-lg text-navy-deep font-semibold mt-1">Tournament Kickoff (Hole #2)</p>
+              <p class="font-inter text-text-mid mt-2">Ceremonial tee shot by James Baldwin to launch the tournament.</p>
+            </div>
+          </div>
+
+          {/* Timeline Item 3 */}
+          <div class="flex gap-8 pb-8 relative">
+            <div class="flex flex-col items-center">
+              <div class="w-6 h-6 bg-gold rounded-full border-4 border-white shadow-md relative z-10"></div>
+              <div class="w-1 h-20 bg-gold/30 mt-2"></div>
+            </div>
+            <div class="pt-1 pb-8">
+              <p class="font-playfair text-xl font-bold text-gold">9:00 AM</p>
+              <p class="font-inter text-lg text-navy-deep font-semibold mt-1">Shotgun Start</p>
+              <p class="font-inter text-text-mid mt-2">All groups begin play simultaneously across the course.</p>
+            </div>
+          </div>
+
+          {/* Timeline Item 4 */}
+          <div class="flex gap-8 relative">
+            <div class="flex flex-col items-center">
+              <div class="w-6 h-6 bg-gold rounded-full border-4 border-white shadow-md relative z-10"></div>
+            </div>
+            <div class="pt-1">
+              <p class="font-playfair text-xl font-bold text-gold">2:15 PM</p>
+              <p class="font-inter text-lg text-navy-deep font-semibold mt-1">Pavilion Opens</p>
+              <p class="font-inter text-text-mid mt-2">Luncheon, raffle drawings, and the exciting helicopter ball drop finale.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Sponsorship CTA Section */}
+    <section class="bg-navy-deep py-16 md:py-20">
+      <div class="container mx-auto px-4 md:px-8 max-w-4xl text-center">
+        <h2 class="font-playfair text-3xl md:text-4xl font-bold text-cream mb-6">Be Part of the Ripple</h2>
+
+        <p class="font-inter text-lg text-cream/90 mb-8 leading-relaxed max-w-2xl mx-auto">
+          Grab your foursome and join us for an unforgettable day of golf and community impact. Or become a sponsor and amplify your support for The Ripple Effect of Life foundation's mission to create lasting change.
+        </p>
+
+        <p class="font-inter text-cream/80 mb-12">
+          Have questions? Reach out to us at <a href="mailto:Info@TheRippleEffectOfLife.com" class="text-gold hover:text-gold-dark font-semibold transition-colors">Info@TheRippleEffectOfLife.com</a>
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button
+            href="https://events.golfstatus.com/event/TheRippleEffect"
+            variant="gold"
+            size="md"
+          >
+            Register Now
+          </Button>
+          <Button
+            href="https://events.golfstatus.com/event/TheRippleEffect"
+            variant="secondary"
+            size="md"
+            class="border-2 border-cream"
+          >
+            Sponsorship Opportunities
+          </Button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  :global(body) {
+    background-color: var(--color-cream);
+  }
+</style>
