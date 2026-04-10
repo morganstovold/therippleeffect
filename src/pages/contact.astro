@@ -20,27 +20,28 @@ import Button from '../components/Button.astro';
     <!-- Contact Section -->
     <section class="bg-cream py-20 md:py-32">
       <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+        <!-- Form gets more horizontal space since it has more content -->
+        <div class="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-16">
 
           <!-- Contact Form -->
           <div>
             <h2 class="font-playfair text-[1.75rem] md:text-[2rem] font-bold text-navy-deep mb-8">Send us a Message</h2>
 
-            <form action="#" method="POST" class="space-y-6">
+            <form action="#" method="POST" class="space-y-7">
               <div>
-                <label for="name" class="text-xs font-semibold text-navy-deep mb-2 block font-inter tracking-[0.05em] uppercase">Full Name</label>
+                <label for="name" class="text-xs font-semibold text-navy-deep mb-3 block font-inter tracking-[0.08em] uppercase">Full Name</label>
                 <input type="text" id="name" name="name" required placeholder="Your name"
-                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3 font-inter text-sm text-navy-deep placeholder-[rgba(15,41,66,0.3)] transition-colors" />
+                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3.5 font-inter text-sm text-navy-deep placeholder-[rgba(15,41,66,0.3)] transition-colors" />
               </div>
               <div>
-                <label for="email" class="text-xs font-semibold text-navy-deep mb-2 block font-inter tracking-[0.05em] uppercase">Email Address</label>
+                <label for="email" class="text-xs font-semibold text-navy-deep mb-3 block font-inter tracking-[0.08em] uppercase">Email Address</label>
                 <input type="email" id="email" name="email" required placeholder="your@email.com"
-                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3 font-inter text-sm text-navy-deep placeholder-[rgba(15,41,66,0.3)] transition-colors" />
+                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3.5 font-inter text-sm text-navy-deep placeholder-[rgba(15,41,66,0.3)] transition-colors" />
               </div>
               <div>
-                <label for="subject" class="text-xs font-semibold text-navy-deep mb-2 block font-inter tracking-[0.05em] uppercase">Subject</label>
+                <label for="subject" class="text-xs font-semibold text-navy-deep mb-3 block font-inter tracking-[0.08em] uppercase">Subject</label>
                 <select id="subject" name="subject" required
-                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3 font-inter text-sm text-navy-deep transition-colors">
+                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3.5 font-inter text-sm text-navy-deep transition-colors">
                   <option value="">Select a subject</option>
                   <option value="general">General Inquiry</option>
                   <option value="scholarship">Scholarship Questions</option>
@@ -51,16 +52,16 @@ import Button from '../components/Button.astro';
                 </select>
               </div>
               <div>
-                <label for="message" class="text-xs font-semibold text-navy-deep mb-2 block font-inter tracking-[0.05em] uppercase">Message</label>
+                <label for="message" class="text-xs font-semibold text-navy-deep mb-3 block font-inter tracking-[0.08em] uppercase">Message</label>
                 <textarea id="message" name="message" required rows="6" placeholder="How can we help?"
-                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3 font-inter text-sm text-navy-deep placeholder-[rgba(15,41,66,0.3)] transition-colors resize-none"></textarea>
+                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3.5 font-inter text-sm text-navy-deep placeholder-[rgba(15,41,66,0.3)] transition-colors resize-none"></textarea>
               </div>
-              <Button type="submit" variant="primary" size="md">Send Message</Button>
+              <Button type="submit" variant="gold" size="md">Send Message</Button>
             </form>
           </div>
 
           <!-- Contact Info -->
-          <div class="bg-navy-deep p-10 md:p-12 flex flex-col justify-between">
+          <div class="bg-navy-deep p-10 md:p-14 flex flex-col justify-between">
             <div>
               <p class="text-[0.75rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-5">Direct Contact</p>
               <h2 class="font-playfair text-[1.75rem] md:text-[2rem] font-bold text-white mb-6">We'd love to hear from you.</h2>
@@ -160,7 +161,7 @@ import Button from '../components/Button.astro';
             </summary>
             <div class="pb-6 font-inter text-text-mid text-sm leading-relaxed">
               <p class="mb-3">James Baldwin is a lifelong community leader in Benicia, California (not the famous author of the same name). For decades he has given his time coaching youth sports, mentoring young people, and organizing events that bring the Benicia community together.</p>
-              <p class="mb-3">This foundation was created by his daughter Kelly Baldwin to honor his legacy of service and ensure it continues to inspire future generations.</p>
+              <p class="mb-3">This foundation was created by his wife Terry Baldwin and daughter Kelly Baldwin to honor his legacy of service and ensure it continues to inspire future generations.</p>
               <a href="/about" class="text-navy-mid font-semibold hover:text-navy-deep transition-colors no-underline">Read his full story →</a>
             </div>
           </details>
