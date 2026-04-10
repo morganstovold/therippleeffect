@@ -1,304 +1,284 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Button from '../components/Button.astro';
-import scholarshipImage from '../assets/jb-community-service-scholarship.png';
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Button from "../components/Button.astro";
+import scholarshipLogo from "../assets/jb-community-service-scholarship.png";
+import { Image } from "astro:assets";
 ---
 
-<Layout title="What We Do - Programs" description="Explore The Ripple Effect of Life's scholarship, community events, and service initiatives.">
+<Layout
+  title="What We Do | The Ripple Effect of Life"
+  description="The James Baldwin Community Service Scholarship and community events from The Ripple Effect of Life."
+>
   <Navbar />
 
-  <main class="mt-[90px]">
-    <!-- Page Header -->
+  <main class="mt-[72px]">
     <PageHeader
-      eyebrow="Our Work"
-      title="What We Do"
-      subtitle="Through scholarships, community events, and service initiatives, we create opportunities and empower the next generation."
+      eyebrow="What We Do"
+      title="Programs & Impact"
+      subtitle="Two core initiatives that carry James Baldwin's values of service, generosity, and community into the next generation."
     />
 
-    <!-- Programs Overview -->
-    <section class="bg-white py-16 md:py-24">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-6">
-          <!-- Scholarships Card - Featured -->
-          <div class="md:col-span-2">
-            <div class="bg-gradient-to-br from-[#faf8f5] to-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
-              <div class="relative overflow-hidden h-64 md:h-72">
-                <img
-                  src={scholarshipImage.src}
-                  alt="James Baldwin Community Service Scholarship"
-                  class="w-full h-full object-cover"
-                />
-              </div>
-              <div class="p-8 md:p-10 flex flex-col flex-grow">
-                <h3 class="font-playfair text-3xl md:text-4xl font-bold text-[#0f2942] mb-3">
-                  James Baldwin Community Service Scholarship
-                </h3>
-                <p class="text-[#4a5568] font-inter text-lg mb-6 leading-relaxed flex-grow">
-                  Recognizing Benicia High School seniors who embody James's spirit of service, leadership, and commitment to creating positive change in our community.
-                </p>
+    <!-- Scholarship -->
+    <section class="bg-cream py-20 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-16"
+        >
+          <!-- Scholarship image -->
+          <div class="relative order-last lg:order-first reveal">
+            <div
+              class="absolute -top-4 -left-4 right-4 bottom-4 border border-gold -z-10"
+            ></div>
+            <Image
+              src={scholarshipLogo}
+              alt="Scholarship"
+              class="w-full h-80 lg:h-[420px] object-cover"
+              loading="lazy"
+            />
+          </div>
 
-                <div class="mb-8">
-                  <h4 class="font-playfair text-xl font-bold text-[#0f2942] mb-4">Eligibility:</h4>
-                  <ul class="space-y-3 text-[#4a5568] font-inter">
-                    <li class="flex items-start">
-                      <span class="text-[#d4a574] font-bold mr-3 flex-shrink-0">•</span>
-                      <span>Graduating senior from Benicia High School</span>
-                    </li>
-                    <li class="flex items-start">
-                      <span class="text-[#d4a574] font-bold mr-3 flex-shrink-0">•</span>
-                      <span>Plans to attend college, trade school, or vocational program</span>
-                    </li>
-                    <li class="flex items-start">
-                      <span class="text-[#d4a574] font-bold mr-3 flex-shrink-0">•</span>
-                      <span>Demonstrated record of community service</span>
-                    </li>
-                    <li class="flex items-start">
-                      <span class="text-[#d4a574] font-bold mr-3 flex-shrink-0">•</span>
-                      <span>Committed to making a positive impact</span>
-                    </li>
-                  </ul>
-                </div>
+          <div class="reveal reveal-d1">
+            <p
+              class="text-[0.75rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-5"
+            >
+              Scholarship
+            </p>
+            <h2
+              class="text-[2rem] md:text-[2.75rem] font-bold text-navy-deep leading-[1.15] font-playfair mb-6"
+            >
+              James Baldwin Community Service Scholarship
+            </h2>
+            <p
+              class="text-[1rem] leading-[1.8] text-text-mid font-light font-inter mb-8"
+            >
+              Awarded to Benicia High School seniors who embody James's spirit
+              of service: students who show up for others, give back to their
+              community, and carry that commitment into their future.
+            </p>
 
-                <div class="bg-[#faf8f5] rounded-lg p-4 mb-8">
-                  <p class="font-inter text-sm text-[#0f2942]">
-                    <span class="font-bold">Application Deadline:</span> April 10, 2026
+            <div class="space-y-4 mb-10">
+              <div class="flex gap-4 items-start">
+                <span
+                  class="font-playfair text-[1.5rem] font-bold text-gold leading-none opacity-40 shrink-0 mt-0.5"
+                  >01</span
+                >
+                <div>
+                  <p
+                    class="font-inter text-sm font-semibold text-navy-deep mb-1"
+                  >
+                    Graduating Benicia High School Senior
+                  </p>
+                  <p class="font-inter text-sm text-text-mid leading-relaxed">
+                    Planning to graduate in 2026 and continue their education
                   </p>
                 </div>
-
-                <div class="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    href="https://eddy.pro/pdf/6456025"
-                    variant="primary"
-                    size="md"
-                    class="flex-1"
+              </div>
+              <div class="flex gap-4 items-start">
+                <span
+                  class="font-playfair text-[1.5rem] font-bold text-gold leading-none opacity-40 shrink-0 mt-0.5"
+                  >02</span
+                >
+                <div>
+                  <p
+                    class="font-inter text-sm font-semibold text-navy-deep mb-1"
                   >
-                    View Requirements
-                  </Button>
-                  <Button
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform"
-                    variant="secondary"
-                    size="md"
-                    class="flex-1 bg-[#d4a574] hover:bg-[#8a5e2a] text-white"
+                    College, Trade School, or Vocational Program
+                  </p>
+                  <p class="font-inter text-sm text-text-mid leading-relaxed">
+                    Committed to continuing their education after graduation
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-4 items-start">
+                <span
+                  class="font-playfair text-[1.5rem] font-bold text-gold leading-none opacity-40 shrink-0 mt-0.5"
+                  >03</span
+                >
+                <div>
+                  <p
+                    class="font-inter text-sm font-semibold text-navy-deep mb-1"
                   >
-                    Apply Now
-                  </Button>
+                    Demonstrated Community Service
+                  </p>
+                  <p class="font-inter text-sm text-text-mid leading-relaxed">
+                    A meaningful record of giving back and positive impact
+                  </p>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Side Programs -->
-          <div class="space-y-6">
-            <!-- Community Events Card -->
-            <div class="bg-gradient-to-br from-[#1a3a52] to-[#0f2942] rounded-lg p-8 text-white shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <h3 class="font-playfair text-2xl font-bold mb-4">Community Events</h3>
-              <p class="font-inter text-[#faf8f5] mb-6 leading-relaxed">
-                Bringing people together through meaningful events that celebrate community, foster connection, and support our mission.
-              </p>
-
-              <div class="bg-[#2d5f8d] rounded-lg p-4 mb-6">
-                <p class="font-playfair text-lg font-bold text-[#d4a574] mb-2">First Inaugural Golf Classic</p>
-                <p class="font-inter text-sm text-[#faf8f5]">May 28, 2026</p>
-              </div>
-
+            <div class="flex flex-col sm:flex-row gap-4">
               <Button
-                href="/golf-classic"
-                variant="secondary"
-                size="sm"
-                class="w-full bg-[#d4a574] hover:bg-[#8a5e2a] text-[#0f2942] font-bold"
+                href="https://eddy.pro/pdf/6456025"
+                variant="gold"
+                size="md"
               >
-                Golf Classic Details
+                View Requirements
               </Button>
-            </div>
-
-            <!-- Community Service Card -->
-            <div class="bg-gradient-to-br from-[#d4a574] to-[#8a5e2a] rounded-lg p-8 text-[#0f2942] shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <h3 class="font-playfair text-2xl font-bold mb-4">Community Service & Giving Back</h3>
-              <p class="font-inter text-[#1a1a1a] mb-6 leading-relaxed">
-                Join our volunteer initiatives and community partnerships to make a direct impact in Benicia and beyond.
-              </p>
-
-              <Button
-                href="/get-involved"
-                variant="primary"
-                size="sm"
-                class="w-full bg-[#0f2942] hover:bg-[#1a3a52] text-white font-bold"
-              >
-                Get Involved
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Scholarship Detail Section -->
-    <section id="scholarship" class="bg-[#0f2942] text-white py-16 md:py-24">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-          <!-- Main Content -->
-          <div class="lg:col-span-2">
-            <div class="mb-6">
-              <p class="font-inter text-sm uppercase tracking-widest text-[#d4a574] font-bold">
-                Continuing the Legacy
-              </p>
-            </div>
-
-            <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-8 text-white">
-              The Scholarship
-            </h2>
-
-            <p class="font-inter text-lg text-[#faf8f5] mb-8 leading-relaxed">
-              The James Baldwin Community Service Scholarship honors his legacy of courage, integrity, and unwavering commitment to community. We seek students who share his passion for creating a more just and compassionate world.
-            </p>
-
-            <p class="font-inter text-lg text-[#faf8f5] mb-10 leading-relaxed">
-              This scholarship recognizes and supports Benicia High School seniors who demonstrate exceptional community service, academic achievement, and dedication to making a positive impact—qualities that defined James's life and continue to inspire our work.
-            </p>
-
-            <div class="space-y-8">
-              <h3 class="font-playfair text-2xl font-bold text-white">Eligibility Criteria</h3>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Criterion 1 -->
-                <div class="flex gap-4">
-                  <div class="flex-shrink-0">
-                    <span class="font-playfair text-4xl font-bold text-[#d4a574]">01</span>
-                  </div>
-                  <div>
-                    <h4 class="font-playfair text-xl font-bold text-white mb-2">Graduating Senior</h4>
-                    <p class="font-inter text-[#faf8f5] leading-relaxed">
-                      Currently a senior at Benicia High School planning to graduate in 2026
-                    </p>
-                  </div>
-                </div>
-
-                <!-- Criterion 2 -->
-                <div class="flex gap-4">
-                  <div class="flex-shrink-0">
-                    <span class="font-playfair text-4xl font-bold text-[#d4a574]">02</span>
-                  </div>
-                  <div>
-                    <h4 class="font-playfair text-xl font-bold text-white mb-2">Future Plans</h4>
-                    <p class="font-inter text-[#faf8f5] leading-relaxed">
-                      Committed to attending college, trade school, or vocational program
-                    </p>
-                  </div>
-                </div>
-
-                <!-- Criterion 3 -->
-                <div class="flex gap-4">
-                  <div class="flex-shrink-0">
-                    <span class="font-playfair text-4xl font-bold text-[#d4a574]">03</span>
-                  </div>
-                  <div>
-                    <h4 class="font-playfair text-xl font-bold text-white mb-2">Service Record</h4>
-                    <p class="font-inter text-[#faf8f5] leading-relaxed">
-                      Demonstrated meaningful involvement in community service and volunteer work
-                    </p>
-                  </div>
-                </div>
-
-                <!-- Criterion 4 -->
-                <div class="flex gap-4">
-                  <div class="flex-shrink-0">
-                    <span class="font-playfair text-4xl font-bold text-[#d4a574]">04</span>
-                  </div>
-                  <div>
-                    <h4 class="font-playfair text-xl font-bold text-white mb-2">Commitment to Impact</h4>
-                    <p class="font-inter text-[#faf8f5] leading-relaxed">
-                      Dedicated to creating positive change in your community and beyond
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sidebar Card -->
-          <div class="lg:col-span-1">
-            <div class="sticky top-32 bg-[#d4a574] rounded-lg p-8 shadow-xl">
-              <h4 class="font-playfair text-2xl font-bold text-[#0f2942] mb-2">Application Deadline</h4>
-              <p class="font-playfair text-5xl font-bold text-[#0f2942] mb-8">April 10th</p>
-              <p class="font-inter text-sm text-[#0f2942] mb-8 font-semibold">2026</p>
-
               <Button
                 href="https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform"
                 variant="primary"
                 size="md"
-                class="w-full bg-[#0f2942] hover:bg-[#1a3a52] text-white font-bold"
               >
-                Submit Application
+                Apply Now
               </Button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deadline Banner -->
+        <div
+          class="border-l-4 border-gold bg-[#f7f5f2] p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+        >
+          <div>
+            <p
+              class="font-inter text-xs font-semibold uppercase tracking-widest text-navy-mid mb-1"
+            >
+              Application Deadline
+            </p>
+            <p class="font-playfair text-[1.5rem] font-bold text-navy-deep">
+              April 10, 2026
+            </p>
+          </div>
+          <Button
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform"
+            variant="primary"
+            size="sm"
+          >
+            Submit Application
+          </Button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Golf Classic: Full-width photo section -->
+    <section class="relative min-h-[560px] flex items-center overflow-hidden">
+      <!-- Background photo -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=1920&q=80"
+          alt="Golf course"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        >
+        <div class="absolute inset-0 bg-navy-deep/80"></div>
+        <div
+          class="absolute inset-0 bg-linear-to-r from-navy-deep/70 via-navy-deep/50 to-transparent"
+        ></div>
+      </div>
+
+      <div
+        class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 py-20 md:py-28 w-full"
+      >
+        <div
+          class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+        >
+          <div class="reveal">
+            <p
+              class="text-[0.75rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-3"
+            >
+              Community Events
+            </p>
+            <h2
+              class="text-[2rem] md:text-[2.75rem] font-bold text-white leading-[1.15] font-playfair mb-5"
+            >
+              First Inaugural Golf Classic
+            </h2>
+            <p
+              class="text-[1rem] leading-[1.85] text-[rgba(255,255,255,0.85)] font-inter mb-8"
+            >
+              Beyond scholarships, we bring people together. Our inaugural Golf
+              Classic on May 28, 2026 celebrates community, honors James's
+              legacy, and raises funds that sustain the foundation's work for
+              years to come.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <Button href="/events/golf-classic" variant="gold" size="md">
+                View Details
+              </Button>
+              <Button
+                href="https://events.golfstatus.com/event/TheRippleEffect"
+                variant="secondary"
+                size="md"
+              >
+                Register Now
+              </Button>
+            </div>
+          </div>
+
+          <div class="reveal reveal-d1">
+            <div
+              class="border border-[rgba(212,165,116,0.3)] bg-[rgba(255,255,255,0.06)] backdrop-blur-sm p-8 md:p-10"
+            >
+              <p
+                class="font-inter text-[0.65rem] font-semibold tracking-[0.2em] uppercase text-gold mb-4"
+              >
+                Save the Date
+              </p>
+              <p
+                class="font-playfair text-[3.5rem] font-bold text-white leading-none mb-1"
+              >
+                May 28
+              </p>
+              <p
+                class="font-playfair text-xl text-[rgba(255,255,255,0.6)] mb-6"
+              >
+                2026
+              </p>
+              <div class="w-8 h-px bg-gold mb-6"></div>
+              <div class="space-y-3 text-sm font-inter">
+                <p class="text-[rgba(255,255,255,0.85)]">
+                  Eagle Vines Vineyards &amp; Golf Club
+                </p>
+                <p class="text-[rgba(255,255,255,0.65)]">American Canyon, CA</p>
+                <p class="text-[rgba(255,255,255,0.85)]">
+                  Four Person Scramble
+                </p>
+                <p class="text-[rgba(255,255,255,0.65)]">
+                  $225 individual &nbsp;&bull;&nbsp; $900 foursome
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Upcoming Events Preview -->
-    <section class="bg-[#faf8f5] py-16 md:py-24">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="font-playfair text-4xl md:text-5xl font-bold text-[#0f2942] mb-12">Upcoming Events</h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Golf Classic Event Card -->
-          <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-            <div class="h-48 bg-gradient-to-br from-[#1a3a52] to-[#0f2942] flex items-center justify-center">
-              <div class="text-center text-white">
-                <p class="font-playfair text-5xl font-bold text-[#d4a574]">May 28</p>
-                <p class="font-inter text-sm uppercase tracking-widest mt-2">2026</p>
-              </div>
-            </div>
-            <div class="p-8">
-              <h3 class="font-playfair text-2xl font-bold text-[#0f2942] mb-3">
-                First Inaugural Golf Classic
-              </h3>
-              <p class="font-inter text-[#4a5568] mb-6 leading-relaxed">
-                Join us for a day of golf, community, and camaraderie in support of The Ripple Effect of Life. A portion of all proceeds benefit our scholarship fund and community initiatives.
-              </p>
-
-              <div class="space-y-3 mb-6">
-                <div class="flex items-start gap-3">
-                  <span class="text-[#d4a574] font-bold">📍</span>
-                  <p class="font-inter text-[#4a5568]">Benicia Golf Course</p>
-                </div>
-                <div class="flex items-start gap-3">
-                  <span class="text-[#d4a574] font-bold">⏰</span>
-                  <p class="font-inter text-[#4a5568]">8:00 AM - 4:00 PM</p>
-                </div>
-              </div>
-
-              <Button
-                href="/golf-classic"
-                variant="primary"
-                size="md"
-                class="w-full"
-              >
-                Learn More
-              </Button>
-            </div>
+    <!-- Get Involved CTA -->
+    <section
+      class="bg-cream py-16 md:py-20 border-t border-[rgba(15,41,66,0.08)]"
+    >
+      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div>
+            <p
+              class="text-[0.75rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-4"
+            >
+              Support the Work
+            </p>
+            <h2
+              class="font-playfair text-[1.75rem] md:text-[2.25rem] font-bold text-navy-deep mb-4 leading-[1.15]"
+            >
+              Make a Difference
+            </h2>
+            <p class="font-inter text-text-mid text-[0.95rem] leading-relaxed">
+              Every donation, volunteer hour, and event registration helps fund
+              scholarships and sustain community programs built on James
+              Baldwin's values.
+            </p>
           </div>
-
-          <!-- Placeholder for Future Events -->
-          <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 flex items-center justify-center min-h-[400px]">
-            <div class="text-center p-8">
-              <p class="font-playfair text-2xl font-bold text-[#0f2942] mb-4">More Events Coming Soon</p>
-              <p class="font-inter text-[#4a5568] mb-6">
-                We're planning exciting events throughout the year. Check back soon for updates!
-              </p>
-              <Button
-                href="/get-involved"
-                variant="secondary"
-                size="md"
-                class="inline-block bg-[#d4a574] hover:bg-[#8a5e2a] text-white"
-              >
-                Get Involved
-              </Button>
-            </div>
+          <div
+            class="md:text-right flex flex-col sm:flex-row md:justify-end gap-4"
+          >
+            <Button href="/get-involved" variant="gold" size="md">
+              Donate
+            </Button>
+            <Button href="/get-involved#volunteer" variant="primary" size="md">
+              Volunteer
+            </Button>
           </div>
         </div>
       </div>

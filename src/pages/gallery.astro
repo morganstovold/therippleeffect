@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
@@ -9,7 +10,7 @@ import familyImage from '../assets/family.jpg';
 <Layout title="Gallery | The Ripple Effect of Life" description="Explore our gallery of moments from events, community gatherings, and lives we've touched through The Ripple Effect of Life nonprofit.">
   <Navbar />
 
-  <main class="mt-[90px]">
+  <main class="mt-[72px]">
     <!-- Page Header -->
     <PageHeader
       eyebrow="Moments That Matter"
@@ -26,13 +27,13 @@ import familyImage from '../assets/family.jpg';
           <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-[#d4a574] text-[#0f2942] hover:bg-[#8a5e2a] hover:text-white transition-colors">
             All
           </button>
-          <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-[#faf8f5] text-[#1a1a1a] border border-[#d4a574] hover:bg-[#d4a574] hover:text-[#0f2942] transition-colors">
+          <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-cream text-[#1a1a1a] border border-[#d4a574] hover:bg-[#d4a574] hover:text-[#0f2942] transition-colors">
             Events
           </button>
-          <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-[#faf8f5] text-[#1a1a1a] border border-[#d4a574] hover:bg-[#d4a574] hover:text-[#0f2942] transition-colors">
+          <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-cream text-[#1a1a1a] border border-[#d4a574] hover:bg-[#d4a574] hover:text-[#0f2942] transition-colors">
             Community
           </button>
-          <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-[#faf8f5] text-[#1a1a1a] border border-[#d4a574] hover:bg-[#d4a574] hover:text-[#0f2942] transition-colors">
+          <button class="px-6 py-2 rounded-full text-sm font-inter font-medium bg-cream text-[#1a1a1a] border border-[#d4a574] hover:bg-[#d4a574] hover:text-[#0f2942] transition-colors">
             Scholarship
           </button>
         </div>
@@ -42,8 +43,8 @@ import familyImage from '../assets/family.jpg';
 
           <!-- Item 1: Real Family Image - Spans 2 rows -->
           <div class="md:col-span-2 md:row-span-2 relative overflow-hidden group cursor-pointer">
-            <img
-              src={familyImage.src}
+            <Image
+              src={familyImage}
               alt="The Ripple Effect family moment"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
@@ -110,14 +111,14 @@ import familyImage from '../assets/family.jpg';
     </section>
 
     <!-- Featured Moment Section -->
-    <section class="bg-[#faf8f5] py-16 md:py-24">
+    <section class="bg-cream py-16 md:py-24">
       <div class="max-w-5xl mx-auto px-4 md:px-8">
         <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
 
           <!-- Featured Image -->
           <div class="w-full md:w-1/2">
-            <img
-              src={familyImage.src}
+            <Image
+              src={familyImage}
               alt="James with his beloved family"
               class="w-full h-auto rounded-none shadow-sm"
             />

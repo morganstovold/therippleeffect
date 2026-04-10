@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Button from '../../components/Button.astro';
+---
+
+<Layout title="First Inaugural Golf Classic | The Ripple Effect of Life" description="Join us for the First Inaugural Golf Classic on May 28, 2026 at Eagle Vines Vineyards & Golf Club. Four-person scramble supporting The Ripple Effect of Life.">
+  <Navbar />
+
+  <main class="mt-[72px]">
+
+    <PageHeader
+      eyebrow="May 28, 2026"
+      title="First Inaugural Golf Classic"
+      subtitle="A day of golf, community, and giving at Eagle Vines Vineyards &amp; Golf Club."
+    />
+
+    <!-- Event Overview -->
+    <section class="bg-cream py-20 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          <!-- Left: Photo + Description -->
+          <div class="reveal">
+            <img
+              src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=900&q=80"
+              alt="Eagle Vines Golf Club"
+              class="w-full h-56 object-cover mb-8"
+              loading="lazy"
+            />
+            <h2 class="font-playfair text-[2rem] md:text-[2.5rem] font-bold text-navy-deep mb-5 leading-[1.15]">
+              More than a tournament.
+            </h2>
+            <p class="font-inter text-[1rem] leading-[1.85] text-text-mid mb-5">
+              Proceeds from the First Inaugural Golf Classic support The Ripple Effect of Life foundation's mission, funding scholarships for Benicia High School seniors and honoring the legacy of James Baldwin.
+            </p>
+            <p class="font-inter text-[1rem] leading-[1.85] text-text-mid">
+              Every player and sponsor becomes part of something bigger. Together, we create ripples of impact that extend well beyond the course.
+            </p>
+          </div>
+
+          <!-- Right: Event Details Card -->
+          <div class="bg-white border-l-4 border-gold p-8 md:p-10 reveal reveal-d1">
+            <h3 class="font-playfair text-[1.5rem] font-bold text-navy-deep mb-8">Event Details</h3>
+
+            <div class="space-y-6 mb-10">
+              <div>
+                <p class="font-inter text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-navy-mid mb-1">Date</p>
+                <p class="font-inter text-[1rem] text-navy-deep">Thursday, May 28, 2026</p>
+              </div>
+              <div>
+                <p class="font-inter text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-navy-mid mb-1">Location</p>
+                <p class="font-inter text-[1rem] text-navy-deep">Eagle Vines Vineyards &amp; Golf Club</p>
+                <p class="font-inter text-sm text-text-mid">580 S Kelly Rd, American Canyon, CA 94503</p>
+              </div>
+              <div>
+                <p class="font-inter text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-navy-mid mb-1">Format</p>
+                <p class="font-inter text-[1rem] text-navy-deep">Four Person Scramble</p>
+              </div>
+              <div>
+                <p class="font-inter text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-navy-mid mb-1">Pricing</p>
+                <p class="font-inter text-navy-deep mb-1"><span class="text-[1.1rem] font-semibold">$225</span> per individual</p>
+                <p class="font-inter text-navy-deep"><span class="text-[1.1rem] font-semibold">$900</span> per foursome</p>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <Button href="https://events.golfstatus.com/event/TheRippleEffect" variant="gold" size="md" class="w-full text-center">Register Now</Button>
+              <Button href="/contact" variant="primary" size="md" class="w-full text-center">Sponsorship Inquiries</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What to Expect -->
+    <section class="bg-navy-deep py-20 md:py-32">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="max-w-xl mb-14 reveal">
+          <p class="text-[0.75rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-3">The Experience</p>
+          <h2 class="font-playfair text-[2rem] md:text-[2.5rem] font-bold text-white leading-[1.15]">What to Expect</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="bg-[rgba(255,255,255,0.05)] border-t-2 border-gold p-7 hover:bg-[rgba(255,255,255,0.08)] transition-colors duration-300 reveal reveal-d1">
+            <span class="font-playfair text-[2rem] font-bold text-gold opacity-35 leading-none block mb-5">01</span>
+            <h3 class="font-playfair text-[1.1rem] font-bold text-white mb-3">Premier Course</h3>
+            <p class="font-inter text-[rgba(255,255,255,0.7)] text-sm leading-relaxed">18 holes on a championship course designed for competitive and social play alike.</p>
+          </div>
+          <div class="bg-[rgba(255,255,255,0.05)] border-t-2 border-gold p-7 hover:bg-[rgba(255,255,255,0.08)] transition-colors duration-300 reveal reveal-d2">
+            <span class="font-playfair text-[2rem] font-bold text-gold opacity-35 leading-none block mb-5">02</span>
+            <h3 class="font-playfair text-[1.1rem] font-bold text-white mb-3">Scramble Format</h3>
+            <p class="font-inter text-[rgba(255,255,255,0.7)] text-sm leading-relaxed">Four-person teams make golf accessible and enjoyable for all skill levels.</p>
+          </div>
+          <div class="bg-[rgba(255,255,255,0.05)] border-t-2 border-gold p-7 hover:bg-[rgba(255,255,255,0.08)] transition-colors duration-300 reveal reveal-d3">
+            <span class="font-playfair text-[2rem] font-bold text-gold opacity-35 leading-none block mb-5">03</span>
+            <h3 class="font-playfair text-[1.1rem] font-bold text-white mb-3">On-Course Contests</h3>
+            <p class="font-inter text-[rgba(255,255,255,0.7)] text-sm leading-relaxed">Competitions and games throughout the course with opportunities to win prizes.</p>
+          </div>
+          <div class="bg-[rgba(255,255,255,0.05)] border-t-2 border-gold p-7 hover:bg-[rgba(255,255,255,0.08)] transition-colors duration-300 reveal reveal-d4">
+            <span class="font-playfair text-[2rem] font-bold text-gold opacity-35 leading-none block mb-5">04</span>
+            <h3 class="font-playfair text-[1.1rem] font-bold text-white mb-3">Post-Tournament Celebration</h3>
+            <p class="font-inter text-[rgba(255,255,255,0.7)] text-sm leading-relaxed">A reception with food, drinks, and raffle drawings to close out the day.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-navy-deep py-16 md:py-20">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-12 text-center">
+        <h2 class="font-playfair text-[1.75rem] md:text-[2.25rem] font-bold text-white mb-4">Join Us on May 28</h2>
+        <p class="font-inter text-[rgba(255,255,255,0.6)] text-sm leading-relaxed mb-8 max-w-md mx-auto">
+          Questions? Reach us at <a href="mailto:Info@TheRippleEffectOfLife.com" class="text-gold hover:text-white transition-colors duration-200 font-semibold">Info@TheRippleEffectOfLife.com</a>
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button href="https://events.golfstatus.com/event/TheRippleEffect" variant="gold" size="md">Register Now</Button>
+          <Button href="/contact" variant="secondary" size="md">Contact Us</Button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
