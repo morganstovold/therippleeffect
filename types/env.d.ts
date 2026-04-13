@@ -12,3 +12,16 @@ declare module "cloudflare:workers" {
     export interface Env extends CloudflareEnv {}
   }
 }
+
+declare module "astro" {
+  interface Locals {
+    user?: {
+      id: string;
+      email: string;
+      name: string;
+      emailVerified: boolean;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+  }
+}

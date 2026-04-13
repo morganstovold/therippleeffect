@@ -1,22 +1,14 @@
 import type { APIRoute } from "astro";
 
-export const GET: APIRoute = ({ request }) => {
-  // Access Cloudflare runtime context
-  const runtime = request.cf;
-
+export const GET: APIRoute = () => {
   return new Response(
     JSON.stringify({
-      message: "Hello from Astro API on Cloudflare!",
+      message: "Hello from Astro 6 on Cloudflare Workers!",
       timestamp: new Date().toISOString(),
-      colo: runtime?.colo || "unknown",
-      country: runtime?.country || "unknown",
-      city: runtime?.city || "unknown",
     }),
     {
       status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     }
   );
 };

@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(npx @astrojs/upgrade)",
+      "Bash(npm i:*)",
+      "Bash(bun add:*)",
+      "Bash(bun run:*)"
     ]
   }
 }

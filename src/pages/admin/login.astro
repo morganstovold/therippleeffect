@@ -1,0 +1,174 @@
+---
+// Redirect to dashboard if already logged in
+if (Astro.locals.user) {
+  return Astro.redirect("/admin");
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Login — The Ripple Effect of Life</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background: #0f2942;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+      .card {
+        background: #fff;
+        border-radius: 8px;
+        padding: 2.5rem 2rem;
+        width: 100%;
+        max-width: 380px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      }
+      .logo {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .logo h1 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #0f2942;
+        letter-spacing: 0.02em;
+      }
+      .logo p {
+        font-size: 0.7rem;
+        color: #d4a574;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-top: 0.2rem;
+      }
+      label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #374151;
+        margin-bottom: 0.4rem;
+      }
+      input {
+        width: 100%;
+        padding: 0.65rem 0.85rem;
+        border: 1.5px solid #d1d5db;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        color: #111;
+        outline: none;
+        transition: border-color 0.15s;
+        margin-bottom: 1.1rem;
+      }
+      input:focus { border-color: #d4a574; }
+      button {
+        width: 100%;
+        padding: 0.75rem;
+        background: #d4a574;
+        color: #0f2942;
+        border: none;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.15s;
+        margin-top: 0.25rem;
+      }
+      button:hover { background: #c4915f; }
+      button:disabled { opacity: 0.6; cursor: not-allowed; }
+      .error {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #b91c1c;
+        border-radius: 5px;
+        padding: 0.65rem 0.85rem;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+        display: none;
+      }
+      .error.visible { display: block; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="logo">
+        <h1>The Ripple Effect</h1>
+        <p>of Life — Admin</p>
+      </div>
+
+      <div id="error" class="error" role="alert"></div>
+
+      <form id="login-form">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder="you@example.com"
+        />
+
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="••••••••"
+        />
+
+        <button id="submit-btn" type="submit">Sign In</button>
+      </form>
+    </div>
+
+    <script>
+      const form     = document.getElementById("login-form");
+      const errorEl  = document.getElementById("error");
+      const submitBtn = document.getElementById("submit-btn");
+
+      form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errorEl.classList.remove("visible");
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Signing in…";
+
+        const email    = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        try {
+          const res = await fetch("/api/auth/sign-in/email", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+            credentials: "include",
+          });
+
+          if (res.ok) {
+            window.location.href = "/admin";
+          } else {
+            const data = await res.json().catch(() => ({}));
+            errorEl.textContent = data?.error?.message ?? "Invalid email or password.";
+            errorEl.classList.add("visible");
+          }
+        } catch {
+          errorEl.textContent = "Something went wrong. Please try again.";
+          errorEl.classList.add("visible");
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign In";
+        }
+      });
+    </script>
+  </body>
+</html>
