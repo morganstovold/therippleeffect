@@ -1,0 +1,31 @@
+---
+import LocalImage from "./LocalImage.astro";
+import { getSponsors } from "../lib/content";
+
+const { businesses } = await getSponsors();
+// The list is rendered twice so the strip can loop without a visible seam.
+const loop = [...businesses, ...businesses];
+---
+
+<div
+  class="group overflow-hidden mask-x-from-90% mask-x-to-100% motion-reduce:overflow-x-auto"
+  aria-label="Sponsor logos"
+  role="region"
+>
+  <ul class="flex w-max animate-marquee gap-4 group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+    {
+      loop.map((sponsor, i) => (
+        <li
+          class="flex h-24 w-44 shrink-0 items-center justify-center border border-navy-deep/10 bg-white p-4"
+          aria-hidden={i >= businesses.length ? "true" : undefined}
+        >
+          <LocalImage
+            src={sponsor.logo}
+            alt={i >= businesses.length ? "" : sponsor.name}
+            class="max-h-full w-auto max-w-full object-contain"
+          />
+        </li>
+      ))
+    }
+  </ul>
+</div>

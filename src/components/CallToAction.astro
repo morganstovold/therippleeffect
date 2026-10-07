@@ -1,0 +1,23 @@
+---
+import Eyebrow from "./Eyebrow.astro";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+}
+
+const { eyebrow, title } = Astro.props;
+---
+
+<section class="border-t border-gold/20 bg-navy-deep py-16 md:py-20">
+  <div class="reveal page-container grid grid-cols-1 items-center gap-10 md:grid-cols-[3fr_2fr]">
+    <div>
+      {eyebrow && <Eyebrow tone="light" class="mb-3">{eyebrow}</Eyebrow>}
+      <h2 class="mb-4 font-playfair text-[1.75rem] leading-[1.15] font-bold text-white md:text-[2.25rem]">{title}</h2>
+      <p class="max-w-xl text-[0.95rem] leading-relaxed text-white/80"><slot /></p>
+    </div>
+    <div class="flex flex-col gap-4 sm:flex-row md:justify-end">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

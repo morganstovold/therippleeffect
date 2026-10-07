@@ -1,304 +1,205 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Navbar from "../components/Navbar.astro";
-import Footer from "../components/Footer.astro";
-import PageHeader from "../components/PageHeader.astro";
+import LocalImage from "../components/LocalImage.astro";
+import scholarshipLogo from "../assets/jb-community-service-scholarship.webp";
 import Button from "../components/Button.astro";
-import scholarshipLogo from "../assets/jb-community-service-scholarship.png";
-import { Image } from "astro:assets";
-import { impact } from "../data/impact";
-import { getFeaturedEvent } from "../data/events";
-// TODO: Replace with backend queries:
-//   const impact = await db.impact.findFirst();
-//   const featuredEvent = await db.events.findFirst({ where: { featured: true, status: 'upcoming' } });
-const featuredEvent = getFeaturedEvent();
+import CallToAction from "../components/CallToAction.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import ImpactStats from "../components/ImpactStats.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Photo from "../components/Photo.astro";
+import Section from "../components/Section.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Layout from "../layouts/Layout.astro";
+import { formatDate, getFeaturedEvent } from "../lib/content";
+import { site } from "../site";
+
+// Rendered per request so the application open/closed state follows the deadline.
+export const prerender = false;
+
+const featuredEvent = await getFeaturedEvent();
+
+const { deadline, requirementsUrl, applicationUrl } = site.scholarship;
+const applicationsOpen = deadline.getTime() >= Date.now();
+const classYear = deadline.getUTCFullYear();
+
+const criteria = [
+  {
+    title: "Graduating Benicia High School Senior",
+    text: `Planning to graduate in ${classYear} and continue their education`,
+  },
+  {
+    title: "College, Trade School, or Vocational Program",
+    text: "Committed to continuing their education after graduation",
+  },
+  { title: "Demonstrated Community Service", text: "A meaningful record of giving back and positive impact" },
+];
 ---
 
 <Layout
-  title="What We Do | The Ripple Effect of Life"
+  title="What We Do"
   description="The James Baldwin Community Service Scholarship and community events from The Ripple Effect of Life."
 >
-  <Navbar />
+  <PageHeader
+    eyebrow="What We Do"
+    title="Programs & Impact"
+    subtitle="Two core initiatives that carry James Baldwin's values of service, generosity, and community into the next generation."
+  />
 
-  <main class="mt-[72px]">
-    <PageHeader
-      eyebrow="What We Do"
-      title="Programs & Impact"
-      subtitle="Two core initiatives that carry James Baldwin's values of service, generosity, and community into the next generation."
-    />
-
-    <!-- Scholarship -->
-    <section class="bg-cream py-20 md:py-32">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div
-          class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-16"
-        >
-          <!-- Scholarship image -->
-          <div class="relative order-last lg:order-first reveal">
-            <div
-              class="absolute -top-4 -left-4 right-4 bottom-4 border border-gold -z-10"
-            ></div>
-            <Image
-              src={scholarshipLogo}
-              alt="Scholarship"
-              class="w-full h-80 lg:h-[420px] object-cover"
-              loading="lazy"
-            />
-          </div>
-
-          <div class="reveal reveal-d1">
-            <p
-              class="text-[0.75rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-5"
-            >
-              Scholarship
-            </p>
-            <h2
-              class="text-[2rem] md:text-[2.75rem] font-bold text-navy-deep leading-[1.15] font-playfair mb-6"
-            >
-              James Baldwin Community Service Scholarship
-            </h2>
-            <p
-              class="text-[1rem] leading-[1.8] text-text-mid font-light font-inter mb-8"
-            >
-              Awarded to Benicia High School seniors who embody James's spirit
-              of service: students who show up for others, give back to their
-              community, and carry that commitment into their future.
-            </p>
-
-            <div class="space-y-4 mb-10">
-              <div class="flex gap-4 items-start">
-                <span
-                  class="font-playfair text-[1.5rem] font-bold text-gold leading-none opacity-40 shrink-0 mt-0.5"
-                  >01</span
-                >
-                <div>
-                  <p
-                    class="font-inter text-sm font-semibold text-navy-deep mb-1"
-                  >
-                    Graduating Benicia High School Senior
-                  </p>
-                  <p class="font-inter text-sm text-text-mid leading-relaxed">
-                    Planning to graduate in 2026 and continue their education
-                  </p>
-                </div>
-              </div>
-              <div class="flex gap-4 items-start">
-                <span
-                  class="font-playfair text-[1.5rem] font-bold text-gold leading-none opacity-40 shrink-0 mt-0.5"
-                  >02</span
-                >
-                <div>
-                  <p
-                    class="font-inter text-sm font-semibold text-navy-deep mb-1"
-                  >
-                    College, Trade School, or Vocational Program
-                  </p>
-                  <p class="font-inter text-sm text-text-mid leading-relaxed">
-                    Committed to continuing their education after graduation
-                  </p>
-                </div>
-              </div>
-              <div class="flex gap-4 items-start">
-                <span
-                  class="font-playfair text-[1.5rem] font-bold text-gold leading-none opacity-40 shrink-0 mt-0.5"
-                  >03</span
-                >
-                <div>
-                  <p
-                    class="font-inter text-sm font-semibold text-navy-deep mb-1"
-                  >
-                    Demonstrated Community Service
-                  </p>
-                  <p class="font-inter text-sm text-text-mid leading-relaxed">
-                    A meaningful record of giving back and positive impact
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-4">
-              <Button
-                href="https://eddy.pro/pdf/6456025"
-                variant="gold"
-                size="md"
-              >
-                View Requirements
-              </Button>
-              <Button
-                href="https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform"
-                variant="primary"
-                size="md"
-              >
-                Apply Now
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Deadline Banner -->
-        <div
-          class="border-l-4 border-gold bg-[#f7f5f2] p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
-        >
-          <div>
-            <p
-              class="font-inter text-xs font-semibold uppercase tracking-widest text-navy-mid mb-1"
-            >
-              Application Deadline
-            </p>
-            <p class="font-playfair text-[1.5rem] font-bold text-navy-deep">
-              April 10, 2026
-            </p>
-          </div>
-          <Button
-            href="https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform"
-            variant="primary"
-            size="sm"
-          >
-            Submit Application
-          </Button>
+  <!-- Scholarship -->
+  <Section tone="cream" id="scholarship">
+    <div class="mb-16 grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div class="reveal relative order-last lg:order-first">
+        <div class="absolute -top-4 right-4 bottom-4 -left-4 border border-gold"></div>
+        <div class="relative flex h-80 items-center justify-center bg-white p-8 lg:h-[420px]">
+          <LocalImage src={scholarshipLogo} alt="James Baldwin Community Service Scholarship" class="max-h-full w-auto object-contain" />
         </div>
       </div>
-    </section>
 
-    <!-- Golf Classic: Full-width photo section -->
-    <section class="relative min-h-[560px] flex items-center overflow-hidden">
-      <!-- Background photo -->
-      <div class="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&w=1920&q=80"
-          alt="Golf course"
-          class="w-full h-full object-cover"
-          loading="lazy"
-        >
-        <div class="absolute inset-0 bg-navy-deep/80"></div>
-        <div
-          class="absolute inset-0 bg-linear-to-r from-navy-deep/70 via-navy-deep/50 to-transparent"
-        ></div>
+      <div>
+        <SectionHeading eyebrow="Scholarship" title="James Baldwin Community Service Scholarship" class="mb-8">
+          <p>
+            Awarded to Benicia High School seniors who embody James's spirit of service: students who show up for others,
+            give back to their community, and carry that commitment into their future.
+          </p>
+        </SectionHeading>
+
+        <ol class="reveal mb-10 space-y-4">
+          {
+            criteria.map((item, i) => (
+              <li class="flex items-start gap-4">
+                <span class="mt-0.5 shrink-0 font-playfair text-[1.5rem] leading-none font-bold text-gold opacity-40">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <p class="mb-1 text-sm font-semibold text-navy-deep">{item.title}</p>
+                  <p class="text-sm leading-relaxed text-text-mid">{item.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+
+        <div class="reveal flex flex-col gap-4 sm:flex-row">
+          <Button href={requirementsUrl} variant="gold">View Requirements</Button>
+          {applicationsOpen && <Button href={applicationUrl}>Apply Now</Button>}
+        </div>
       </div>
+    </div>
 
-      <div
-        class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 py-20 md:py-28 w-full"
-      >
-        <div
-          class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
-        >
-          <div class="reveal">
-            <p
-              class="text-[0.75rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-3"
-            >
-              Community Events
-            </p>
-            <h2
-              class="text-[2rem] md:text-[2.75rem] font-bold text-white leading-[1.15] font-playfair mb-5"
-            >
-              First Inaugural Golf Classic
-            </h2>
-            <p
-              class="text-[1rem] leading-[1.85] text-[rgba(255,255,255,0.85)] font-inter mb-8"
-            >
-              Beyond scholarships, we bring people together. Our inaugural Golf
-              Classic on May 28, 2026 celebrates community, honors James's
-              legacy, and raises funds that sustain the foundation's work for
-              years to come.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4">
-              <Button href="/events/golf-classic" variant="gold" size="md">
+    <div class="reveal flex flex-col gap-4 border-l-4 border-gold bg-sand p-6 sm:flex-row sm:items-center sm:justify-between">
+      {
+        applicationsOpen ? (
+          <>
+            <div>
+              <p class="mb-1 text-xs font-semibold tracking-widest text-navy-mid uppercase">Application Deadline</p>
+              <p class="font-playfair text-[1.5rem] font-bold text-navy-deep">{formatDate(deadline)}</p>
+            </div>
+            <Button href={applicationUrl} size="sm">
+              Submit Application
+            </Button>
+          </>
+        ) : (
+          <>
+            <div>
+              <p class="mb-1 text-xs font-semibold tracking-widest text-navy-mid uppercase">Applications Closed</p>
+              <p class="font-playfair text-[1.5rem] font-bold text-navy-deep">
+                The next scholarship round will be announced soon.
+              </p>
+            </div>
+            <Button href="/contact" size="sm">
+              Ask a Question
+            </Button>
+          </>
+        )
+      }
+    </div>
+  </Section>
+
+  <!-- Featured event -->
+  {
+    featuredEvent && (
+      <section class="relative flex min-h-[560px] items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+          <Photo
+            src={featuredEvent.data.image}
+            alt={featuredEvent.data.imageAlt}
+            width={2000}
+            class="h-full w-full object-cover"
+          />
+          <div class="absolute inset-0 bg-navy-deep/80" />
+          <div class="absolute inset-0 bg-linear-to-r from-navy-deep/70 via-navy-deep/50 to-transparent" />
+        </div>
+
+        <div class="relative z-10 page-container grid grid-cols-1 items-center gap-12 py-20 md:py-28 lg:grid-cols-2 lg:gap-20">
+          <SectionHeading eyebrow="Community Events" title={featuredEvent.data.title} tone="light" class="">
+            <p>Beyond scholarships, we bring people together. {featuredEvent.data.tagline}</p>
+            <div class="flex flex-col gap-4 pt-4 sm:flex-row">
+              <Button href={`/events/${featuredEvent.id}`} variant="gold">
                 View Details
               </Button>
-              <Button
-                href="https://events.golfstatus.com/event/TheRippleEffect"
-                variant="secondary"
-                size="md"
-              >
+              <Button href={featuredEvent.data.registrationUrl} variant="secondary">
                 Register Now
               </Button>
             </div>
-          </div>
+          </SectionHeading>
 
-          <div class="reveal reveal-d1">
-            <div
-              class="border border-[rgba(212,165,116,0.3)] bg-[rgba(255,255,255,0.06)] backdrop-blur-sm p-8 md:p-10"
-            >
-              <p
-                class="font-inter text-[0.65rem] font-semibold tracking-[0.2em] uppercase text-gold mb-4"
-              >
-                Save the Date
-              </p>
-              <p
-                class="font-playfair text-[3.5rem] font-bold text-white leading-none mb-1"
-              >
-                May 28
-              </p>
-              <p
-                class="font-playfair text-xl text-[rgba(255,255,255,0.6)] mb-6"
-              >
-                2026
-              </p>
-              <div class="w-8 h-px bg-gold mb-6"></div>
-              <div class="space-y-3 text-sm font-inter">
-                <p class="text-[rgba(255,255,255,0.85)]">
-                  Eagle Vines Vineyards &amp; Golf Club
+          <div class="reveal reveal-d1 border border-gold/30 bg-white/6 p-8 backdrop-blur-sm md:p-10">
+            <p class="mb-4 text-[0.65rem] font-semibold tracking-[0.2em] text-gold uppercase">Save the Date</p>
+            <p class="mb-1 font-playfair text-[3.5rem] leading-none font-bold text-white">
+              {formatDate(featuredEvent.data.date, { month: "short", day: "numeric" })}
+            </p>
+            <p class="mb-6 font-playfair text-xl text-white/60">
+              {formatDate(featuredEvent.data.date, { year: "numeric" })}
+            </p>
+            <div class="mb-6 h-px w-8 bg-gold" />
+            <div class="space-y-3 text-sm">
+              <p class="text-white/85">{featuredEvent.data.venue}</p>
+              <p class="text-white/65">{featuredEvent.data.city}</p>
+              <p class="text-white/85">{featuredEvent.data.format}</p>
+              {featuredEvent.data.pricing.length > 0 && (
+                <p class="text-white/65">
+                  {featuredEvent.data.pricing.map((price) => `${price.amount} ${price.label}`).join(" • ")}
                 </p>
-                <p class="text-[rgba(255,255,255,0.65)]">American Canyon, CA</p>
-                <p class="text-[rgba(255,255,255,0.85)]">
-                  Four Person Scramble
-                </p>
-                <p class="text-[rgba(255,255,255,0.65)]">
-                  $225 individual &nbsp;&bull;&nbsp; $900 foursome
-                </p>
-              </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )
+  }
 
-    <!-- Impact -->
-    <section class="bg-[#faf8f5] py-16 md:py-20 border-t border-[rgba(15,41,66,0.08)]">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="flex items-center gap-3 mb-10 reveal">
-          <div class="w-8 h-px bg-gold"></div>
-          <p class="text-[0.7rem] font-semibold tracking-[0.18em] uppercase text-gold-dark font-inter">Our Ripple</p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[rgba(15,41,66,0.08)]">
-          {impact.map((stat, i) => (
-            <div class={`bg-[#faf8f5] p-8 md:p-10 reveal reveal-d${Math.min(i + 1, 4)}`}>
-              <p class="font-playfair text-[2.5rem] md:text-[3.25rem] font-bold text-navy-deep leading-none mb-2">{stat.value}</p>
-              <p class="font-inter text-sm font-semibold text-navy-deep mb-1">{stat.label}</p>
-              {stat.sublabel && <p class="font-inter text-xs text-text-mid">{stat.sublabel}</p>}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Get Involved CTA -->
-    <section
-      class="bg-navy-deep py-16 md:py-20 border-t border-[rgba(212,165,116,0.2)]"
-    >
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center reveal">
-          <div>
-            <p class="text-[0.75rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-3">
-              Support the Work
+  {
+    !featuredEvent && (
+      <Section tone="navy">
+        <div class="grid grid-cols-1 items-center gap-10 md:grid-cols-[3fr_2fr]">
+          <SectionHeading eyebrow="Community Events" title="Bringing People Together" tone="light" class="">
+            <p>
+              Beyond scholarships, we host community events that celebrate James's legacy and raise the funds that sustain
+              the foundation's work for years to come.
             </p>
-            <h2 class="font-playfair text-[1.75rem] md:text-[2.25rem] font-bold text-white mb-4 leading-[1.15]">
-              Make a Difference
-            </h2>
-            <p class="font-inter text-[rgba(255,255,255,0.8)] text-[0.95rem] leading-relaxed">
-              Every donation, volunteer hour, and event registration helps fund
-              scholarships and sustain community programs built on James
-              Baldwin's values.
-            </p>
-          </div>
-          <div class="md:text-right flex flex-col sm:flex-row md:justify-end gap-4">
-            <Button href="/get-involved" variant="gold" size="md">Donate</Button>
-            <Button href="/get-involved#volunteer" variant="secondary" size="md">Volunteer</Button>
+          </SectionHeading>
+          <div class="reveal flex flex-col gap-4 sm:flex-row md:justify-end">
+            <Button href="/events" variant="gold">
+              See Our Events
+            </Button>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </Section>
+    )
+  }
 
-  <Footer />
+  <!-- Impact -->
+  <Section tone="cream" compact class="border-t border-navy-deep/8">
+    <Eyebrow class="reveal mb-10">Our Ripple</Eyebrow>
+    <ImpactStats />
+  </Section>
+
+  <CallToAction eyebrow="Support the Work" title="Make a Difference">
+    Every donation, volunteer hour, and event registration helps fund scholarships and sustain community programs built on
+    James Baldwin's values.
+    <Fragment slot="actions">
+      <Button href="/get-involved#donate" variant="gold">Donate</Button>
+      <Button href="/get-involved#volunteer" variant="secondary">Volunteer</Button>
+    </Fragment>
+  </CallToAction>
 </Layout>

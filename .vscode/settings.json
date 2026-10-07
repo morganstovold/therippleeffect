@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "[javascript][typescript][json][jsonc][css]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  }
+}

@@ -1,0 +1,23 @@
+---
+import ArrowIcon from "./ArrowIcon.astro";
+
+interface Props {
+  href: string;
+  direction?: "forward" | "back";
+  class?: string;
+}
+
+const { href, direction = "forward", class: className } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    "inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-navy-mid no-underline transition-colors duration-200 hover:text-gold",
+    className,
+  ]}
+>
+  {direction === "back" && <ArrowIcon direction="back" />}
+  <slot />
+  {direction === "forward" && <ArrowIcon />}
+</a>

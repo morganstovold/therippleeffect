@@ -1,19 +1,9 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [
-    "alchemy.run.ts",
-    "types/**/*.ts",
-    ".astro/types.d.ts",
-    "**/*"
-  ],
-  "exclude": [
-    "dist"
-  ],
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist", "node_modules", ".alchemy", ".claude"],
   "compilerOptions": {
-    "strictNullChecks": true,
-    "types": [
-      "@cloudflare/workers-types",
-      "./types/env.d.ts"
-    ]
+    "allowImportingTsExtensions": true,
+    "types": ["bun", "@cloudflare/workers-types"]
   }
 }

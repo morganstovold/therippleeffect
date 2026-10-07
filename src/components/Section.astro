@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"section"> & {
+  tone?: "cream" | "sand" | "white" | "navy";
+  /** Tighter padding for short bands like calls to action. */
+  compact?: boolean;
+};
+
+const { tone = "cream", compact = false, class: className, ...rest } = Astro.props;
+
+const tones = {
+  cream: "bg-cream",
+  sand: "bg-sand",
+  white: "bg-white",
+  navy: "bg-navy-deep text-white",
+};
+---
+
+<section class:list={[tones[tone], compact ? "py-16 md:py-20" : "py-20 md:py-28", className]} {...rest}>
+  <div class="page-container">
+    <slot />
+  </div>
+</section>

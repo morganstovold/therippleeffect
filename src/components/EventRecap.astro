@@ -1,0 +1,96 @@
+---
+import type { Event } from "../lib/content";
+import Photo from "./Photo.astro";
+import Section from "./Section.astro";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  event: Event;
+}
+
+const { recap, results, photos } = Astro.props.event.data;
+const fullSize = (src: (typeof photos)[number]["src"]) => (typeof src === "string" ? src : src.src);
+---
+
+<Section tone="white" id="recap">
+  <SectionHeading eyebrow="Event Recap" title="Thank You for Being There">
+    {recap && <p>{recap}</p>}
+  </SectionHeading>
+
+  {
+    results.length > 0 && (
+      <dl class="reveal mb-12 flex flex-wrap gap-px border border-navy-deep/8 bg-navy-deep/8">
+        {results.map((result) => (
+          <div class="flex flex-1 basis-[calc(50%-1px)] flex-col-reverse bg-white p-8 text-center lg:basis-0">
+            <dt class="text-sm font-semibold text-text-mid">{result.label}</dt>
+            <dd class="mb-2 font-playfair text-[2.25rem] leading-none font-bold text-navy-deep md:text-[2.75rem]">
+              {result.value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+
+  {
+    photos.length > 0 && (
+      <ul class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+        {photos.map((photo, i) => (
+          <li class={`reveal reveal-d${(i % 4) + 1}`}>
+            <figure>
+              <a
+                href={fullSize(photo.src)}
+                data-lightbox
+                data-caption={photo.caption ?? ""}
+                class="group block aspect-square overflow-hidden bg-cream"
+              >
+                <Photo
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={800}
+                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </a>
+              {photo.caption && <figcaption class="mt-2 text-xs text-text-mid">{photo.caption}</figcaption>}
+            </figure>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Section>
+
+<dialog
+  id="lightbox"
+  class="m-auto max-h-[90vh] max-w-[90vw] bg-transparent p-0 backdrop:bg-navy-deep/90"
+  aria-label="Photo viewer"
+>
+  <form method="dialog">
+    <button class="absolute top-4 right-4 text-3xl text-white" aria-label="Close">&times;</button>
+  </form>
+  <img class="max-h-[80vh] max-w-[90vw] object-contain" alt="" />
+  <p class="mt-3 text-center text-sm text-white/80"></p>
+</dialog>
+
+<script>
+  const dialog = document.getElementById("lightbox") as HTMLDialogElement | null;
+  if (dialog) {
+    const image = dialog.querySelector("img")!;
+    const caption = dialog.querySelector("p")!;
+
+    for (const link of document.querySelectorAll<HTMLAnchorElement>("[data-lightbox]")) {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        image.src = link.href;
+        image.alt = link.querySelector("img")?.alt ?? "";
+        caption.textContent = link.dataset.caption ?? "";
+        dialog.showModal();
+      });
+    }
+    // Clicking the dark backdrop closes the viewer.
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+</script>
