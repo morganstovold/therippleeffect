@@ -12,6 +12,6 @@ We are thrilled to announce the First Inaugural Golf Classic, taking place Thurs
 
 This four-person scramble tournament is our first major fundraiser, and every dollar raised will go directly toward scholarships for Benicia High School seniors and community programs that carry James Baldwin's legacy of service forward.
 
-Registration is open now at $225 per individual or $900 per foursome. Sponsorship opportunities are also available — reach out to Info@TheRippleEffectOfLife.com for details.
+Registration is open now at $225 per individual or $900 per foursome. Sponsorship opportunities are also available. Reach out to Info@TheRippleEffectOfLife.com for details.
 
 We hope to see you on the course.

@@ -27,6 +27,12 @@ export async function getFeaturedEvent() {
   return upcoming.find((event) => event.data.featured) ?? upcoming[0];
 }
 
+/** Every scholarship year, newest first. The first one is the current round. */
+export async function getScholarships() {
+  const years = await getCollection("scholarships");
+  return years.map((year) => year.data).toSorted((a, b) => b.deadline.getTime() - a.deadline.getTime());
+}
+
 export async function getPosts() {
   const posts = await getCollection("news", (post) => !post.data.draft);
   return posts.toSorted((a, b) => byDate(b, a));

@@ -37,7 +37,7 @@ highlights:
 #   - value: "120"
 #     label: Golfers
 # photos:
-#   - src: ./golf-classic/photo-1.jpg
+#   - src: https://images.unsplash.com/photo-1535131749006-b7f58c99034b
 #     alt: Golfers teeing off on the first hole
 #     caption: Shotgun start on a beautiful morning
 ---

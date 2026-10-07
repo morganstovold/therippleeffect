@@ -2,19 +2,14 @@ export const site = {
   name: "The Ripple Effect of Life",
   description:
     "The Ripple Effect of Life is a nonprofit foundation dedicated to honoring James Baldwin's legacy of service by empowering communities through scholarships, events, and giving back.",
-  email: "Info@TheRippleEffectOfLife.com",
+  email: "info@therippleeffectoflife.com",
   tagline: "One life of service. Countless ripples.",
-  // Set this to an online donation page (e.g. PayPal, Givebutter) to turn on the Donate Now button.
-  donateUrl: undefined as string | undefined,
+  donateUrl:
+    "https://www.paypal.com/donate/?hosted_button_id=RCEPHDJTLYXNY&item_name=Ripple%20Effect%20of%20Life%20Fund&no_shipping=2",
+  donationsReceivedBy: { name: "Solano Community Foundation", ein: "68-0354961" },
   social: {
-    facebook: "#",
-    instagram: "#",
-  },
-  scholarship: {
-    deadline: new Date("2026-04-10"),
-    requirementsUrl: "https://eddy.pro/pdf/6456025",
-    applicationUrl:
-      "https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform",
+    facebook: "https://www.facebook.com/profile.php?id=61588157424841",
+    instagram: "https://www.instagram.com/therippleeffectoflife",
   },
 };
 

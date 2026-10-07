@@ -71,6 +71,17 @@ const impact = defineCollection({
   }),
 });
 
+const scholarships = defineCollection({
+  loader: file("./src/content/scholarships.yaml"),
+  schema: z.object({
+    deadline: z.coerce.date(),
+    requirementsUrl: z.url(),
+    applicationUrl: z.url(),
+    /** How many scholarships were given that year. Counts only; recipients are kept confidential. */
+    awarded: z.number().int().nonnegative().default(0),
+  }),
+});
+
 const sponsors = defineCollection({
   loader: file("./src/content/sponsors.yaml"),
   schema: ({ image }) =>
@@ -80,4 +91,4 @@ const sponsors = defineCollection({
     ]),
 });
 
-export const collections = { events, news, board, impact, sponsors };
+export const collections = { events, news, board, impact, scholarships, sponsors };

@@ -1,12 +1,37 @@
 ---
 import { getCollection } from "astro:content";
+import { getEvents, getScholarships, getSponsors } from "../lib/content";
 
-const stats = (await getCollection("impact")).toSorted((a, b) => a.data.order - b.data.order);
+const scholarships = await getScholarships();
+const { past } = await getEvents();
+const { businesses, families } = await getSponsors();
+
+const awarded = scholarships.filter((year) => year.awarded > 0);
+const sinceYear = (dates: Date[]) => `Since ${Math.min(...dates.map((date) => date.getUTCFullYear()))}`;
+const count = (value: number, one: string, many: string, sublabel: string) => ({
+  value: String(value),
+  label: value === 1 ? one : many,
+  sublabel,
+});
+
+// Counted from the scholarship, event, and sponsor data, so they stay current on their own.
+// A count of zero is left out rather than shown.
+const recipients = awarded.reduce((total, year) => total + year.awarded, 0);
+const sponsors = businesses.length + families.length;
+const counted = [
+  recipients > 0 &&
+    count(recipients, "Scholarship Awarded", "Scholarships Awarded", sinceYear(awarded.map((year) => year.deadline))),
+  past.length > 0 && count(past.length, "Event Hosted", "Events Hosted", sinceYear(past.map((event) => event.data.date))),
+  sponsors > 0 && count(sponsors, "Local Sponsor", "Local Sponsors", "Businesses and families"),
+].filter((stat) => stat !== false);
+
+const manual = (await getCollection("impact")).toSorted((a, b) => a.data.order - b.data.order).map(({ data }) => data);
+const stats = [...counted, ...manual];
 ---
 
 <ul class="flex flex-wrap gap-px border border-navy-deep/8 bg-navy-deep/8">
   {
-    stats.map(({ data: stat }, i) => (
+    stats.map((stat, i) => (
       <li
         class={`reveal reveal-d${Math.min(i + 1, 4)} flex-1 basis-[calc(50%-1px)] bg-cream p-8 md:p-10 xl:basis-0`}
       >

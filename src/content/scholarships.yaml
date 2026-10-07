@@ -1,0 +1,10 @@
+# One entry per scholarship year. The newest year drives the scholarship section on What We Do:
+# it shows "Apply Now" until the deadline, then "Applications Closed".
+# Each new year: add an entry at the top with the new deadline and form links.
+# Once winners are picked: set `awarded` to how many scholarships were given. It feeds the impact numbers.
+# Recipients are minors, so their names are never stored here or shown on the site.
+- id: "2026"
+  deadline: 2026-04-10
+  requirementsUrl: https://eddy.pro/pdf/6456025
+  applicationUrl: https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform
+  awarded: 1

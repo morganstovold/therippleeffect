@@ -40,7 +40,11 @@ import Button from "./Button.astro";
     </button>
   </div>
 
-  <nav id="mobile-menu" class="hidden border-t border-gold/15 lg:hidden" aria-label="Main">
+  <nav
+    id="mobile-menu"
+    class="hidden max-h-[calc(100dvh-var(--header-height))] overflow-y-auto border-t border-gold/15 lg:hidden"
+    aria-label="Main"
+  >
     <div class="page-container flex flex-col gap-1 py-4">
       {
         mainNav.map(({ href, label }) => (
@@ -71,6 +75,12 @@ import Button from "./Button.astro";
   }
 
   button.addEventListener("click", () => setOpen(menu.classList.contains("hidden")));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !menu.classList.contains("hidden")) {
+      setOpen(false);
+      button.focus();
+    }
+  });
   for (const link of menu.querySelectorAll("a")) {
     link.addEventListener("click", () => setOpen(false));
   }

@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     question: "Is my donation tax-deductible?",
-    answer: `<p>We are in the process of obtaining 501(c)(3) status. Please contact us at ${email} for the latest information on tax deductibility.</p>`,
+    answer: `<p>Yes. Donations go to the Ripple Effect of Life Fund at the ${site.donationsReceivedBy.name}, a 501(c)(3) nonprofit (EIN ${site.donationsReceivedBy.ein}). Your gift is tax-deductible to the extent allowed by law, and you'll receive a receipt for your records.</p>`,
   },
   {
     question: "How can I volunteer?",
@@ -47,7 +47,7 @@ const faqs = [
 
 const labelClass = "mb-3 block text-xs font-semibold tracking-[0.08em] text-navy-deep uppercase";
 const inputClass =
-  "w-full border border-navy-deep/15 bg-white px-4 py-3.5 text-sm text-navy-deep placeholder-navy-deep/30 transition-colors focus:border-navy-mid focus:outline-none";
+  "w-full border border-navy-deep/15 bg-white px-4 py-3.5 text-sm text-navy-deep placeholder-navy-deep/50 transition-colors focus:border-navy-mid focus:outline-2 focus:outline-offset-0 focus:outline-gold-dark";
 const errorClass = "mt-2 text-sm text-red-700";
 ---
 
@@ -164,10 +164,14 @@ const errorClass = "mt-2 text-sm text-red-700";
             </a>
           </div>
 
-          <div class="border-t border-gold/20 pt-8">
-            <p class="mb-4 text-xs font-semibold tracking-widest text-gold uppercase">Follow Us</p>
-            <SocialLinks iconClass="size-5" />
-          </div>
+          {
+            Object.values(site.social).some(Boolean) && (
+              <div class="border-t border-gold/20 pt-8">
+                <p class="mb-4 text-xs font-semibold tracking-widest text-gold uppercase">Follow Us</p>
+                <SocialLinks iconClass="size-5" />
+              </div>
+            )
+          }
         </div>
       </div>
     </div>

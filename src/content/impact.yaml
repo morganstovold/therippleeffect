@@ -1,28 +1,7 @@
-# Shown on the What We Do and Our Impact pages, in `order`.
-- id: years-of-service
-  order: 1
-  value: 30+
-  label: Years of Service
-  sublabel: James Baldwin's legacy in Benicia
-
-- id: scholarships
-  order: 2
-  value: "1"
-  label: Scholarship Awarded
-  sublabel: First awarded in 2026
-
-- id: events
-  order: 3
-  value: "1"
-  label: Community Event Hosted
-  sublabel: Our first Golf Classic, May 2026
-
-- id: community
-  order: 4
-  value: 100+
-  label: Community Members Engaged
-
+# Numbers the site can't count on its own. Shown after the automatic ones
+# (scholarships awarded, events hosted, sponsors), in `order`.
 - id: funds
-  order: 5
+  order: 1
   value: $5,000+
-  label: Funds Raised
+  label: Raised for Scholarships
+  sublabel: And community programs

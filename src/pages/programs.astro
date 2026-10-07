@@ -10,15 +10,14 @@ import Photo from "../components/Photo.astro";
 import Section from "../components/Section.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import Layout from "../layouts/Layout.astro";
-import { formatDate, getFeaturedEvent } from "../lib/content";
-import { site } from "../site";
+import { formatDate, getFeaturedEvent, getScholarships } from "../lib/content";
 
 // Rendered per request so the application open/closed state follows the deadline.
 export const prerender = false;
 
 const featuredEvent = await getFeaturedEvent();
 
-const { deadline, requirementsUrl, applicationUrl } = site.scholarship;
+const { deadline, requirementsUrl, applicationUrl } = (await getScholarships())[0];
 const applicationsOpen = deadline.getTime() >= Date.now();
 const classYear = deadline.getUTCFullYear();
 
@@ -67,7 +66,7 @@ const criteria = [
           {
             criteria.map((item, i) => (
               <li class="flex items-start gap-4">
-                <span class="mt-0.5 shrink-0 font-playfair text-[1.5rem] leading-none font-bold text-gold opacity-40">
+                <span class="mt-0.5 shrink-0 font-playfair text-[1.5rem] leading-none font-bold text-gold-dark">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>

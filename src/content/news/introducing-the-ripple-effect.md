@@ -15,4 +15,4 @@ The Ripple Effect of Life is our way of honoring that. Through scholarships for 
 
 This is just the beginning. Thank you for being part of it.
 
-— Kelly Baldwin & Terry Baldwin
+Kelly Baldwin & Terry Baldwin
