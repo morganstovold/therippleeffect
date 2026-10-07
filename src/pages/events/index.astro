@@ -7,6 +7,9 @@ import PageHeader from "../../components/PageHeader.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getEvents } from "../../lib/content";
 
+// Rendered per request so events move from upcoming to past on their own.
+export const prerender = false;
+
 const { upcoming, past } = await getEvents();
 ---
 

@@ -13,6 +13,9 @@ import Layout from "../layouts/Layout.astro";
 import { formatDate, getFeaturedEvent } from "../lib/content";
 import { site } from "../site";
 
+// Rendered per request so the application open/closed state follows the deadline.
+export const prerender = false;
+
 const featuredEvent = await getFeaturedEvent();
 
 const { deadline, requirementsUrl, applicationUrl } = site.scholarship;

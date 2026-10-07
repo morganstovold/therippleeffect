@@ -36,6 +36,7 @@ const remote = typeof src === "string" ? unsplashSrcset(src, width) : undefined;
     <LocalImage
       src={src as ImageMetadata}
       alt={alt}
+      sizes={sizes}
       class={className}
       loading={loading}
       fetchpriority={fetchpriority}

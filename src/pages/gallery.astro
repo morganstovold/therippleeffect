@@ -69,7 +69,10 @@ const eventsWithPhotos = (await getCollection("events"))
     <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
       <div class="reveal relative">
         <div class="absolute -top-4 right-4 bottom-4 -left-4 border border-gold"></div>
-        <LocalImage src={familyImage} alt="James with his beloved family" class="relative h-auto w-full" />
+        <LocalImage src={familyImage} alt="James with his beloved family"
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          class="relative h-auto w-full"
+        />
       </div>
       <SectionHeading eyebrow="Featured Moment" title="James with his beloved family" class="reveal-d1">
         <p>

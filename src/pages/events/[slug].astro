@@ -1,5 +1,5 @@
 ---
-import { getCollection, getEntry, render } from "astro:content";
+import { getEntry, render } from "astro:content";
 import ArrowLink from "../../components/ArrowLink.astro";
 import Button from "../../components/Button.astro";
 import EventRecap from "../../components/EventRecap.astro";
@@ -9,12 +9,13 @@ import Layout from "../../layouts/Layout.astro";
 import { formatDate, hasRecap, isUpcoming } from "../../lib/content";
 import { site } from "../../site";
 
-export async function getStaticPaths() {
-  const events = await getCollection("events");
-  return events.map((event) => ({ params: { slug: event.id }, props: { event } }));
-}
+// Rendered per request so the upcoming/recap state follows today's date.
+export const prerender = false;
 
-const { event } = Astro.props;
+const event = await getEntry("events", Astro.params.slug!);
+if (!event) {
+  return new Response(null, { status: 404 });
+}
 const { title, date, tagline, headline, summary, venue, address, format, pricing, image, imageAlt, registrationUrl } =
   event.data;
 const { Content } = await render(event);

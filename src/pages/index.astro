@@ -10,6 +10,9 @@ import SponsorMarquee from "../components/SponsorMarquee.astro";
 import Layout from "../layouts/Layout.astro";
 import { formatDate, getFeaturedEvent, getPosts, getSponsors } from "../lib/content";
 
+// Rendered per request so the featured event drops off once it has passed.
+export const prerender = false;
+
 const featuredEvent = await getFeaturedEvent();
 const recentPosts = (await getPosts()).slice(0, 3);
 const { families } = await getSponsors();

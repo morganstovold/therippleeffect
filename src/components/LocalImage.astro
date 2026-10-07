@@ -1,12 +1,23 @@
 ---
 import type { ImageMetadata } from "astro";
 import type { HTMLAttributes } from "astro/types";
+import { cloudflareSrcset } from "../lib/images";
 
-type Props = Omit<HTMLAttributes<"img">, "src" | "width" | "height"> & { src: ImageMetadata; alt: string };
+type Props = Omit<HTMLAttributes<"img">, "src" | "srcset" | "width" | "height"> & { src: ImageMetadata; alt: string };
 
-// Points straight at the hashed file in /_astro instead of Astro's /_image endpoint.
-// Images aren't resized on Cloudflare anyway, so this skips a Worker request per image.
-const { src, loading = "lazy", decoding = "async", ...rest } = Astro.props;
+// Astro's image service is passthrough under Alchemy (workerd can't run sharp), so resizing is
+// left to Cloudflare Image Transformations. Outside production this is the plain hashed file.
+const { src, loading = "lazy", decoding = "async", sizes = "100vw", ...rest } = Astro.props;
+const resized = cloudflareSrcset(src.src, src.width);
 ---
 
-<img src={src.src} width={src.width} height={src.height} loading={loading} decoding={decoding} {...rest} />
+<img
+  src={resized?.src ?? src.src}
+  srcset={resized?.srcset}
+  sizes={resized && sizes}
+  width={src.width}
+  height={src.height}
+  loading={loading}
+  decoding={decoding}
+  {...rest}
+/>

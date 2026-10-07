@@ -36,11 +36,13 @@ export const Website = Cloudflare.Website.Astro(
       astro: { output: "static", site: isProd ? `https://${DOMAIN}` : undefined },
       memo: {
         include: ["src/**", "public/**", "astro.config.ts", "package.json"],
+        // Setting `include` turns lockfile hashing off; keep dependency bumps triggering a rebuild.
+        lockfile: true,
       },
       env: {
-        CONTACT_TO_EMAIL: Config.String("CONTACT_TO_EMAIL"),
-        CONTACT_FROM_EMAIL: Config.String("CONTACT_FROM_EMAIL"),
-        RESEND_API_KEY: Config.Redacted("RESEND_API_KEY"),
+        CONTACT_TO_EMAIL: isProd ? Config.String("CONTACT_TO_EMAIL") : Config.succeed(""),
+        CONTACT_FROM_EMAIL: isProd ? Config.String("CONTACT_FROM_EMAIL") : Config.succeed(""),
+        RESEND_API_KEY: isProd ? Config.Redacted("RESEND_API_KEY") : Config.succeed(Redacted.make("")),
         TURNSTILE_SITE_KEY: turnstile.sitekey,
         TURNSTILE_SECRET_KEY: turnstile.secret,
       },
@@ -59,6 +61,19 @@ export default Alchemy.Stack(
   Effect.gen(function* () {
     const website = yield* Website;
     const github = yield* GitHub.GitHubEnv;
+
+    if ((yield* Alchemy.Stage) === "prod") {
+      // Lets LocalImage request resized copies via /cdn-cgi/image. Zone-wide, restored on destroy.
+      const { accountId } = yield* yield* Cloudflare.CloudflareEnvironment;
+      const zone = yield* Cloudflare.Zone.resolveZoneId({ accountId, zone: undefined, hostname: DOMAIN }).pipe(
+        Effect.orDie,
+      );
+      yield* Cloudflare.Zone.Setting("ImageTransformations", {
+        zoneId: zone,
+        settingId: "transformations",
+        value: "on",
+      });
+    }
 
     if (github?.pr) {
       yield* GitHub.Comment("PreviewComment", {
