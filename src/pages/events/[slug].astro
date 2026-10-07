@@ -1,145 +1,206 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Navbar from '../../components/Navbar.astro';
-import Footer from '../../components/Footer.astro';
-import Button from '../../components/Button.astro';
-import { getEventBySlug } from '../../data/events';
+import { getCollection, getEntry, render } from "astro:content";
+import ArrowLink from "../../components/ArrowLink.astro";
+import Button from "../../components/Button.astro";
+import EventRecap from "../../components/EventRecap.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+import Photo from "../../components/Photo.astro";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate, hasRecap, isUpcoming } from "../../lib/content";
+import { site } from "../../site";
 
-// TODO: Replace with backend query:
-//   const event = await db.events.findUnique({ where: { slug: Astro.params.slug } });
-const { slug } = Astro.params;
-const event = getEventBySlug(slug ?? '');
-
-if (!event) {
-  return Astro.redirect('/events');
+export async function getStaticPaths() {
+  const events = await getCollection("events");
+  return events.map((event) => ({ params: { slug: event.id }, props: { event } }));
 }
+
+const { event } = Astro.props;
+const { title, date, tagline, headline, summary, venue, address, format, pricing, image, imageAlt, registrationUrl } =
+  event.data;
+const { Content } = await render(event);
+const relatedPost = event.data.relatedPost && (await getEntry(event.data.relatedPost));
+const upcoming = isUpcoming(event);
+const labelClass = "mb-1 text-[0.7rem] font-semibold tracking-[0.12em] text-navy-mid uppercase";
 ---
 
-<Layout
-  title={`${event.title} | The Ripple Effect of Life`}
-  description={event.description}
->
-  <Navbar />
+<Layout title={title} description={summary}>
+  <!-- Hero -->
+  <section class="relative flex min-h-[480px] items-end overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <Photo src={image} alt={imageAlt} width={2000} priority class="h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-navy-deep/80"></div>
+      <div class="absolute inset-0 bg-linear-to-t from-navy-deep/90 via-navy-deep/50 to-navy-deep/30"></div>
+      <div class="absolute bottom-0 left-0 h-px w-full bg-linear-to-r from-transparent via-gold to-transparent"></div>
+    </div>
 
-  <main class="mt-[72px]">
+    <div class="relative z-10 page-container pt-24 pb-16 md:pb-20">
+      <ArrowLink href="/events" direction="back" class="mb-10 text-xs tracking-[0.1em] text-white/45 uppercase">
+        All Events
+      </ArrowLink>
+      <Eyebrow tone="light" class="mb-3">{formatDate(date)}</Eyebrow>
+      <h1 class="mb-4 font-playfair text-[2.25rem] leading-[1.05] font-bold text-white md:text-[3.25rem] lg:text-[4rem]">
+        {title}
+      </h1>
+      <p class="max-w-xl text-[1rem] text-white/75 md:text-[1.1rem]">{tagline}</p>
+    </div>
+  </section>
 
-    <!-- Header -->
-    <section class="relative overflow-hidden bg-navy-deep">
-      <div class="absolute inset-0 z-0">
-        <img
-          src={event.image}
-          alt={event.imageAlt}
-          class="w-full h-full object-cover"
-          loading="eager"
-        />
-        <div class="absolute inset-0 bg-navy-deep/80"></div>
-        <div class="absolute inset-0 bg-linear-to-r from-navy-deep/70 via-navy-deep/50 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-gold to-transparent"></div>
-      </div>
-      <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 pt-24 pb-16 md:pt-32 md:pb-20 w-full">
-        <a href="/events" class="inline-flex items-center gap-2 font-inter text-xs font-semibold tracking-[0.1em] uppercase text-[rgba(255,255,255,0.45)] hover:text-gold transition-colors duration-200 no-underline mb-10 block">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" /></svg>
-          All Events
-        </a>
-        <div class="flex items-center gap-3 mb-3">
-          <div class="w-8 h-px bg-gold"></div>
-          <p class="text-[0.7rem] font-semibold tracking-[0.18em] uppercase text-gold font-inter">{event.eyebrow}</p>
+  {!upcoming && hasRecap(event) && <EventRecap event={event} />}
+
+  <!-- Overview -->
+  <section class="bg-cream py-20 md:py-28">
+    <div class="page-container grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
+      <div class="reveal">
+        <Eyebrow class="mb-3">Overview</Eyebrow>
+        <h2 class="mb-5 font-playfair text-[2rem] leading-[1.15] font-bold text-navy-deep md:text-[2.5rem]">
+          {headline}
+        </h2>
+        <div class="space-y-5 text-[1rem] leading-[1.85] text-text-mid">
+          <Content />
         </div>
-        <h1 class="font-playfair text-[2.25rem] md:text-[3rem] lg:text-[3.75rem] font-bold text-white leading-[1.1] mb-4">
-          {event.title}
-        </h1>
-        <p class="font-inter text-[rgba(255,255,255,0.75)] text-[1rem] md:text-[1.1rem] max-w-xl">{event.subtitle}</p>
+        {
+          upcoming && (
+            <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Button href={registrationUrl} variant="gold">
+                Register Now
+              </Button>
+              <Button href="/contact">Sponsorship Inquiries</Button>
+            </div>
+          )
+        }
       </div>
-    </section>
 
-    <!-- Overview -->
-    <section class="bg-[#faf8f5] py-20 md:py-28">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-
-          <!-- Description -->
-          <div class="reveal">
-            <h2 class="font-playfair text-[2rem] md:text-[2.5rem] font-bold text-navy-deep mb-5 leading-[1.15]">
-              More than a tournament.
-            </h2>
-            <p class="font-inter text-[1rem] leading-[1.85] text-text-mid mb-5">
-              {event.fullDescription}
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 mt-8">
-              <Button href={event.registrationUrl} variant="gold" size="md">Register Now</Button>
-              <Button href="/contact" variant="primary" size="md">Sponsorship Inquiries</Button>
-            </div>
+      <div class="reveal reveal-d1 border-l-4 border-gold bg-white p-8 md:p-10">
+        <h3 class="mb-8 font-playfair text-[1.5rem] font-bold text-navy-deep">Event Details</h3>
+        <dl class="mb-10 space-y-6 text-navy-deep">
+          <div>
+            <dt class={labelClass}>Date</dt>
+            <dd>{formatDate(date, { dateStyle: "full" })}</dd>
           </div>
-
-          <!-- Event Details Card -->
-          <div class="bg-white border-l-4 border-gold p-8 md:p-10 reveal reveal-d1">
-            <h3 class="font-playfair text-[1.5rem] font-bold text-navy-deep mb-8">Event Details</h3>
-
-            <div class="space-y-6 mb-10">
+          <div>
+            <dt class={labelClass}>Location</dt>
+            <dd>{venue}</dd>
+            <dd class="text-sm text-text-mid">{address}</dd>
+          </div>
+          <div>
+            <dt class={labelClass}>Format</dt>
+            <dd>{format}</dd>
+          </div>
+          {
+            pricing.length > 0 && (
               <div>
-                <p class="font-inter text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-navy-mid mb-1">Date</p>
-                <p class="font-inter text-[1rem] text-navy-deep">{event.date}</p>
+                <dt class={labelClass}>Pricing</dt>
+                {pricing.map((price) => (
+                  <dd class="mb-1">
+                    <span class="text-[1.1rem] font-semibold">{price.amount}</span> {price.label}
+                  </dd>
+                ))}
               </div>
-              <div>
-                <p class="font-inter text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-navy-mid mb-1">Location</p>
-                <p class="font-inter text-[1rem] text-navy-deep">{event.venue}</p>
-                <p class="font-inter text-sm text-text-mid">{event.address}</p>
-              </div>
-              <div>
-                <p class="font-inter text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-navy-mid mb-1">Format</p>
-                <p class="font-inter text-[1rem] text-navy-deep">{event.format}</p>
-              </div>
-              <div>
-                <p class="font-inter text-[0.7rem] font-semibold tracking-[0.12em] uppercase text-navy-mid mb-1">Pricing</p>
-                <p class="font-inter text-navy-deep mb-1"><span class="text-[1.1rem] font-semibold">{event.pricingIndividual}</span> per individual</p>
-                <p class="font-inter text-navy-deep"><span class="text-[1.1rem] font-semibold">{event.pricingFoursome}</span> per foursome</p>
-              </div>
-            </div>
-
+            )
+          }
+        </dl>
+        {
+          upcoming && (
             <div class="space-y-3">
-              <Button href={event.registrationUrl} variant="gold" size="md" class="w-full text-center">Register Now</Button>
-              <Button href="/contact" variant="primary" size="md" class="w-full text-center">Sponsorship Inquiries</Button>
+              <Button href={registrationUrl} variant="gold" class="w-full text-center">
+                Register Now
+              </Button>
+              <Button href="/contact" class="w-full text-center">
+                Sponsorship Inquiries
+              </Button>
             </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- What to expect -->
+  {
+    event.data.highlights.length > 0 && (
+      <section class="bg-navy-deep py-20 md:py-28">
+        <div class="page-container">
+          <div class="reveal mb-14 max-w-xl">
+            <Eyebrow tone="light" class="mb-3">The Experience</Eyebrow>
+            <h2 class="font-playfair text-[2rem] leading-[1.15] font-bold text-white md:text-[2.5rem]">{upcoming ? "What to Expect" : "The Day's Highlights"}</h2>
+          </div>
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {event.data.highlights.map((highlight, i) => (
+              <div
+                class={`reveal reveal-d${Math.min(i + 1, 4)} border-t-2 border-gold bg-white/5 p-7 transition-colors duration-300 hover:bg-white/8`}
+              >
+                <span class="mb-5 block font-playfair text-[2rem] leading-none font-bold text-gold opacity-35">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 class="mb-3 font-playfair text-[1.1rem] font-bold text-white">{highlight.title}</h3>
+                <p class="text-sm leading-relaxed text-white/70">{highlight.description}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )
+  }
 
-    <!-- What to Expect -->
-    <section class="bg-navy-deep py-20 md:py-28">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="max-w-xl mb-14 reveal">
-          <p class="text-[0.75rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-3">The Experience</p>
-          <h2 class="font-playfair text-[2rem] md:text-[2.5rem] font-bold text-white leading-[1.15]">What to Expect</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {event.features.map((feature, i) => (
-            <div class={`bg-[rgba(255,255,255,0.05)] border-t-2 border-gold p-7 hover:bg-[rgba(255,255,255,0.08)] transition-colors duration-300 reveal reveal-d${Math.min(i + 1, 4)}`}>
-              <span class="font-playfair text-[2rem] font-bold text-gold opacity-35 leading-none block mb-5">{feature.number}</span>
-              <h3 class="font-playfair text-[1.1rem] font-bold text-white mb-3">{feature.title}</h3>
-              <p class="font-inter text-[rgba(255,255,255,0.7)] text-sm leading-relaxed">{feature.description}</p>
+  <!-- Related post -->
+  {
+    relatedPost && (
+      <section class="border-t border-navy-deep/8 bg-cream py-16 md:py-20">
+        <div class="page-container">
+          <Eyebrow class="reveal mb-8">From the Blog</Eyebrow>
+          <a
+            href={`/news/${relatedPost.id}`}
+            class="group reveal grid grid-cols-1 overflow-hidden border border-navy-deep/10 no-underline md:grid-cols-[320px_1fr]"
+          >
+            <div class="overflow-hidden">
+              <Photo
+                src={relatedPost.data.image}
+                alt={relatedPost.data.imageAlt}
+                width={800}
+                sizes="(min-width: 768px) 320px, 100vw"
+                class="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full"
+              />
             </div>
-          ))}
+            <div class="flex flex-col justify-center bg-white p-8 md:p-10">
+              <span class="mb-2 block text-[0.6rem] font-semibold tracking-[0.15em] text-gold uppercase">
+                {relatedPost.data.category}
+              </span>
+              <h3 class="mb-3 font-playfair text-[1.25rem] leading-[1.3] font-bold text-navy-deep transition-colors duration-200 group-hover:text-navy-mid md:text-[1.5rem]">
+                {relatedPost.data.title}
+              </h3>
+              <p class="mb-4 text-sm leading-relaxed text-text-mid">{relatedPost.data.excerpt}</p>
+              <span class="text-sm font-semibold text-navy-mid transition-colors duration-200 group-hover:text-gold">
+                Read More →
+              </span>
+            </div>
+          </a>
         </div>
+      </section>
+    )
+  }
+
+  <!-- CTA -->
+  <section class="border-t border-gold/20 bg-navy-deep py-16 md:py-20">
+    <div class="reveal page-container text-center">
+      <h2 class="mb-4 font-playfair text-[1.75rem] font-bold text-white md:text-[2.25rem]">
+        {upcoming ? `Join Us on ${formatDate(date, { month: "long", day: "numeric" })}` : "Thank You for Joining Us"}
+      </h2>
+      <p class="mx-auto mb-8 max-w-md text-sm leading-relaxed text-white/65">
+        Questions? Reach us at{" "}
+        <a href={`mailto:${site.email}`} class="font-semibold text-gold transition-colors duration-200 hover:text-white">
+          {site.email}
+        </a>
+      </p>
+      <div class="flex flex-col justify-center gap-4 sm:flex-row">
+        {
+          upcoming && (
+            <Button href={registrationUrl} variant="gold">
+              Register Now
+            </Button>
+          )
+        }
+        <Button href="/contact" variant="secondary">Contact Us</Button>
       </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="bg-[#faf8f5] py-16 md:py-20 border-t border-[rgba(15,41,66,0.08)]">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12 text-center reveal">
-        <h2 class="font-playfair text-[1.75rem] md:text-[2.25rem] font-bold text-navy-deep mb-4">Join Us on {event.month} {event.day}</h2>
-        <p class="font-inter text-text-mid text-sm leading-relaxed mb-8 max-w-md mx-auto">
-          Questions? Reach us at <a href="mailto:Info@TheRippleEffectOfLife.com" class="text-navy-mid font-semibold hover:text-gold transition-colors duration-200 no-underline">Info@TheRippleEffectOfLife.com</a>
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button href={event.registrationUrl} variant="gold" size="md">Register Now</Button>
-          <Button href="/contact" variant="primary" size="md">Contact Us</Button>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <Footer />
+    </div>
+  </section>
 </Layout>

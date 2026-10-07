@@ -1,176 +1,208 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Button from '../components/Button.astro';
+import { actions, isInputError } from "astro:actions";
+import { env } from "cloudflare:workers";
+import { subjects } from "../actions";
+import Button from "../components/Button.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import PageHeader from "../components/PageHeader.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+import Layout from "../layouts/Layout.astro";
+import { site } from "../site";
+
+// Rendered on request so the form can show the result of a submission.
+export const prerender = false;
+
+const result = Astro.getActionResult(actions.contact);
+const fieldErrors = isInputError(result?.error) ? result.error.fields : {};
+const formError = result?.error && !isInputError(result.error) ? result.error.message : undefined;
+const sent = result?.data?.sent === true;
+
+const email = `<a href="mailto:${site.email}">${site.email}</a>`;
+const faqs = [
+  {
+    question: "How can I apply for the scholarship?",
+    answer: `<p>The James Baldwin Community Service Scholarship is open to graduating Benicia High School seniors who plan to attend college, trade school, or a vocational program and have a demonstrated record of community service and commitment to making a positive impact.</p><a href="/programs">View scholarship details and apply →</a>`,
+  },
+  {
+    question: "How do I register for an event?",
+    answer: `<p>Every event has its own page with dates, pricing, and a registration link.</p><a href="/events">See upcoming events →</a>`,
+  },
+  {
+    question: "How can I become a sponsor?",
+    answer: `<p>Contact us at ${email} to learn about sponsorship opportunities.</p>`,
+  },
+  {
+    question: "Is my donation tax-deductible?",
+    answer: `<p>We are in the process of obtaining 501(c)(3) status. Please contact us at ${email} for the latest information on tax deductibility.</p>`,
+  },
+  {
+    question: "How can I volunteer?",
+    answer: `<p>We're always looking for people who want to help. Whether you can assist with event operations, community outreach, or mentorship, there's a role for you.</p><p>Send us an email at ${email} with your interests and availability.</p>`,
+  },
+  {
+    question: "Who is James Baldwin?",
+    answer: `<p>James Baldwin is a lifelong community leader in Benicia, California (not the famous author of the same name). For decades he has given his time coaching youth sports, mentoring young people, and organizing events that bring the Benicia community together.</p><p>This foundation was created by his wife Terry Baldwin and daughter Kelly Baldwin to honor his legacy of service and ensure it continues to inspire future generations.</p><a href="/about">Read his full story →</a>`,
+  },
+];
+
+const labelClass = "mb-3 block text-xs font-semibold tracking-[0.08em] text-navy-deep uppercase";
+const inputClass =
+  "w-full border border-navy-deep/15 bg-white px-4 py-3.5 text-sm text-navy-deep placeholder-navy-deep/30 transition-colors focus:border-navy-mid focus:outline-none";
+const errorClass = "mt-2 text-sm text-red-700";
 ---
 
-<Layout title="Contact Us | The Ripple Effect of Life" description="Get in touch with The Ripple Effect of Life. Ask questions, learn about volunteering, the Golf Classic, and our scholarship program.">
-  <Navbar />
+<Layout
+  title="Contact Us"
+  description="Get in touch with The Ripple Effect of Life. Ask questions, learn about volunteering, our events, and our scholarship program."
+>
+  <PageHeader
+    eyebrow="Reach Out"
+    title="Contact Us"
+    subtitle="Have questions or want to get involved? We'd love to hear from you."
+  />
 
-  <main class="mt-[72px]">
+  <section class="bg-cream py-20 md:py-28">
+    <div class="page-container grid grid-cols-1 gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
+      <div>
+        <h2 class="mb-8 font-playfair text-[1.75rem] font-bold text-navy-deep md:text-[2rem]">Send us a Message</h2>
 
-    <PageHeader
-      eyebrow="Reach Out"
-      title="Contact Us"
-      subtitle="Have questions or want to get involved? We'd love to hear from you."
-    />
-
-    <!-- Contact Section -->
-    <section class="bg-cream py-20 md:py-32">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <!-- Form gets more horizontal space since it has more content -->
-        <div class="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-16">
-
-          <!-- Contact Form -->
-          <div>
-            <h2 class="font-playfair text-[1.75rem] md:text-[2rem] font-bold text-navy-deep mb-8">Send us a Message</h2>
-
-            <form action="#" method="POST" class="space-y-7">
+        {
+          sent ? (
+            <div class="border-l-4 border-gold bg-white p-8" role="status">
+              <p class="mb-2 font-playfair text-[1.5rem] font-bold text-navy-deep">Thank you!</p>
+              <p class="text-text-mid">Your message is on its way. We'll get back to you as soon as we can.</p>
+            </div>
+          ) : (
+            <form method="POST" action={actions.contact} class="space-y-7">
+              {formError && (
+                <p class="border-l-4 border-red-700 bg-white p-4 text-sm text-red-700" role="alert">
+                  {formError}
+                </p>
+              )}
               <div>
-                <label for="name" class="text-xs font-semibold text-navy-deep mb-3 block font-inter tracking-[0.08em] uppercase">Full Name</label>
-                <input type="text" id="name" name="name" required placeholder="Your name"
-                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3.5 font-inter text-sm text-navy-deep placeholder-[rgba(15,41,66,0.3)] transition-colors" />
+                <label for="name" class={labelClass}>
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  autocomplete="name"
+                  placeholder="Your name"
+                  class={inputClass}
+                />
+                {fieldErrors.name && <p class={errorClass}>{fieldErrors.name[0]}</p>}
               </div>
               <div>
-                <label for="email" class="text-xs font-semibold text-navy-deep mb-3 block font-inter tracking-[0.08em] uppercase">Email Address</label>
-                <input type="email" id="email" name="email" required placeholder="your@email.com"
-                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3.5 font-inter text-sm text-navy-deep placeholder-[rgba(15,41,66,0.3)] transition-colors" />
+                <label for="email" class={labelClass}>
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  placeholder="your@email.com"
+                  class={inputClass}
+                />
+                {fieldErrors.email && <p class={errorClass}>{fieldErrors.email[0]}</p>}
               </div>
               <div>
-                <label for="subject" class="text-xs font-semibold text-navy-deep mb-3 block font-inter tracking-[0.08em] uppercase">Subject</label>
-                <select id="subject" name="subject" required
-                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3.5 font-inter text-sm text-navy-deep transition-colors">
+                <label for="subject" class={labelClass}>
+                  Subject
+                </label>
+                <select id="subject" name="subject" required class={inputClass}>
                   <option value="">Select a subject</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="scholarship">Scholarship Questions</option>
-                  <option value="sponsorship">Sponsorship</option>
-                  <option value="volunteer">Volunteer</option>
-                  <option value="golf-classic">Golf Classic</option>
-                  <option value="other">Other</option>
+                  {Object.entries(subjects).map(([value, label]) => (
+                    <option value={value}>{label}</option>
+                  ))}
                 </select>
+                {fieldErrors.subject && <p class={errorClass}>{fieldErrors.subject[0]}</p>}
               </div>
               <div>
-                <label for="message" class="text-xs font-semibold text-navy-deep mb-3 block font-inter tracking-[0.08em] uppercase">Message</label>
-                <textarea id="message" name="message" required rows="6" placeholder="How can we help?"
-                  class="w-full border border-[rgba(15,41,66,0.15)] focus:border-navy-mid focus:outline-none bg-white px-4 py-3.5 font-inter text-sm text-navy-deep placeholder-[rgba(15,41,66,0.3)] transition-colors resize-none"></textarea>
+                <label for="message" class={labelClass}>
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows="6"
+                  placeholder="How can we help?"
+                  class:list={[inputClass, "resize-none"]}
+                />
+                {fieldErrors.message && <p class={errorClass}>{fieldErrors.message[0]}</p>}
               </div>
-              <Button type="submit" variant="gold" size="md">Send Message</Button>
+              <div class="hidden" aria-hidden="true">
+                <label for="website">Leave this field empty</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+              </div>
+              <div class="cf-turnstile" data-sitekey={env.TURNSTILE_SITE_KEY} data-theme="light" />
+              <Button type="submit" variant="gold">
+                Send Message
+              </Button>
             </form>
+          )
+        }
+      </div>
+
+      <div class="flex flex-col justify-between bg-navy-deep p-10 md:p-14">
+        <div>
+          <Eyebrow tone="light" class="mb-5">Direct Contact</Eyebrow>
+          <h2 class="mb-6 font-playfair text-[1.75rem] font-bold text-white md:text-[2rem]">We'd love to hear from you.</h2>
+          <p class="mb-10 text-[0.95rem] leading-relaxed text-white/75">
+            Whether you have questions about the scholarship, want to attend an event, or are interested in supporting the
+            foundation, reach out and we'll get back to you.
+          </p>
+
+          <div class="mb-8 border-t border-gold/20 pt-8">
+            <p class="mb-3 text-xs font-semibold tracking-widest text-gold uppercase">Email</p>
+            <a href={`mailto:${site.email}`} class="text-base text-white no-underline transition-colors hover:text-gold">
+              {site.email}
+            </a>
           </div>
 
-          <!-- Contact Info -->
-          <div class="bg-navy-deep p-10 md:p-14 flex flex-col justify-between">
-            <div>
-              <p class="text-[0.75rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-5">Direct Contact</p>
-              <h2 class="font-playfair text-[1.75rem] md:text-[2rem] font-bold text-white mb-6">We'd love to hear from you.</h2>
-              <p class="font-inter text-[rgba(255,255,255,0.75)] text-[0.95rem] leading-relaxed mb-10">
-                Whether you have questions about the scholarship, want to attend an event, or are interested in supporting the foundation, reach out and we'll get back to you.
-              </p>
-
-              <div class="border-t border-[rgba(212,165,116,0.2)] pt-8 mb-8">
-                <p class="font-inter text-xs font-semibold uppercase tracking-widest text-gold mb-3">Email</p>
-                <a href="mailto:Info@TheRippleEffectOfLife.com" class="font-inter text-white text-base hover:text-gold transition-colors no-underline">
-                  Info@TheRippleEffectOfLife.com
-                </a>
-              </div>
-
-              <div class="border-t border-[rgba(212,165,116,0.2)] pt-8">
-                <p class="font-inter text-xs font-semibold uppercase tracking-widest text-gold mb-4">Follow Us</p>
-                <div class="flex gap-4">
-                  <a href="#" aria-label="Facebook" class="text-[rgba(255,255,255,0.5)] hover:text-white transition-colors duration-200">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
-                  </a>
-                  <a href="#" aria-label="Instagram" class="text-[rgba(255,255,255,0.5)] hover:text-white transition-colors duration-200">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path></svg>
-                  </a>
-                </div>
-              </div>
-            </div>
+          <div class="border-t border-gold/20 pt-8">
+            <p class="mb-4 text-xs font-semibold tracking-widest text-gold uppercase">Follow Us</p>
+            <SocialLinks iconClass="size-5" />
           </div>
-
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- FAQ -->
-    <section class="bg-[#f7f5f2] py-20 md:py-32">
-      <div class="max-w-[900px] mx-auto px-6 md:px-12">
-        <h2 class="font-playfair text-[2rem] md:text-[2.5rem] font-bold text-navy-deep mb-12">Frequently Asked Questions</h2>
-
-        <div class="divide-y divide-[rgba(15,41,66,0.08)]">
-
-          <details class="group py-1">
-            <summary class="cursor-pointer py-5 font-inter font-semibold text-navy-deep text-base flex justify-between items-center hover:text-navy-mid transition-colors">
-              <span>How can I apply for the scholarship?</span>
-              <svg class="w-4 h-4 shrink-0 transition-transform group-open:rotate-180 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="pb-6 font-inter text-text-mid text-sm leading-relaxed">
-              <p class="mb-3">The James Baldwin Community Service Scholarship is open to graduating Benicia High School seniors who plan to attend college, trade school, or a vocational program and have a demonstrated record of community service and commitment to making a positive impact.</p>
-              <a href="/programs" class="text-navy-mid font-semibold hover:text-navy-deep transition-colors no-underline">View scholarship details and apply →</a>
-            </div>
-          </details>
-
-          <details class="group py-1">
-            <summary class="cursor-pointer py-5 font-inter font-semibold text-navy-deep text-base flex justify-between items-center hover:text-navy-mid transition-colors">
-              <span>How do I register for the Golf Classic?</span>
-              <svg class="w-4 h-4 shrink-0 transition-transform group-open:rotate-180 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="pb-6 font-inter text-text-mid text-sm leading-relaxed">
-              <p class="mb-3">The First Inaugural Golf Classic is on Thursday, May 28, 2026 at Eagle Vines Vineyards &amp; Golf Club in American Canyon, CA. Registration is $225 per individual or $900 per foursome.</p>
-              <a href="/events/golf-classic" class="text-navy-mid font-semibold hover:text-navy-deep transition-colors no-underline">View event details and register →</a>
-            </div>
-          </details>
-
-          <details class="group py-1">
-            <summary class="cursor-pointer py-5 font-inter font-semibold text-navy-deep text-base flex justify-between items-center hover:text-navy-mid transition-colors">
-              <span>How can I become a sponsor?</span>
-              <svg class="w-4 h-4 shrink-0 transition-transform group-open:rotate-180 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="pb-6 font-inter text-text-mid text-sm leading-relaxed">
-              Contact us at <a href="mailto:Info@TheRippleEffectOfLife.com" class="text-navy-mid font-semibold hover:text-navy-deep transition-colors no-underline">Info@TheRippleEffectOfLife.com</a> to learn about sponsorship opportunities.
-            </div>
-          </details>
-
-          <details class="group py-1">
-            <summary class="cursor-pointer py-5 font-inter font-semibold text-navy-deep text-base flex justify-between items-center hover:text-navy-mid transition-colors">
-              <span>Is my donation tax-deductible?</span>
-              <svg class="w-4 h-4 shrink-0 transition-transform group-open:rotate-180 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="pb-6 font-inter text-text-mid text-sm leading-relaxed">
-              We are in the process of obtaining 501(c)(3) status. Please contact us at <a href="mailto:Info@TheRippleEffectOfLife.com" class="text-navy-mid font-semibold hover:text-navy-deep transition-colors no-underline">Info@TheRippleEffectOfLife.com</a> for the latest information on tax deductibility.
-            </div>
-          </details>
-
-          <details class="group py-1">
-            <summary class="cursor-pointer py-5 font-inter font-semibold text-navy-deep text-base flex justify-between items-center hover:text-navy-mid transition-colors">
-              <span>How can I volunteer?</span>
-              <svg class="w-4 h-4 shrink-0 transition-transform group-open:rotate-180 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="pb-6 font-inter text-text-mid text-sm leading-relaxed">
-              <p class="mb-3">We're always looking for people who want to help. Whether you can assist with event operations, community outreach, or mentorship, there's a role for you.</p>
-              <p>Send us an email at <a href="mailto:Info@TheRippleEffectOfLife.com" class="text-navy-mid font-semibold hover:text-navy-deep transition-colors no-underline">Info@TheRippleEffectOfLife.com</a> with your interests and availability.</p>
-            </div>
-          </details>
-
-          <details class="group py-1">
-            <summary class="cursor-pointer py-5 font-inter font-semibold text-navy-deep text-base flex justify-between items-center hover:text-navy-mid transition-colors">
-              <span>Who is James Baldwin?</span>
-              <svg class="w-4 h-4 shrink-0 transition-transform group-open:rotate-180 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </summary>
-            <div class="pb-6 font-inter text-text-mid text-sm leading-relaxed">
-              <p class="mb-3">James Baldwin is a lifelong community leader in Benicia, California (not the famous author of the same name). For decades he has given his time coaching youth sports, mentoring young people, and organizing events that bring the Benicia community together.</p>
-              <p class="mb-3">This foundation was created by his wife Terry Baldwin and daughter Kelly Baldwin to honor his legacy of service and ensure it continues to inspire future generations.</p>
-              <a href="/about" class="text-navy-mid font-semibold hover:text-navy-deep transition-colors no-underline">Read his full story →</a>
-            </div>
-          </details>
-
-        </div>
+  <section class="bg-sand py-20 md:py-28">
+    <div class="mx-auto max-w-[900px] px-6 md:px-12">
+      <h2 class="mb-12 font-playfair text-[2rem] font-bold text-navy-deep md:text-[2.5rem]">Frequently Asked Questions</h2>
+      <div class="divide-y divide-navy-deep/8">
+        {
+          faqs.map(({ question, answer }) => (
+            <details class="group py-1">
+              <summary class="flex cursor-pointer items-center justify-between py-5 text-base font-semibold text-navy-deep transition-colors hover:text-navy-mid">
+                <span>{question}</span>
+                <svg
+                  class="size-4 shrink-0 text-gold transition-transform group-open:rotate-180"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div
+                class="space-y-3 pb-6 text-sm leading-relaxed text-text-mid [&_a]:font-semibold [&_a]:text-navy-mid [&_a]:no-underline [&_a:hover]:text-navy-deep"
+                set:html={answer}
+              />
+            </details>
+          ))
+        }
       </div>
-    </section>
-
-  </main>
-
-  <Footer />
+    </div>
+  </section>
 </Layout>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>

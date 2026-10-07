@@ -1,53 +1,56 @@
 ---
-interface Props {
-	href?: string;
-	type?: 'button' | 'submit' | 'reset';
-	variant?: 'primary' | 'secondary' | 'gold';
-	size?: 'sm' | 'md' | 'lg';
-	class?: string;
-}
+import type { HTMLAttributes } from "astro/types";
 
-const { href, type = 'button', variant = 'primary', size = 'md', class: className = '' } = Astro.props;
+type Props = HTMLAttributes<"a"> &
+  HTMLAttributes<"button"> & {
+    variant?: "primary" | "secondary" | "gold";
+    size?: "sm" | "md" | "lg";
+  };
 
-const baseClasses = 'inline-block font-semibold uppercase tracking-wider no-underline transition-all relative overflow-hidden group/btn ease-out font-inter tracking-[0.05em] cursor-pointer whitespace-nowrap';
+const { href, variant = "primary", size = "md", class: className, type = "button", ...rest } = Astro.props;
 
-const variantClasses = {
-	primary: 'text-white hover:text-[#0f2942]',
-	secondary: 'text-white border-2 border-[#d4a574] hover:text-[#0f2942] hover:border-[#d4a574]',
-	gold: 'text-[#0f2942] border-2 border-[#d4a574] hover:text-white hover:border-[#0f2942]',
+// Each variant has a resting background and a colour that slides in from the left on hover.
+const variants = {
+  primary: { text: "text-white hover:text-navy-deep", base: "bg-navy-deep", slide: "bg-gold" },
+  secondary: {
+    text: "text-white border-2 border-gold hover:text-navy-deep",
+    base: "bg-transparent",
+    slide: "bg-gold",
+  },
+  gold: {
+    text: "text-navy-deep border-2 border-gold hover:text-white hover:border-navy-deep",
+    base: "bg-gold",
+    slide: "bg-navy-deep",
+  },
 };
 
-const sizeClasses = {
-	sm: 'px-5 py-2.5 text-xs',
-	md: 'px-8 py-3.5 text-sm',
-	lg: 'px-12 py-5 text-base',
+const sizes = {
+  sm: "px-5 py-2.5 text-xs",
+  md: "px-8 py-3.5 text-sm",
+  lg: "px-12 py-5 text-base",
 };
 
-const initialBgClasses = {
-	primary: 'bg-[#0f2942]',
-	secondary: 'bg-transparent',
-	gold: 'bg-[#d4a574]',
-};
-
-const slideColorClasses = {
-	primary: 'bg-[#d4a574]',
-	secondary: 'bg-[#d4a574]',
-	gold: 'bg-[#0f2942]',
-};
-
-const combined = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+const { text, base, slide } = variants[variant];
+const Tag = href ? "a" : "button";
 ---
 
-{href ? (
-	<a href={href} class={combined}>
-		<span class={`absolute inset-0 ${initialBgClasses[variant]}`}></span>
-		<span class={`absolute inset-0 ${slideColorClasses[variant]} origin-left scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-400 ease-out`}></span>
-		<span class="relative z-10"><slot /></span>
-	</a>
-) : (
-	<button type={type} class={combined}>
-		<span class={`absolute inset-0 ${initialBgClasses[variant]}`}></span>
-		<span class={`absolute inset-0 ${slideColorClasses[variant]} origin-left scale-x-0 group-hover/btn:scale-x-100 transition-transform duration-400 ease-out`}></span>
-		<span class="relative z-10"><slot /></span>
-	</button>
-)}
+<Tag
+  href={href}
+  type={href ? undefined : type}
+  class:list={[
+    "group/btn relative inline-block cursor-pointer overflow-hidden font-semibold tracking-[0.05em] whitespace-nowrap uppercase no-underline transition-all ease-out",
+    text,
+    sizes[size],
+    className,
+  ]}
+  {...rest}
+>
+  <span class:list={["absolute inset-0", base]}></span>
+  <span
+    class:list={[
+      "absolute inset-0 origin-left scale-x-0 transition-transform duration-400 ease-out group-hover/btn:scale-x-100",
+      slide,
+    ]}
+  ></span>
+  <span class="relative z-10"><slot /></span>
+</Tag>

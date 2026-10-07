@@ -1,72 +1,70 @@
 ---
-import "@fontsource/playfair-display/latin-400.css";
-import "@fontsource/playfair-display/latin-400-italic.css";
-import "@fontsource/playfair-display/latin-600.css";
-import "@fontsource/playfair-display/latin-600-italic.css";
-import "@fontsource/playfair-display/latin-700.css";
-import "@fontsource/playfair-display/latin-900.css";
-import "@fontsource/inter/latin-300.css";
-import "@fontsource/inter/latin-400.css";
-import "@fontsource/inter/latin-500.css";
-import "@fontsource/inter/latin-600.css";
-import "@fontsource/inter/latin-700.css";
+import { Font } from "astro:assets";
+import logo from "../assets/therippleeffect_logo.png";
+import Footer from "../components/Footer.astro";
+import Navbar from "../components/Navbar.astro";
+import { site } from "../site";
 import "../styles/global.css";
 
 interface Props {
-	title?: string;
-	description?: string;
+  /** Page name, e.g. "About Us". Leave out on the home page. */
+  title?: string;
+  description?: string;
+  /** Preview image for social shares. Defaults to the logo. */
+  image?: string;
 }
 
-const {
-	title = "The Ripple Effect of Life",
-	description = "The Ripple Effect of Life is a nonprofit foundation dedicated to honoring James Baldwin's legacy of service by empowering communities through scholarships, events, and giving back."
-} = Astro.props;
+const { title, description = site.description, image = logo.src } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : site.name;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+const imageUrl = Astro.site ? new URL(image, Astro.site) : undefined;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-		<script>
-			const observer = new IntersectionObserver(
-				(entries) => {
-					entries.forEach((entry) => {
-						if (entry.isIntersecting) {
-							entry.target.classList.add('visible');
-						}
-					});
-				},
-				{ threshold: 0.08, rootMargin: '0px 0px -50px 0px' }
-			);
-			document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-		</script>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <Font cssVariable="--font-inter-family" preload={[{ style: "normal" }]} />
+    <Font cssVariable="--font-playfair-family" preload={[{ style: "normal" }]} />
+  </head>
+  <body>
+    <Navbar />
+    <main class="mt-(--header-height)">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -50px 0px" },
+      );
+      for (const element of document.querySelectorAll(".reveal")) {
+        observer.observe(element);
+      }
+    </script>
+  </body>
 </html>
-
-<style is:global>
-	* {
-		box-sizing: border-box;
-	}
-
-	html,
-	body {
-		margin: 0;
-		padding: 0;
-		width: 100%;
-		min-height: 100vh;
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-	}
-
-	body {
-		position: relative;
-	}
-</style>

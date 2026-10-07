@@ -1,208 +1,163 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import PageHeader from '../components/PageHeader.astro';
-import Button from '../components/Button.astro';
+import Button from "../components/Button.astro";
+import CallToAction from "../components/CallToAction.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Section from "../components/Section.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import SponsorMarquee from "../components/SponsorMarquee.astro";
+import Layout from "../layouts/Layout.astro";
+import { site } from "../site";
+
+const donationLevels = [
+  { amount: "$500", name: "Champion", text: "Funds a full scholarship award" },
+  { amount: "$250", name: "Advocate", text: "Supports event programming" },
+  { amount: "$100", name: "Supporter", text: "Provides student resources" },
+  { amount: "$25", name: "Friend", text: "Contributes to community programs" },
+];
+
+const sponsorBenefits = [
+  "Your business logo or family name on our Sponsors page",
+  "Logo or name placement at our events",
+  "Social media recognition and a thank-you",
+  "Listing in event materials",
+  "Connection to our mission-driven community",
+];
+
+const volunteerRoles = [
+  { title: "Event Support", text: "Help run our Golf Classic and community programs from setup to wrap-up." },
+  { title: "Mentorship", text: "Share your experience with scholarship students and young people in our community." },
+  { title: "Community Outreach", text: "Help spread the word about our mission and grow the foundation's reach." },
+];
 ---
 
 <Layout
-  title="Get Involved - The Ripple Effect of Life"
+  title="Get Involved"
   description="Join us in making a difference. Donate, sponsor, volunteer, or partner with The Ripple Effect of Life nonprofit."
 >
-  <Navbar />
+  <PageHeader
+    eyebrow="Make a Difference"
+    title="Get Involved"
+    subtitle="Whether you give time, talent, or treasure, every contribution creates a ripple that transforms lives and strengthens our community."
+  />
 
-  <main class="mt-[72px]">
-    <!-- Page Header -->
-    <PageHeader
-      eyebrow="Make a Difference"
-      title="Get Involved"
-      subtitle="Whether you give time, talent, or treasure, every contribution creates a ripple that transforms lives and strengthens our community."
-    />
-
-    <!-- Donate Section -->
-    <section id="donate" class="bg-white py-16 md:py-24">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          <!-- Left Column -->
-          <div class="flex flex-col justify-center">
-            <div class="flex items-center gap-3 mb-6">
-              <div class="w-8 h-px bg-gold"></div>
-              <span class="text-navy-mid text-xs font-bold tracking-[0.25em] uppercase font-inter">Support Our Mission</span>
-            </div>
-            <h2 class="font-playfair text-[2.5rem] md:text-[3.5rem] text-navy-deep mb-6 leading-[1.1]">
-              Make a Donation
-            </h2>
-            <p class="text-lg text-text-mid mb-8 leading-relaxed">
-              Your contribution directly funds our scholarships, community events, and service initiatives. Every dollar creates an opportunity for a student or neighbor who needs it most.
-            </p>
-            <Button
-              href="#"
-              variant="primary"
-              size="md"
-            >
-              Donate Now
-            </Button>
-            <p class="text-sm text-text-mid italic mt-4">
-              Questions about tax deductibility? <a href="/contact" class="text-navy-mid font-semibold hover:text-navy-deep transition-colors no-underline">Contact us</a> for the latest information.
-            </p>
-          </div>
-
-          <!-- Right Column - Donation Tiers -->
-          <div class="grid grid-cols-2 gap-4 reveal reveal-d1">
-            <div class="bg-cream border border-[rgba(212,165,116,0.3)] p-7 text-center cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-gold group">
-              <p class="font-playfair text-[2.5rem] text-gold-dark mb-2 group-hover:text-gold transition-colors duration-300">$500</p>
-              <h3 class="font-playfair text-lg text-navy-deep mb-1">Champion</h3>
-              <p class="text-text-mid text-xs leading-relaxed">Funds a full scholarship award</p>
-            </div>
-            <div class="bg-cream border border-[rgba(212,165,116,0.3)] p-7 text-center cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-gold group">
-              <p class="font-playfair text-[2.5rem] text-gold-dark mb-2 group-hover:text-gold transition-colors duration-300">$250</p>
-              <h3 class="font-playfair text-lg text-navy-deep mb-1">Advocate</h3>
-              <p class="text-text-mid text-xs leading-relaxed">Supports event programming</p>
-            </div>
-            <div class="bg-cream border border-[rgba(212,165,116,0.3)] p-7 text-center cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-gold group">
-              <p class="font-playfair text-[2.5rem] text-gold-dark mb-2 group-hover:text-gold transition-colors duration-300">$100</p>
-              <h3 class="font-playfair text-lg text-navy-deep mb-1">Supporter</h3>
-              <p class="text-text-mid text-xs leading-relaxed">Provides student resources</p>
-            </div>
-            <div class="bg-cream border border-[rgba(212,165,116,0.3)] p-7 text-center cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-gold group">
-              <p class="font-playfair text-[2.5rem] text-gold-dark mb-2 group-hover:text-gold transition-colors duration-300">$25</p>
-              <h3 class="font-playfair text-lg text-navy-deep mb-1">Friend</h3>
-              <p class="text-text-mid text-xs leading-relaxed">Contributes to community programs</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Sponsorship Section -->
-    <section id="sponsor" class="bg-cream py-16 md:py-24">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="text-center mb-12">
-          <div class="flex items-center gap-3 justify-center mb-4">
-            <div class="w-8 h-px bg-gold"></div>
-            <span class="text-navy-mid text-xs font-bold tracking-[0.25em] uppercase font-inter">Corporate & Individual</span>
-            <div class="w-8 h-px bg-gold"></div>
-          </div>
-          <h2 class="font-playfair text-[2.5rem] md:text-[3.5rem] text-navy-deep mb-6 leading-[1.1]">
-            Sponsorship Opportunities
-          </h2>
-          <p class="text-lg text-text-mid max-w-2xl mx-auto">
-            Partner with The Ripple Effect of Life and align your brand with meaningful community impact. Sponsorships support our Golf Classic, scholarship fund, and year-round programs.
+  <!-- Donate -->
+  <Section tone="white" id="donate">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <SectionHeading eyebrow="Support Our Mission" title="Make a Donation" class="mb-8">
+          <p>
+            Your contribution directly funds our scholarships, community events, and service initiatives. Every dollar
+            creates an opportunity for a student or neighbor who needs it most.
           </p>
-        </div>
-
-        <!-- Sponsorship Tier Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 reveal">
-          <!-- Gold Sponsor: Premium feel, dark navy background -->
-          <div class="bg-navy-deep p-8 border-t-4 border-gold relative overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-gold opacity-[0.04] rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            <span class="text-xs font-semibold tracking-[0.2em] uppercase font-inter text-gold block mb-4">Gold Sponsor</span>
-            <h3 class="font-playfair text-2xl text-white mb-6">Premier Partner</h3>
-            <ul class="space-y-3 text-[rgba(255,255,255,0.75)] text-sm mb-8">
-              <li class="flex items-start gap-2"><span class="text-gold mt-0.5 shrink-0">›</span> Premier visibility and brand recognition</li>
-              <li class="flex items-start gap-2"><span class="text-gold mt-0.5 shrink-0">›</span> Event naming rights opportunities</li>
-              <li class="flex items-start gap-2"><span class="text-gold mt-0.5 shrink-0">›</span> Foursome included in Golf Classic</li>
-              <li class="flex items-start gap-2"><span class="text-gold mt-0.5 shrink-0">›</span> Featured in all marketing materials</li>
-              <li class="flex items-start gap-2"><span class="text-gold mt-0.5 shrink-0">›</span> Exclusive sponsor recognition package</li>
-            </ul>
-          </div>
-
-          <!-- Silver Sponsor -->
-          <div class="bg-white p-8 border-t-4 border-[#9ca3af] hover:shadow-xl transition-shadow duration-300">
-            <span class="text-xs font-semibold tracking-[0.2em] uppercase font-inter text-[#6b7280] block mb-4">Silver Sponsor</span>
-            <h3 class="font-playfair text-2xl text-navy-deep mb-6">Community Partner</h3>
-            <ul class="space-y-3 text-text-mid text-sm mb-8">
-              <li class="flex items-start gap-2"><span class="text-[#9ca3af] mt-0.5 shrink-0">›</span> Prominent branding at events</li>
-              <li class="flex items-start gap-2"><span class="text-[#9ca3af] mt-0.5 shrink-0">›</span> Recognition in event materials</li>
-              <li class="flex items-start gap-2"><span class="text-[#9ca3af] mt-0.5 shrink-0">›</span> Two players included in Golf Classic</li>
-              <li class="flex items-start gap-2"><span class="text-[#9ca3af] mt-0.5 shrink-0">›</span> Social media mentions and highlights</li>
-              <li class="flex items-start gap-2"><span class="text-[#9ca3af] mt-0.5 shrink-0">›</span> Sponsor acknowledgment in communications</li>
-            </ul>
-          </div>
-
-          <!-- Bronze Sponsor -->
-          <div class="bg-[#fdf9f5] p-8 border-t-4 border-[#b87333] hover:shadow-xl transition-shadow duration-300">
-            <span class="text-xs font-semibold tracking-[0.2em] uppercase font-inter text-[#b87333] block mb-4">Bronze Sponsor</span>
-            <h3 class="font-playfair text-2xl text-navy-deep mb-6">Supporting Partner</h3>
-            <ul class="space-y-3 text-text-mid text-sm mb-8">
-              <li class="flex items-start gap-2"><span class="text-[#b87333] mt-0.5 shrink-0">›</span> Logo placement at events</li>
-              <li class="flex items-start gap-2"><span class="text-[#b87333] mt-0.5 shrink-0">›</span> Social media mention and recognition</li>
-              <li class="flex items-start gap-2"><span class="text-[#b87333] mt-0.5 shrink-0">›</span> One player included in Golf Classic</li>
-              <li class="flex items-start gap-2"><span class="text-[#b87333] mt-0.5 shrink-0">›</span> Sponsor listing in materials</li>
-              <li class="flex items-start gap-2"><span class="text-[#b87333] mt-0.5 shrink-0">›</span> Connection to our mission-driven community</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Sponsorship CTA -->
-        <div class="text-center">
-          <Button
-            href="https://events.golfstatus.com/event/TheRippleEffect"
-            variant="gold"
-            size="lg"
-          >
-            Become a Sponsor
-          </Button>
-          <p class="text-text-mid mt-4 text-sm">
-            Questions? Reach out at
-            <a href="mailto:Info@TheRippleEffectOfLife.com" class="text-gold-dark font-semibold hover:underline">
-              Info@TheRippleEffectOfLife.com
-            </a>
+        </SectionHeading>
+        <div class="reveal">
+          {
+            site.donateUrl ? (
+              <Button href={site.donateUrl} variant="gold">
+                Donate Now
+              </Button>
+            ) : (
+              <Button href="/contact" variant="gold">
+                Contact Us to Donate
+              </Button>
+            )
+          }
+          <p class="mt-4 text-sm text-text-mid italic">
+            Questions about tax deductibility?{" "}
+            <a href="/contact" class="font-semibold text-navy-mid no-underline transition-colors hover:text-gold">
+              Contact us
+            </a>{" "}
+            for the latest information.
           </p>
         </div>
       </div>
-    </section>
 
-    <!-- Volunteer Section -->
-    <section id="volunteer" class="bg-white py-16 md:py-24">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="text-center mb-12">
-          <div class="flex items-center gap-3 justify-center mb-4">
-            <div class="w-8 h-px bg-gold"></div>
-            <span class="text-navy-mid text-xs font-bold tracking-[0.25em] uppercase font-inter">Give Your Time</span>
-            <div class="w-8 h-px bg-gold"></div>
+      <ul class="reveal reveal-d1 grid grid-cols-2 gap-4">
+        {
+          donationLevels.map((level) => (
+            <li class="border border-gold/30 bg-cream p-7 text-center">
+              <p class="mb-2 font-playfair text-[2.5rem] text-gold-dark">{level.amount}</p>
+              <p class="mb-1 font-playfair text-lg font-bold text-navy-deep">{level.name}</p>
+              <p class="text-xs leading-relaxed text-text-mid">{level.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <!-- Sponsor -->
+  <Section tone="cream" id="sponsor">
+    <SectionHeading eyebrow="Businesses & Families" title="Sponsorship Opportunities" center>
+      <p>
+        Partner with The Ripple Effect of Life and align your brand with meaningful community impact. Sponsorships support
+        our scholarship fund, community events, and year-round programs.
+      </p>
+    </SectionHeading>
+
+    <div class="reveal mx-auto mb-12 max-w-3xl border-t-4 border-gold bg-navy-deep p-8 md:p-12">
+      <h3 class="mb-6 font-playfair text-2xl font-bold text-white md:text-3xl">What Sponsors Receive</h3>
+      <ul class="grid grid-cols-1 gap-x-8 gap-y-3 text-sm text-white/80 sm:grid-cols-2">
+        {
+          sponsorBenefits.map((benefit) => (
+            <li class="flex items-start gap-2">
+              <span class="mt-0.5 shrink-0 text-gold" aria-hidden="true">
+                ›
+              </span>
+              {benefit}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="reveal text-center">
+      <Button href="/contact" variant="gold" size="lg">Become a Sponsor</Button>
+      <p class="mt-4 text-sm text-text-mid">
+        Questions? Reach out at
+        <a href={`mailto:${site.email}`} class="font-semibold text-gold-dark hover:underline">{site.email}</a>
+      </p>
+    </div>
+  </Section>
+
+  <!-- Current sponsors -->
+  <section class="border-t border-navy-deep/8 bg-white py-16 md:py-20">
+    <div class="page-container reveal mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <p class="font-playfair text-[1.5rem] font-bold text-navy-deep md:text-[1.75rem]">Join our generous sponsors</p>
+      <a href="/sponsors" class="text-sm font-semibold text-navy-mid no-underline transition-colors hover:text-gold">
+        See all sponsors →
+      </a>
+    </div>
+    <SponsorMarquee />
+  </section>
+
+  <!-- Volunteer -->
+  <Section tone="sand" id="volunteer">
+    <SectionHeading eyebrow="Give Your Time" title="Volunteer" center>
+      <p>
+        Volunteers are the heart of The Ripple Effect of Life. Whether for a single event or an ongoing role, your time
+        makes a real difference.
+      </p>
+    </SectionHeading>
+    <div class="mb-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+      {
+        volunteerRoles.map((role, i) => (
+          <div class={`reveal reveal-d${i + 1} border-t-2 border-gold bg-white p-8`}>
+            <h3 class="mb-3 font-playfair text-xl font-bold text-navy-deep">{role.title}</h3>
+            <p class="text-sm leading-relaxed text-text-mid">{role.text}</p>
           </div>
-          <h2 class="font-playfair text-[2.5rem] md:text-[3.5rem] text-navy-deep mb-6 leading-[1.1]">Volunteer</h2>
-          <p class="text-lg text-text-mid max-w-2xl mx-auto">
-            Volunteers are the heart of The Ripple Effect of Life. Whether for a single event or an ongoing role, your time makes a real difference.
-          </p>
-        </div>
+        ))
+      }
+    </div>
+    <div class="reveal text-center">
+      <Button href="/contact">Contact Us to Volunteer</Button>
+    </div>
+  </Section>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div class="bg-cream p-8">
-            <h3 class="font-playfair text-xl text-navy-deep mb-3">Event Support</h3>
-            <p class="text-text-mid text-sm leading-relaxed">Help run our Golf Classic and community programs from setup to wrap-up.</p>
-          </div>
-          <div class="bg-cream p-8">
-            <h3 class="font-playfair text-xl text-navy-deep mb-3">Mentorship</h3>
-            <p class="text-text-mid text-sm leading-relaxed">Share your experience with scholarship students and young people in our community.</p>
-          </div>
-          <div class="bg-cream p-8">
-            <h3 class="font-playfair text-xl text-navy-deep mb-3">Community Outreach</h3>
-            <p class="text-text-mid text-sm leading-relaxed">Help spread the word about our mission and grow the foundation's reach.</p>
-          </div>
-        </div>
-
-        <div class="text-center">
-          <Button href="/contact" variant="primary" size="md">Contact Us to Volunteer</Button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Bottom CTA Section -->
-    <section class="bg-navy-deep py-16 md:py-24">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12 text-center">
-        <h2 class="font-playfair text-[2rem] md:text-[2.75rem] text-white mb-4 leading-[1.1]">
-          Together, We Create Ripples
-        </h2>
-        <p class="text-lg text-[rgba(255,255,255,0.7)] mb-8 max-w-xl mx-auto font-inter font-light">
-          Your involvement creates lasting change. Join us in making a difference today.
-        </p>
-        <Button href="/contact" variant="secondary" size="lg">Contact Us</Button>
-      </div>
-    </section>
-  </main>
-
-  <Footer />
+  <CallToAction eyebrow="Together" title="Together, We Create Ripples">
+    Your involvement creates lasting change. Join us in making a difference today.
+    <Fragment slot="actions">
+      <Button href="/contact" variant="gold">Contact Us</Button>
+    </Fragment>
+  </CallToAction>
 </Layout>

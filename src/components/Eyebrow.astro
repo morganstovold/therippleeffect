@@ -1,0 +1,23 @@
+---
+interface Props {
+  /** "light" for dark backgrounds, "dark" for light backgrounds. */
+  tone?: "light" | "dark";
+  center?: boolean;
+  class?: string;
+}
+
+const { tone = "dark", center = false, class: className } = Astro.props;
+---
+
+<div class:list={["flex items-center gap-3", center && "justify-center", className]}>
+  <span class="h-px w-8 bg-gold"></span>
+  <p
+    class:list={[
+      "text-[0.7rem] font-semibold tracking-[0.18em] uppercase",
+      tone === "light" ? "text-gold" : "text-gold-dark",
+    ]}
+  >
+    <slot />
+  </p>
+  {center && <span class="h-px w-8 bg-gold"></span>}
+</div>

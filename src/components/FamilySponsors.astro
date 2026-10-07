@@ -1,0 +1,26 @@
+---
+import { getSponsors } from "../lib/content";
+
+const { families } = await getSponsors();
+---
+
+<ul class="flex flex-wrap justify-center gap-3">
+  {
+    families.map((family) => (
+      <li class="flex w-full flex-col items-center justify-center border border-gold/20 bg-white/5 px-6 py-8 text-center sm:w-[calc(50%-0.375rem)] lg:w-[calc(33.333%-0.5rem)]">
+        <p class="font-playfair text-[1.25rem] leading-snug text-white md:text-[1.4rem]">
+          {family.url ? (
+            <a href={family.url} target="_blank" rel="noopener" class="no-underline transition-colors hover:text-gold">
+              {family.name}
+            </a>
+          ) : (
+            family.name
+          )}
+        </p>
+        {family.note && (
+          <p class="mt-2 text-[0.65rem] font-semibold tracking-[0.18em] text-gold uppercase">{family.note}</p>
+        )}
+      </li>
+    ))
+  }
+</ul>

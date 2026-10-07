@@ -1,0 +1,35 @@
+---
+import { formatDate, type Post } from "../lib/content";
+import Photo from "./Photo.astro";
+
+interface Props {
+  post: Post;
+  showExcerpt?: boolean;
+  class?: string;
+}
+
+const { post, showExcerpt = false, class: className } = Astro.props;
+const { title, category, date, excerpt, image, imageAlt } = post.data;
+---
+
+<a href={`/news/${post.id}`} class:list={["group block no-underline", className]}>
+  <div class="mb-4 overflow-hidden">
+    <Photo
+      src={image}
+      alt={imageAlt}
+      width={800}
+      sizes="(min-width: 768px) 33vw, 100vw"
+      class="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+  </div>
+  <span class="mb-2 inline-block text-[0.6rem] font-semibold tracking-[0.15em] text-gold uppercase">
+    {category}
+  </span>
+  <h3
+    class="mb-2 font-playfair text-[1.15rem] leading-[1.3] font-bold text-navy-deep transition-colors duration-200 group-hover:text-navy-mid"
+  >
+    {title}
+  </h3>
+  {showExcerpt && <p class="mb-3 line-clamp-3 text-sm leading-relaxed text-text-mid">{excerpt}</p>}
+  <p class="text-xs text-text-mid">{formatDate(date)}</p>
+</a>

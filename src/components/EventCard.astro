@@ -1,0 +1,59 @@
+---
+import { type Event, formatDate, hasRecap } from "../lib/content";
+import Button from "./Button.astro";
+import Photo from "./Photo.astro";
+
+interface Props {
+  event: Event;
+  upcoming: boolean;
+}
+
+const { event, upcoming } = Astro.props;
+const { title, date, venue, city, format, pricing, tagline, image, imageAlt, registrationUrl } = event.data;
+const showRecap = !upcoming && hasRecap(event);
+const details = [format, ...pricing.map((price) => `${price.amount} ${price.label}`)].join(" • ");
+---
+
+<article class="reveal overflow-hidden border border-navy-deep/12">
+  <div class="relative h-52 overflow-hidden md:h-64">
+    <Photo src={image} alt={imageAlt} width={1600} class="h-full w-full object-cover" />
+    <div class="absolute inset-0 bg-navy-deep/65"></div>
+    <p class="absolute bottom-6 left-6 text-[0.65rem] font-semibold tracking-[0.2em] text-white/70 uppercase md:bottom-8 md:left-8">
+      {formatDate(date)}
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[200px_1fr]">
+    <div class="flex flex-col items-center justify-center border-r border-gold/20 bg-navy-deep p-8 text-center md:p-10">
+      <p class="mb-3 text-[0.6rem] font-semibold tracking-[0.2em] text-gold uppercase">
+        {formatDate(date, { year: "numeric" })}
+      </p>
+      <p class="mb-0.5 font-playfair text-[2.5rem] leading-none font-bold text-white">
+        {formatDate(date, { month: "short" })}
+      </p>
+      <p class="font-playfair text-[3.5rem] leading-none font-bold text-white">
+        {formatDate(date, { day: "numeric" })}
+      </p>
+      <div class="mt-4 h-px w-6 bg-gold"></div>
+    </div>
+
+    <div class="border-l-4 border-gold bg-white p-8 md:p-10">
+      <h2 class="mb-2 font-playfair text-[1.75rem] leading-[1.2] font-bold text-navy-deep md:text-[2rem]">{title}</h2>
+      <p class="mb-1 text-sm text-text-mid">{venue}, {city}</p>
+      <p class="mb-6 text-sm text-text-mid">{details}</p>
+      <p class="mb-8 max-w-2xl text-[0.95rem] leading-relaxed text-text-mid">{tagline}</p>
+      <div class="flex flex-col gap-4 sm:flex-row">
+        <Button href={showRecap ? `/events/${event.id}#recap` : `/events/${event.id}`} size="sm">
+          {showRecap ? "View Recap" : "View Details"}
+        </Button>
+        {
+          upcoming && (
+            <Button href={registrationUrl} variant="gold" size="sm">
+              Register Now
+            </Button>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</article>

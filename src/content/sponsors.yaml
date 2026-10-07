@@ -1,0 +1,291 @@
+# Sponsors are shown alphabetically. To add one, add an entry below.
+# Businesses need a logo in src/assets/sponsors/ (a wide image with no padding works best).
+# Families and individuals are shown by name; `note` adds a small line under the name.
+# Optional: `url: https://...` turns the logo or name into a link.
+
+# Businesses & community partners
+- id: kaz-associates
+  type: business
+  name: "Kaz & Associates"
+  logo: ../assets/sponsors/kaz-associates.webp
+
+- id: comprehensive-support-solutions
+  type: business
+  name: Comprehensive Support Solutions
+  logo: ../assets/sponsors/comprehensive-support-solutions.webp
+
+- id: junk-180
+  type: business
+  name: Junk 180
+  logo: ../assets/sponsors/junk-180.webp
+
+- id: kelly-baldwin-real-estate
+  type: business
+  name: Kelly Baldwin Real Estate
+  logo: ../assets/sponsors/kelly-baldwin-real-estate.webp
+
+- id: benicia-lions-club
+  type: business
+  name: Benicia Lions Club
+  logo: ../assets/sponsors/benicia-lions-club.webp
+
+- id: watsonville-high-school
+  type: business
+  name: Watsonville High School
+  logo: ../assets/sponsors/watsonville-high-school.webp
+
+- id: burger-king-benicia
+  type: business
+  name: Burger King Benicia
+  logo: ../assets/sponsors/burger-king-benicia.webp
+
+- id: rooted-beauty-studios
+  type: business
+  name: Rooted Beauty Studios
+  logo: ../assets/sponsors/rooted-beauty-studios.webp
+
+- id: guided-growth-legal
+  type: business
+  name: Guided Growth Legal
+  logo: ../assets/sponsors/guided-growth-legal.webp
+
+- id: alogistico
+  type: business
+  name: Alogistico
+  logo: ../assets/sponsors/alogistico.webp
+
+- id: parkinsons-awareness-rally
+  type: business
+  name: "Parkinson's Awareness Rally & Bill Cawley Memorial Walk"
+  logo: ../assets/sponsors/parkinsons-awareness-rally.webp
+
+- id: invesdid
+  type: business
+  name: Invesdid Investor Coaching
+  logo: ../assets/sponsors/invesdid.webp
+
+- id: maas-and-russo
+  type: business
+  name: Maas and Russo
+  logo: ../assets/sponsors/maas-and-russo.webp
+
+- id: angel-nail-spa
+  type: business
+  name: Angel Nail Spa
+  logo: ../assets/sponsors/angel-nail-spa.webp
+
+- id: m-stovold
+  type: business
+  name: "M Stovold Web Design & Development"
+  logo: ../assets/sponsors/m-stovold.webp
+
+- id: wine-valley-insurance
+  type: business
+  name: Wine Valley Insurance Services
+  logo: ../assets/sponsors/wine-valley-insurance.webp
+
+- id: old-republic-title
+  type: business
+  name: Old Republic Title
+  logo: ../assets/sponsors/old-republic-title.webp
+
+- id: metropolitan-van-storage
+  type: business
+  name: "Metropolitan Van & Storage"
+  logo: ../assets/sponsors/metropolitan-van-storage.webp
+
+- id: twin-oaks-real-estate
+  type: business
+  name: Twin Oaks Real Estate
+  logo: ../assets/sponsors/twin-oaks-real-estate.webp
+
+- id: elviaritas
+  type: business
+  name: Elviaritas Cantina and Catering
+  logo: ../assets/sponsors/elviaritas.webp
+
+- id: taypours
+  type: business
+  name: "TayPours & Co."
+  logo: ../assets/sponsors/taypours.webp
+
+- id: bf-builders
+  type: business
+  name: BF Builders
+  logo: ../assets/sponsors/bf-builders.webp
+
+- id: krystle-legacy-group
+  type: business
+  name: Krystle Legacy Group
+  logo: ../assets/sponsors/krystle-legacy-group.webp
+
+- id: jamba
+  type: business
+  name: Jamba
+  logo: ../assets/sponsors/jamba.webp
+
+- id: starbucks
+  type: business
+  name: Starbucks
+  logo: ../assets/sponsors/starbucks.webp
+
+- id: benicia-plumbing
+  type: business
+  name: Benicia Plumbing
+  logo: ../assets/sponsors/benicia-plumbing.webp
+
+- id: benicia-medical-aesthetics
+  type: business
+  name: Benicia Medical Aesthetics
+  logo: ../assets/sponsors/benicia-medical-aesthetics.webp
+
+- id: unlimited-environmental
+  type: business
+  name: Unlimited Environmental
+  logo: ../assets/sponsors/unlimited-environmental.webp
+
+- id: dirty-pop-benicia
+  type: business
+  name: Dirty Pop Benicia
+  logo: ../assets/sponsors/dirty-pop-benicia.webp
+
+- id: engraved-by-jc
+  type: business
+  name: Engraved by JC
+  logo: ../assets/sponsors/engraved-by-jc.webp
+
+- id: west-coast-beauty
+  type: business
+  name: West Coast Beauty Co.
+  logo: ../assets/sponsors/west-coast-beauty.webp
+
+- id: soroptimist-benicia
+  type: business
+  name: Soroptimist International of Benicia
+  logo: ../assets/sponsors/soroptimist-benicia.webp
+
+- id: le-sparkly-chateau
+  type: business
+  name: Le Sparkly Chateau
+  logo: ../assets/sponsors/le-sparkly-chateau.webp
+
+- id: cortada-cigars
+  type: business
+  name: Cortada Cigars
+  logo: ../assets/sponsors/cortada-cigars.webp
+
+- id: sepay-groves
+  type: business
+  name: SePay Groves
+  logo: ../assets/sponsors/sepay-groves.webp
+
+- id: jeanie-lechuga
+  type: business
+  name: Jeanie Lechuga, Redwood Essential Healing
+  logo: ../assets/sponsors/jeanie-lechuga.webp
+
+- id: shandrika-real-estate
+  type: business
+  name: Shandrika Real Estate
+  logo: ../assets/sponsors/shandrika-real-estate.webp
+
+- id: millsap-degnan
+  type: business
+  name: "Millsap Degnan & Associates"
+  logo: ../assets/sponsors/millsap-degnan.webp
+
+- id: benicia-police-officers-association
+  type: business
+  name: "Benicia Police Officers' Association"
+  logo: ../assets/sponsors/benicia-police-officers-association.webp
+
+- id: california-golf-events
+  type: business
+  name: California Golf Events
+  logo: ../assets/sponsors/california-golf-events.webp
+
+- id: mathnasium
+  type: business
+  name: Mathnasium
+  logo: ../assets/sponsors/mathnasium.webp
+
+- id: revel-and-co
+  type: business
+  name: "Revel & Co. Party Boutique"
+  logo: ../assets/sponsors/revel-and-co.webp
+
+- id: laura-welsh-hamann-real-estate
+  type: business
+  name: Laura Welsh, Hamann Real Estate
+  logo: ../assets/sponsors/laura-welsh-hamann-real-estate.webp
+
+- id: dr-richard-joyce
+  type: business
+  name: Dr. Richard Joyce, Optometrist
+  logo: ../assets/sponsors/dr-richard-joyce.webp
+
+- id: sips-bottle-emporium
+  type: business
+  name: Sips The Bottle Emporium
+  logo: ../assets/sponsors/sips-bottle-emporium.webp
+
+- id: bpx-printing
+  type: business
+  name: "BPX Printing & Graphics"
+  logo: ../assets/sponsors/bpx-printing.webp
+
+- id: windsor-vineyards
+  type: business
+  name: Windsor Vineyards
+  logo: ../assets/sponsors/windsor-vineyards.webp
+
+- id: plan-it-interactive
+  type: business
+  name: Plan-It Interactive
+  logo: ../assets/sponsors/plan-it-interactive.webp
+
+# Families & friends
+- id: baldwin-family
+  type: family
+  name: The Baldwin Family
+  note: Founding Family
+
+- id: bates-family
+  type: family
+  name: The Bates Family
+
+- id: petrellese-family
+  type: family
+  name: The Petrellese Family
+
+- id: kett-family
+  type: family
+  name: The Kett Family
+
+- id: mclaughlin-westmoreland
+  type: family
+  name: "Heather McLaughlin & Jon Westmoreland"
+
+- id: miyashita-family
+  type: family
+  name: The Miyashita Family
+
+- id: petrides-family
+  type: family
+  name: The Petrides Family
+
+- id: rhonda-ballenger
+  type: family
+  name: Rhonda Ballenger
+
+- id: doug-gonsolis
+  type: family
+  name: Doug Gonsolis
+
+- id: hansen-family
+  type: family
+  name: The Hansen Family
+
+- id: keating-family
+  type: family
+  name: The Keating Family

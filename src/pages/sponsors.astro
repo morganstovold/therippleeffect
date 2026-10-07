@@ -1,0 +1,50 @@
+---
+import Button from "../components/Button.astro";
+import CallToAction from "../components/CallToAction.astro";
+import FamilySponsors from "../components/FamilySponsors.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Section from "../components/Section.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import SponsorLogos from "../components/SponsorLogos.astro";
+import Layout from "../layouts/Layout.astro";
+import { getSponsors } from "../lib/content";
+
+const { businesses, families } = await getSponsors();
+---
+
+<Layout
+  title="Our Sponsors"
+  description="The businesses, organizations, and families whose generosity makes The Ripple Effect of Life's scholarships and community events possible."
+>
+  <PageHeader
+    eyebrow="Thank You"
+    title="Our Sponsors"
+    subtitle="Every scholarship and every event is made possible by neighbors who believe in giving back. We are deeply grateful."
+  />
+
+  <Section tone="white">
+    <SectionHeading eyebrow={`${businesses.length} Partners`} title="Business & Community Partners">
+      <p>Local businesses and organizations who stepped up to support James's legacy of service.</p>
+    </SectionHeading>
+    <div class="reveal">
+      <SponsorLogos />
+    </div>
+  </Section>
+
+  <Section tone="navy">
+    <SectionHeading eyebrow={`${families.length} Families & Friends`} title="Family Sponsors" tone="light">
+      <p>Families and friends who gave from the heart. Your support creates ripples that reach far beyond our community.</p>
+    </SectionHeading>
+    <div class="reveal">
+      <FamilySponsors />
+    </div>
+  </Section>
+
+  <CallToAction eyebrow="Join Them" title="Become a Sponsor">
+    Sponsorship supports our scholarship fund, community events, and year-round programs.
+    <Fragment slot="actions">
+      <Button href="/get-involved#sponsor" variant="gold">How to Sponsor</Button>
+      <Button href="/contact" variant="secondary">Contact Us</Button>
+    </Fragment>
+  </CallToAction>
+</Layout>

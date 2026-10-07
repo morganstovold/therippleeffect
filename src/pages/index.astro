@@ -1,239 +1,232 @@
 ---
-import { Image } from 'astro:assets';
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import Button from '../components/Button.astro';
-import logoImage from '../assets/therippleeffect_logo.png';
-import familyImage from '../assets/family.jpg';
-import scholarshipLogo from '../assets/scholarship_logo.png';
-import golfLogo from '../assets/golf_logo.png';
-import { getFeaturedEvent } from '../data/events';
-import { getRecentPosts, formatDate } from '../data/posts';
-// TODO: Replace with backend queries:
-//   const featuredEvent = await db.events.findFirst({ where: { featured: true, status: 'upcoming' } });
-//   const recentPosts = await db.posts.findMany({ where: { published: true }, orderBy: { publishedAt: 'desc' }, take: 3 });
-const featuredEvent = getFeaturedEvent();
-const recentPosts = getRecentPosts(3);
+import ArrowLink from "../components/ArrowLink.astro";
+import Button from "../components/Button.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import Photo from "../components/Photo.astro";
+import PostCard from "../components/PostCard.astro";
+import Section from "../components/Section.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import SponsorMarquee from "../components/SponsorMarquee.astro";
+import Layout from "../layouts/Layout.astro";
+import { formatDate, getFeaturedEvent, getPosts, getSponsors } from "../lib/content";
+
+const featuredEvent = await getFeaturedEvent();
+const recentPosts = (await getPosts()).slice(0, 3);
+const { families } = await getSponsors();
+const communityPhoto = "https://images.unsplash.com/photo-1529156069898-49953e39b3ac";
+
+const ways = [
+  {
+    title: "Donate",
+    text: "Your contribution funds scholarships for Benicia High School seniors and supports community programs built on James's values.",
+    href: "/get-involved#donate",
+    label: "Support the Foundation",
+  },
+  {
+    title: "Volunteer",
+    text: "Help bring our events to life and serve the community that James has dedicated his life to supporting.",
+    href: "/get-involved#volunteer",
+    label: "Get in Touch",
+  },
+  {
+    title: "Sponsor",
+    text: "Put your business or family name behind our scholarships and events, and join a growing circle of local supporters.",
+    href: "/get-involved#sponsor",
+    label: "Become a Sponsor",
+  },
+];
 ---
 
-<Layout title="The Ripple Effect of Life" description="A foundation honoring the legacy of James Baldwin, lifelong community leader, mentor, and father. Founded by Terry and Kelly Baldwin.">
-  <Navbar />
+<Layout description="A foundation honoring the legacy of James Baldwin, lifelong community leader, mentor, and father. Founded by Terry and Kelly Baldwin.">
+  <!-- Hero -->
+  <section class="relative flex min-h-[90vh] items-center overflow-hidden border-b border-gold/20">
+    <div class="absolute inset-0 z-0">
+      <Photo src={communityPhoto} alt="" width={1600} priority class="h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-navy-deep/88"></div>
+      <div class="absolute inset-0 bg-linear-to-r from-navy-deep/60 to-transparent"></div>
+    </div>
 
-  <main class="mt-[72px]">
-
-    <!-- Hero -->
-    <section class="relative min-h-[90vh] flex items-center border-b border-[rgba(212,165,116,0.2)] overflow-hidden">
-      <!-- Background photo with overlay -->
-      <div class="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80"
-          alt=""
-          class="w-full h-full object-cover"
-          loading="eager"
-        />
-        <div class="absolute inset-0 bg-[#0f2942]/88"></div>
-        <div class="absolute inset-0 bg-linear-to-r from-[#0f2942]/60 to-transparent"></div>
-      </div>
-
-      <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 py-24 md:py-32 w-full">
-        <div class="max-w-3xl">
-          <div class="flex items-center gap-3 mb-4 reveal">
-            <div class="w-8 h-px bg-gold"></div>
-            <p class="text-[0.7rem] font-semibold tracking-[0.18em] uppercase text-gold font-inter">A Legacy of Service</p>
-          </div>
-          <h1 class="text-[2.75rem] md:text-[4rem] lg:text-[5.25rem] font-bold text-white leading-[1.05] font-playfair mb-6 reveal reveal-d1">
-            The Ripple Effect<br />of Life
-          </h1>
-          <p class="text-[1.1rem] md:text-[1.25rem] leading-[1.7] text-[rgba(255,255,255,0.85)] font-inter mb-10 max-w-xl reveal reveal-d2">
-            A foundation honoring the legacy of James Baldwin, lifelong community leader, mentor, and father.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 reveal reveal-d3">
-            <Button href="/get-involved" variant="gold" size="md">Support the Foundation</Button>
-            <Button href="/events/golf-classic" variant="secondary" size="md">Golf Classic · May 28</Button>
-          </div>
+    <div class="relative z-10 page-container py-24 md:py-32">
+      <div class="max-w-3xl">
+        <Eyebrow tone="light" class="reveal mb-4">A Legacy of Service</Eyebrow>
+        <h1
+          class="reveal reveal-d1 mb-6 font-playfair text-[2.75rem] leading-[1.05] font-bold text-white md:text-[4rem] lg:text-[5.25rem]"
+        >
+          The Ripple Effect<br />of Life
+        </h1>
+        <p class="reveal reveal-d2 mb-10 max-w-xl text-[1.1rem] leading-[1.7] text-white/85 md:text-[1.25rem]">
+          A foundation honoring the legacy of James Baldwin, lifelong community leader, mentor, and father.
+        </p>
+        <div class="reveal reveal-d3 flex flex-col gap-4 sm:flex-row">
+          <Button href="/get-involved" variant="gold">Support the Foundation</Button>
+          {
+            featuredEvent ? (
+              <Button href={`/events/${featuredEvent.id}`} variant="secondary">
+                {featuredEvent.data.shortTitle ?? featuredEvent.data.title} ·{" "}
+                {formatDate(featuredEvent.data.date, { month: "long", day: "numeric" })}
+              </Button>
+            ) : (
+              <Button href="/about" variant="secondary">
+                Our Story
+              </Button>
+            )
+          }
         </div>
-      </div>
-
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
-        <div class="w-px h-12 bg-white/50 relative overflow-hidden">
-          <div class="absolute top-0 left-0 w-full bg-gold animate-[scroll-line_1.8s_ease-in-out_infinite]" style="height: 40%; animation: scrollLine 1.8s ease-in-out infinite;"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About James -->
-    <section class="bg-cream py-20 md:py-32">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div class="reveal">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-8 h-px bg-gold"></div>
-              <p class="text-[0.7rem] font-semibold tracking-[0.18em] uppercase text-gold-dark font-inter">The Man Behind the Mission</p>
-            </div>
-            <h2 class="text-[2rem] md:text-[2.75rem] font-bold text-navy-deep leading-[1.15] font-playfair mb-5">
-              James Baldwin
-            </h2>
-            <p class="text-[1rem] md:text-[1.05rem] leading-[1.85] text-text-mid font-inter mb-5">
-              James Baldwin is a lifelong community leader in Benicia, California. For decades he has dedicated himself to coaching youth sports, mentoring young people, and organizing events that bring neighbors together. His commitment to showing up, consistently, generously, without recognition, has shaped the lives of countless people in this community.
-            </p>
-            <p class="text-[1rem] md:text-[1.05rem] leading-[1.85] text-text-mid font-inter mb-8">
-              His wife Terry and daughter Kelly created this foundation to honor that legacy and ensure his spirit of service continues to inspire future generations.
-            </p>
-            <a href="/about" class="inline-flex items-center gap-2 font-inter text-sm font-semibold text-navy-mid hover:text-gold transition-colors duration-200 no-underline tracking-wide">
-              Read His Full Story
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
-            </a>
-          </div>
-          <div class="relative reveal reveal-d1">
-            <div class="absolute -top-4 -left-4 right-4 bottom-4 border border-gold -z-10"></div>
-            <img
-              src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80"
-              alt="Community"
-              class="w-full h-80 lg:h-[420px] object-cover"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- How to Help -->
-    <section class="bg-navy-deep py-20 md:py-32 border-t border-[rgba(212,165,116,0.2)]">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="reveal">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-8 h-px bg-gold"></div>
-            <p class="text-[0.7rem] font-semibold tracking-[0.18em] uppercase text-gold font-inter">Make an Impact</p>
-          </div>
-          <h2 class="text-[2rem] md:text-[2.75rem] font-bold text-white leading-[1.15] font-playfair mb-12">How You Can Help</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Donate -->
-          <div class="border-t-2 border-gold bg-[rgba(255,255,255,0.05)] p-8 md:p-10 reveal reveal-d1 group hover:bg-[rgba(255,255,255,0.08)] transition-colors duration-300">
-            <h3 class="font-playfair text-[1.5rem] text-white mb-3">Donate</h3>
-            <p class="font-inter text-[rgba(255,255,255,0.8)] text-[0.95rem] leading-relaxed mb-8">
-              Your contribution funds scholarships for Benicia High School seniors and supports community programs built on James's values.
-            </p>
-            <Button href="/get-involved" variant="gold" size="sm">Support the Foundation</Button>
-          </div>
-          <!-- Volunteer -->
-          <div class="border-t-2 border-gold bg-[rgba(255,255,255,0.05)] p-8 md:p-10 reveal reveal-d2 group hover:bg-[rgba(255,255,255,0.08)] transition-colors duration-300">
-            <h3 class="font-playfair text-[1.5rem] text-white mb-3">Volunteer</h3>
-            <p class="font-inter text-[rgba(255,255,255,0.8)] text-[0.95rem] leading-relaxed mb-8">
-              Help bring our events to life and serve the community that James has dedicated his life to supporting.
-            </p>
-            <Button href="/get-involved#volunteer" variant="secondary" size="sm">Get in Touch</Button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Full-width photo break -->
-    <div class="relative h-64 md:h-80 overflow-hidden">
-      <img
-        src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1920&q=80"
-        alt="Community gathering"
-        class="w-full h-full object-cover"
-        loading="lazy"
-      />
-      <div class="absolute inset-0 bg-navy-deep/50"></div>
-      <div class="absolute inset-0 flex items-center justify-center">
-        <p class="font-playfair text-[1.5rem] md:text-[2.25rem] font-bold text-white text-center italic leading-[1.3] px-6 max-w-2xl">"Every act of kindness creates a ripple with no logical end."</p>
       </div>
     </div>
 
-    <!-- Featured Event -->
-    <section class="bg-cream py-20 md:py-32 border-t border-[rgba(15,41,66,0.08)]">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div class="reveal">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-8 h-px bg-gold"></div>
-              <p class="text-[0.7rem] font-semibold tracking-[0.18em] uppercase text-gold-dark font-inter">Upcoming Event</p>
-            </div>
-            <h2 class="text-[2rem] md:text-[2.75rem] font-bold text-navy-deep leading-[1.15] font-playfair mb-5">
-              First Inaugural Golf Classic
-            </h2>
-            <p class="text-[1rem] leading-[1.85] text-text-mid font-inter mb-8">
-              Join us on May 28, 2026 at Eagle Vines Vineyards &amp; Golf Club in American Canyon, CA for a four-person scramble tournament in support of The Ripple Effect of Life.
-            </p>
-            <div class="border-l-4 border-gold pl-5 mb-8 space-y-1.5 text-sm font-inter">
-              <p class="text-text-dark"><span class="font-semibold text-navy-deep">Date:</span> Thursday, May 28, 2026</p>
-              <p class="text-text-dark"><span class="font-semibold text-navy-deep">Format:</span> Four Person Scramble</p>
-              <p class="text-text-dark"><span class="font-semibold text-navy-deep">Pricing:</span> $225 per individual / $900 per foursome</p>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-4">
-              <Button href="https://events.golfstatus.com/event/TheRippleEffect" variant="primary" size="md">Register Now</Button>
-              <a href="/events/golf-classic" class="inline-flex items-center gap-2 font-inter text-sm font-semibold text-navy-mid hover:text-gold transition-colors duration-200 no-underline self-center">
-                View Details
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
-              </a>
-            </div>
-          </div>
-          <!-- Date block -->
-          <div class="bg-navy-deep border border-[rgba(212,165,116,0.3)] p-12 md:p-16 text-center reveal reveal-d1">
-            <p class="font-inter text-[0.65rem] font-semibold tracking-[0.2em] uppercase text-gold mb-6">Save the Date</p>
-            <p class="font-playfair text-[4rem] md:text-[5rem] font-bold text-white leading-none mb-2">May 28</p>
-            <p class="font-playfair text-[1.75rem] text-[rgba(255,255,255,0.75)] mb-8">2026</p>
-            <div class="w-10 h-px bg-gold mx-auto mb-8"></div>
-            <p class="font-inter text-white text-sm mb-1">Eagle Vines Vineyards &amp; Golf Club</p>
-            <p class="font-inter text-[rgba(255,255,255,0.6)] text-xs">American Canyon, CA</p>
-          </div>
-        </div>
+    <div class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 opacity-40" aria-hidden="true">
+      <div class="relative h-12 w-px overflow-hidden bg-white/50">
+        <div class="absolute top-0 left-0 h-2/5 w-full animate-scroll-line bg-gold"></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- News Preview -->
-    <section class="bg-[#faf8f5] py-20 md:py-28 border-t border-[rgba(15,41,66,0.08)]">
-      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div class="flex items-end justify-between mb-12 reveal">
+  <!-- About James -->
+  <Section tone="cream">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <SectionHeading eyebrow="The Man Behind the Mission" title="James Baldwin" class="mb-8">
+          <p>
+            James Baldwin is a lifelong community leader in Benicia, California. For decades he has dedicated himself to
+            coaching youth sports, mentoring young people, and organizing events that bring neighbors together. His
+            commitment to showing up, consistently, generously, without recognition, has shaped the lives of countless
+            people in this community.
+          </p>
+          <p>
+            His wife Terry and daughter Kelly created this foundation to honor that legacy and ensure his spirit of service
+            continues to inspire future generations.
+          </p>
+        </SectionHeading>
+        <ArrowLink href="/about" class="reveal">Read His Full Story</ArrowLink>
+      </div>
+      <div class="reveal reveal-d1 relative">
+        <div class="absolute -top-4 right-4 bottom-4 -left-4 -z-10 border border-gold"></div>
+        <Photo
+          src={communityPhoto}
+          alt="Community"
+          width={900}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          class="h-80 w-full object-cover lg:h-[420px]"
+        />
+      </div>
+    </div>
+  </Section>
+
+  <!-- How to help -->
+  <Section tone="navy" class="border-t border-gold/20">
+    <SectionHeading eyebrow="Make an Impact" title="How You Can Help" tone="light" />
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {
+        ways.map((way, i) => (
+          <div
+            class={`reveal reveal-d${i + 1} flex flex-col border-t-2 border-gold bg-white/5 p-8 transition-colors duration-300 hover:bg-white/8 md:p-10`}
+          >
+            <h3 class="mb-3 font-playfair text-[1.5rem] font-bold text-white">{way.title}</h3>
+            <p class="mb-8 flex-1 text-[0.95rem] leading-relaxed text-white/80">{way.text}</p>
+            <div>
+              <Button href={way.href} variant={i === 0 ? "gold" : "secondary"} size="sm">
+                {way.label}
+              </Button>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- Photo break -->
+  <div class="relative h-64 overflow-hidden md:h-80">
+    <Photo
+      src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622"
+      alt="Community gathering"
+      width={2000}
+      class="h-full w-full object-cover"
+    />
+    <div class="absolute inset-0 bg-navy-deep/50"></div>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <p
+        class="max-w-2xl px-6 text-center font-playfair text-[1.5rem] leading-[1.3] font-bold text-white italic md:text-[2.25rem]"
+      >
+        "Every act of kindness creates a ripple with no logical end."
+      </p>
+    </div>
+  </div>
+
+  <!-- Featured event -->
+  {
+    featuredEvent && (
+      <Section tone="cream">
+        <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-8 h-px bg-gold"></div>
-              <p class="text-[0.7rem] font-semibold tracking-[0.18em] uppercase text-gold-dark font-inter">Latest</p>
-            </div>
-            <h2 class="font-playfair text-[2rem] md:text-[2.5rem] font-bold text-navy-deep leading-[1.15]">News &amp; Stories</h2>
-          </div>
-          <a href="/news" class="hidden sm:inline-flex items-center gap-2 font-inter text-sm font-semibold text-navy-mid hover:text-gold transition-colors duration-200 no-underline">
-            All Posts
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
-          </a>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {recentPosts.map((post, i) => (
-            <a href={`/news/${post.slug}`} class={`group no-underline block reveal reveal-d${Math.min(i + 1, 4)}`}>
-              <div class="overflow-hidden mb-4">
-                <img
-                  src={post.image}
-                  alt={post.imageAlt}
-                  class="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
+            <SectionHeading eyebrow="Upcoming Event" title={featuredEvent.data.title} class="mb-8">
+              <p>{featuredEvent.data.summary}</p>
+            </SectionHeading>
+            <dl class="reveal mb-8 space-y-1.5 border-l-4 border-gold pl-5 text-sm">
+              <div>
+                <dt class="inline font-semibold text-navy-deep">Date:</dt>{" "}
+                <dd class="inline">{formatDate(featuredEvent.data.date, { dateStyle: "full" })}</dd>
               </div>
-              <span class="inline-block text-[0.6rem] font-semibold tracking-[0.15em] uppercase text-gold font-inter mb-2">
-                {post.category}
-              </span>
-              <h3 class="font-playfair text-[1.1rem] font-bold text-navy-deep leading-[1.3] mb-2 group-hover:text-navy-mid transition-colors duration-200">
-                {post.title}
-              </h3>
-              <p class="font-inter text-xs text-text-mid">{formatDate(post.publishedAt)}</p>
-            </a>
-          ))}
+              <div>
+                <dt class="inline font-semibold text-navy-deep">Format:</dt>{" "}
+                <dd class="inline">{featuredEvent.data.format}</dd>
+              </div>
+              {featuredEvent.data.pricing.length > 0 && (
+                <div>
+                  <dt class="inline font-semibold text-navy-deep">Pricing:</dt>{" "}
+                  <dd class="inline">
+                    {featuredEvent.data.pricing.map((price) => `${price.amount} ${price.label}`).join(" / ")}
+                  </dd>
+                </div>
+              )}
+            </dl>
+            <div class="reveal flex flex-col gap-4 sm:flex-row">
+              <Button href={featuredEvent.data.registrationUrl}>Register Now</Button>
+              <ArrowLink href={`/events/${featuredEvent.id}`} class="self-center">
+                View Details
+              </ArrowLink>
+            </div>
+          </div>
+          <div class="reveal reveal-d1 border border-gold/30 bg-navy-deep p-12 text-center md:p-16">
+            <p class="mb-6 text-[0.65rem] font-semibold tracking-[0.2em] text-gold uppercase">Save the Date</p>
+            <p class="mb-2 font-playfair text-[4rem] leading-none font-bold text-white md:text-[5rem]">
+              {formatDate(featuredEvent.data.date, { month: "short", day: "numeric" })}
+            </p>
+            <p class="mb-8 font-playfair text-[1.75rem] text-white/75">
+              {formatDate(featuredEvent.data.date, { year: "numeric" })}
+            </p>
+            <div class="mx-auto mb-8 h-px w-10 bg-gold" />
+            <p class="mb-1 text-sm text-white">{featuredEvent.data.venue}</p>
+            <p class="text-xs text-white/60">{featuredEvent.data.city}</p>
+          </div>
         </div>
+      </Section>
+    )
+  }
 
-        <div class="mt-10 sm:hidden reveal">
-          <a href="/news" class="inline-flex items-center gap-2 font-inter text-sm font-semibold text-navy-mid hover:text-gold transition-colors duration-200 no-underline">
-            All Posts
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
-          </a>
-        </div>
-      </div>
-    </section>
+  <!-- Sponsors: the logo strip runs edge to edge, so this section skips the page container -->
+  <section class="border-t border-navy-deep/8 bg-white py-20 md:py-28">
+    <div class="page-container mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <SectionHeading eyebrow="With Gratitude" title="Thank You to Our Sponsors" class="">
+        <p>
+          The businesses, organizations, and {families.length} families who make our scholarships and community events
+          possible.
+        </p>
+      </SectionHeading>
+      <ArrowLink href="/sponsors" class="reveal shrink-0">See All Sponsors</ArrowLink>
+    </div>
+    <SponsorMarquee />
+  </section>
 
-  </main>
-
-  <Footer />
+  <!-- News -->
+  <Section tone="cream" class="border-t border-navy-deep/8">
+    <div class="mb-12 flex items-end justify-between">
+      <SectionHeading eyebrow="Latest" title="News & Stories" class="" />
+      <ArrowLink href="/news" class="reveal hidden sm:inline-flex">All Posts</ArrowLink>
+    </div>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+      {recentPosts.map((post, i) => <PostCard post={post} class={`reveal reveal-d${i + 1}`} />)}
+    </div>
+    <ArrowLink href="/news" class="reveal mt-10 sm:hidden">All Posts</ArrowLink>
+  </Section>
 </Layout>

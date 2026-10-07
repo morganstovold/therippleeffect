@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+
+const stats = (await getCollection("impact")).toSorted((a, b) => a.data.order - b.data.order);
+---
+
+<ul class="flex flex-wrap gap-px border border-navy-deep/8 bg-navy-deep/8">
+  {
+    stats.map(({ data: stat }, i) => (
+      <li
+        class={`reveal reveal-d${Math.min(i + 1, 4)} flex-1 basis-[calc(50%-1px)] bg-cream p-8 md:p-10 xl:basis-0`}
+      >
+        <p class="mb-3 font-playfair text-[2.25rem] leading-none font-bold text-navy-deep md:text-[2.75rem]">
+          {stat.value}
+        </p>
+        <p class="mb-1 text-sm font-semibold text-navy-deep">{stat.label}</p>
+        {stat.sublabel && <p class="text-xs text-text-mid">{stat.sublabel}</p>}
+      </li>
+    ))
+  }
+</ul>
