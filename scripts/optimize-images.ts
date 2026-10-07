@@ -2,6 +2,7 @@
 // Run with `bun run images` after adding photos.
 import { readdir, rename, stat } from "node:fs/promises";
 import { extname, join } from "node:path";
+
 import sharp from "sharp";
 
 const MAX_WIDTH = 2000;

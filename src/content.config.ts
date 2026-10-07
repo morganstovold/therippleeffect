@@ -1,6 +1,6 @@
-import { defineCollection, reference, type SchemaContext } from "astro:content";
 import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
+import { defineCollection, reference, type SchemaContext } from "astro:content";
 
 // An image is either a full URL (e.g. Unsplash) or a path to a file next to the content.
 const photo = (image: SchemaContext["image"]) => z.union([z.url(), image()]);

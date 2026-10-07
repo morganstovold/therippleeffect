@@ -8,9 +8,10 @@
     "deploy": "alchemy deploy",
     "destroy": "alchemy destroy",
     "build": "astro build",
-    "check": "astro check && oxlint && oxfmt --check",
     "lint": "oxlint",
     "format": "oxfmt",
+    "check": "astro check && oxlint && oxfmt --check",
+    "check:fix": "astro check && oxlint && oxfmt",
     "images": "bun scripts/optimize-images.ts"
   },
   "dependencies": {
