@@ -1,9 +1,21 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
+
 import { getPosts } from "../lib/content";
 
 // Hand-written because @astrojs/sitemap skips pages rendered per request (home, programs, events).
-const pages = ["/", "/about", "/programs", "/events", "/news", "/sponsors", "/gallery", "/impact", "/get-involved", "/contact"];
+const pages = [
+  "/",
+  "/about",
+  "/programs",
+  "/events",
+  "/news",
+  "/sponsors",
+  "/gallery",
+  "/impact",
+  "/get-involved",
+  "/contact",
+];
 
 export const GET: APIRoute = async ({ site, url }) => {
   const events = (await getCollection("events")).map((event) => `/events/${event.id}`);
