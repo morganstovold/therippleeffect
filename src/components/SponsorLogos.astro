@@ -3,9 +3,16 @@ import LocalImage from "./LocalImage.astro";
 import { getSponsors } from "../lib/content";
 
 const { businesses } = await getSponsors();
+
+// Give every logo roughly the same area so wide wordmarks don't shrink to slivers next to square
+// badges. Cells are about 1.75x wider than tall; wide logos hit max-w-full and stop growing.
+const logoHeight = ({ width, height }: { width: number; height: number }) =>
+  Math.min(90, Math.round(100 * Math.sqrt(1 / (width / height))));
 ---
 
-<ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+<ul
+  class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 xl:grid-cols-6"
+>
   {
     businesses.map((sponsor) => {
       const logo = (
@@ -13,17 +20,26 @@ const { businesses } = await getSponsors();
           src={sponsor.logo}
           alt={sponsor.name}
           title={sponsor.name}
-          class="max-h-full w-auto max-w-full object-contain"
+          sizes="(min-width: 1280px) 200px, (min-width: 640px) 33vw, 50vw"
+          class="w-auto max-w-full object-contain"
+          style={`height: ${logoHeight(sponsor.logo)}%`}
         />
       );
       return (
-        <li class="flex aspect-[3/2] items-center justify-center border border-navy-deep/10 bg-white p-4 transition-shadow duration-300 hover:shadow-lg md:p-5">
+        <li class="h-24 border border-navy-deep/10 bg-white transition-shadow duration-300 hover:shadow-lg sm:h-28">
           {sponsor.url ? (
-            <a href={sponsor.url} target="_blank" rel="noopener" class="flex h-full w-full items-center justify-center">
+            <a
+              href={sponsor.url}
+              target="_blank"
+              rel="noopener"
+              class="flex h-full items-center justify-center p-3 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-gold-dark sm:p-4"
+            >
               {logo}
             </a>
           ) : (
-            logo
+            <div class="flex h-full items-center justify-center p-3 sm:p-4">
+              {logo}
+            </div>
           )}
         </li>
       );
