@@ -5,3 +5,9 @@
   value: $5,000+
   label: Raised for Scholarships
   sublabel: And community programs
+
+- id: best-of-benicia
+  order: 2
+  value: 2nd Place
+  label: Best of Benicia 2026
+  sublabel: Best Community Foundation/Fundraising

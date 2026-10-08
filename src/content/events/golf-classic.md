@@ -17,7 +17,7 @@ pricing:
 image: https://images.unsplash.com/photo-1535131749006-b7f58c99034b
 imageAlt: Eagle Vines Golf Club
 registrationUrl: https://events.golfstatus.com/event/TheRippleEffect
-featured: true
+sponsorships: true
 relatedPost: golf-classic-announced
 highlights:
   - title: Premier Course

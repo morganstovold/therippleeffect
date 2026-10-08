@@ -8,6 +8,7 @@ import Section from "../components/Section.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import SponsorMarquee from "../components/SponsorMarquee.astro";
 import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 import { formatDate, getFeaturedEvent, getPosts, getSponsors } from "../lib/content";
 
 // Rendered per request so the featured event drops off once it has passed.
@@ -17,6 +18,22 @@ const featuredEvent = await getFeaturedEvent();
 const recentPosts = (await getPosts()).slice(0, 3);
 const { families } = await getSponsors();
 const communityPhoto = "https://images.unsplash.com/photo-1529156069898-49953e39b3ac";
+
+const programs = [
+  {
+    title: "James Baldwin Scholarship",
+    text: "Community service scholarships for graduating Benicia High School seniors.",
+    href: "/programs#scholarship",
+  },
+  ...(await getCollection("programs"))
+    .toSorted((a, b) => a.data.order - b.data.order)
+    .map((program) => ({ title: program.data.title, text: program.data.summary, href: `/programs#${program.id}` })),
+  {
+    title: "Community Events",
+    text: "Gatherings like our Golf Classic and Kidney Walk team that bring people together for a purpose.",
+    href: "/events",
+  },
+];
 
 const ways = [
   {
@@ -51,7 +68,7 @@ const ways = [
 
     <div class="relative z-10 page-container py-24 md:py-32">
       <div class="max-w-3xl">
-        <Eyebrow tone="light" class="reveal mb-4">A Legacy of Service</Eyebrow>
+        <Eyebrow tone="light" class="reveal mb-4">Small Actions. Big Impact.</Eyebrow>
         <h1
           class="reveal reveal-d1 mb-6 font-playfair text-[2.75rem] leading-[1.05] font-bold text-white md:text-[4rem] lg:text-[5.25rem]"
         >
@@ -91,14 +108,13 @@ const ways = [
       <div>
         <SectionHeading eyebrow="The Man Behind the Mission" title="James Baldwin" class="mb-8">
           <p>
-            James Baldwin is a lifelong community leader in Benicia, California. For decades he has dedicated himself to
-            coaching youth sports, mentoring young people, and organizing events that bring neighbors together. His
-            commitment to showing up, consistently, generously, without recognition, has shaped the lives of countless
-            people in this community.
+            The Ripple Effect of Life was created in honor of James Baldwin, a lifelong community leader whose heart for
+            service and people has touched countless lives in Benicia, California.
           </p>
           <p>
-            His wife Terry and daughter Kelly created this foundation to honor that legacy and ensure his spirit of service
-            continues to inspire future generations.
+            After James was diagnosed with kidney cancer, his family felt the community's support firsthand. Inspired by
+            that support and his lifetime of giving back, his wife Terry and daughter Kelly founded this foundation in
+            February 2026 so his spirit of service continues to inspire future generations.
           </p>
         </SectionHeading>
         <ArrowLink href="/about" class="reveal">Read His Full Story</ArrowLink>
@@ -114,6 +130,30 @@ const ways = [
         />
       </div>
     </div>
+  </Section>
+
+  <!-- Programs -->
+  <Section tone="white">
+    <div class="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <SectionHeading eyebrow="What We Do" title="Creating Ripples That Last" class="" />
+      <ArrowLink href="/programs" class="reveal shrink-0">All Programs</ArrowLink>
+    </div>
+    <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        programs.map((program, i) => (
+          <li class={`reveal reveal-d${Math.min(i + 1, 4)}`}>
+            <a
+              href={program.href}
+              class="group flex h-full flex-col border-t-2 border-gold bg-cream p-7 no-underline transition-shadow duration-300 hover:shadow-lg"
+            >
+              <p class="mb-3 font-playfair text-[1.25rem] leading-snug font-bold text-navy-deep">{program.title}</p>
+              <p class="mb-6 flex-1 text-sm leading-relaxed text-text-mid">{program.text}</p>
+              <span class="text-sm font-semibold text-navy-mid transition-colors group-hover:text-gold">Learn More →</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </Section>
 
   <!-- How to help -->
@@ -170,10 +210,12 @@ const ways = [
                 <dt class="inline font-semibold text-navy-deep">Date:</dt>{" "}
                 <dd class="inline">{formatDate(featuredEvent.data.date, { dateStyle: "full" })}</dd>
               </div>
-              <div>
-                <dt class="inline font-semibold text-navy-deep">Format:</dt>{" "}
-                <dd class="inline">{featuredEvent.data.format}</dd>
-              </div>
+              {featuredEvent.data.format && (
+                <div>
+                  <dt class="inline font-semibold text-navy-deep">Format:</dt>{" "}
+                  <dd class="inline">{featuredEvent.data.format}</dd>
+                </div>
+              )}
               {featuredEvent.data.pricing.length > 0 && (
                 <div>
                   <dt class="inline font-semibold text-navy-deep">Pricing:</dt>{" "}
@@ -184,7 +226,7 @@ const ways = [
               )}
             </dl>
             <div class="reveal flex flex-col gap-4 sm:flex-row">
-              <Button href={featuredEvent.data.registrationUrl}>Register Now</Button>
+              <Button href={featuredEvent.data.registrationUrl}>{featuredEvent.data.registrationLabel}</Button>
               <ArrowLink href={`/events/${featuredEvent.id}`} class="self-center">
                 View Details
               </ArrowLink>
@@ -199,8 +241,8 @@ const ways = [
               {formatDate(featuredEvent.data.date, { year: "numeric" })}
             </p>
             <div class="mx-auto mb-8 h-px w-10 bg-gold" />
-            <p class="mb-1 text-sm text-white">{featuredEvent.data.venue}</p>
-            <p class="text-xs text-white/60">{featuredEvent.data.city}</p>
+            {featuredEvent.data.venue && <p class="mb-1 text-sm text-white">{featuredEvent.data.venue}</p>}
+            {featuredEvent.data.city && <p class="text-xs text-white/60">{featuredEvent.data.city}</p>}
           </div>
         </div>
       </Section>

@@ -7,4 +7,14 @@
   deadline: 2026-04-10
   requirementsUrl: https://eddy.pro/pdf/6456025
   applicationUrl: https://docs.google.com/forms/d/e/1FAIpQLSdE0oa_clmnhxRFj-iP0x1RHW1Pb5UXXuDM82MnU89XUeWebg/viewform
-  awarded: 1
+  awarded: 3
+  amountEach: 1000
+  # Shown on What We Do once `awarded` is set.
+  message: >-
+    Congratulations to the 2026 recipients of the Ripple Effect of Life James Baldwin Community Service Scholarship.
+    You have each demonstrated that true leadership begins with a willingness to serve others and make a positive
+    difference in the lives of those around you. Your dedication to your community, your generosity, and your
+    commitment to helping others have already created meaningful ripples that will continue far beyond your time at
+    high school. Thank you for being an example of what community service is all about. We are proud to celebrate
+    your accomplishments and excited to watch your journey unfold. Your future is bright, and we know you will
+    continue creating ripples of positive change wherever life takes you.

@@ -5,11 +5,13 @@ import Button from "../components/Button.astro";
 import CallToAction from "../components/CallToAction.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import ImpactStats from "../components/ImpactStats.astro";
+import ProgramSection from "../components/ProgramSection.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Photo from "../components/Photo.astro";
 import Section from "../components/Section.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 import { formatDate, getFeaturedEvent, getScholarships } from "../lib/content";
 
 // Rendered per request so the application open/closed state follows the deadline.
@@ -17,9 +19,24 @@ export const prerender = false;
 
 const featuredEvent = await getFeaturedEvent();
 
-const { deadline, requirementsUrl, applicationUrl } = (await getScholarships())[0];
+const programs = (await getCollection("programs")).toSorted((a, b) => a.data.order - b.data.order);
+const { deadline, requirementsUrl, applicationUrl, awarded, amountEach, message } = (await getScholarships())[0];
 const applicationsOpen = deadline.getTime() >= Date.now();
 const classYear = deadline.getUTCFullYear();
+
+const focusAreas = [
+  { title: "Scholarships", text: "Funding high school scholarships for students pursuing their dreams." },
+  { title: "Study Abroad", text: "Supporting study abroad opportunities that expand horizons and change lives." },
+  { title: "Life Skills", text: "Investing in programs that build life skills, confidence, and leadership for all ages." },
+  {
+    title: "Cancer Support",
+    text: "Standing behind organizations that support individuals and families navigating cancer.",
+  },
+  {
+    title: "Community Outreach",
+    text: "Expanding outreach wherever there is a need and an opportunity to make a difference.",
+  },
+];
 
 const criteria = [
   {
@@ -36,13 +53,40 @@ const criteria = [
 
 <Layout
   title="What We Do"
-  description="The James Baldwin Community Service Scholarship and community events from The Ripple Effect of Life."
+  description="Scholarships, the Ripple Sports Closet, Summer of Service, and community events from The Ripple Effect of Life."
 >
   <PageHeader
     eyebrow="What We Do"
     title="Programs & Impact"
-    subtitle="Two core initiatives that carry James Baldwin's values of service, generosity, and community into the next generation."
+    subtitle="Programs that carry James Baldwin's values of service, generosity, and community into the next generation."
   />
+
+  <!-- Focus areas -->
+  <Section tone="white">
+    <SectionHeading eyebrow="Ripples Made" title="Rooted in Benicia. Reaching Beyond Borders.">
+      <p>
+        While Benicia will always be home, The Ripple Effect of Life believes that compassion, opportunity, and hope should
+        never be limited by geography. Through our growing network of supporters and community partners, we help create
+        ripples in communities near and far.
+      </p>
+    </SectionHeading>
+    <ol class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {
+        focusAreas.map((area, i) => (
+          <li class={`reveal reveal-d${Math.min(i + 1, 4)} border-t-2 border-gold bg-cream p-6`}>
+            <span class="mb-4 block font-playfair text-[1.5rem] leading-none font-bold text-gold-dark">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <p class="mb-2 font-playfair text-lg font-bold text-navy-deep">{area.title}</p>
+            <p class="text-sm leading-relaxed text-text-mid">{area.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="reveal mt-10 text-center font-playfair text-[1.25rem] text-navy-deep italic">
+      No matter where someone lives, every act of kindness creates a ripple.
+    </p>
+  </Section>
 
   <!-- Scholarship -->
   <Section tone="cream" id="scholarship">
@@ -112,7 +156,33 @@ const criteria = [
         )
       }
     </div>
+
+    {
+      awarded > 0 && (
+        <div class="reveal mt-12 grid grid-cols-1 gap-8 border border-gold/30 bg-white p-8 md:grid-cols-[1fr_2fr] md:p-12">
+          <div>
+            <Eyebrow class="mb-3">Class of {classYear}</Eyebrow>
+            <p class="mb-6 font-playfair text-[1.75rem] leading-tight font-bold text-navy-deep">
+              Congratulations to Our Recipients
+            </p>
+            <p class="font-playfair text-[2.5rem] leading-none font-bold text-navy-deep">{awarded}</p>
+            <p class="mb-4 text-sm font-semibold text-text-mid">{awarded === 1 ? "Recipient" : "Recipients"}</p>
+            {amountEach && (
+              <>
+                <p class="font-playfair text-[2.5rem] leading-none font-bold text-navy-deep">
+                  ${amountEach.toLocaleString("en-US")}
+                </p>
+                <p class="text-sm font-semibold text-text-mid">Awarded to each student</p>
+              </>
+            )}
+          </div>
+          {message && <p class="self-center text-[1rem] leading-[1.85] text-text-mid">{message}</p>}
+        </div>
+      )
+    }
   </Section>
+
+  {programs.map((program, i) => <ProgramSection program={program} tone={i % 2 === 0 ? "white" : "cream"} />)}
 
   <!-- Featured event -->
   {
@@ -131,13 +201,13 @@ const criteria = [
 
         <div class="relative z-10 page-container grid grid-cols-1 items-center gap-12 py-20 md:py-28 lg:grid-cols-2 lg:gap-20">
           <SectionHeading eyebrow="Community Events" title={featuredEvent.data.title} tone="light" class="">
-            <p>Beyond scholarships, we bring people together. {featuredEvent.data.tagline}</p>
+            <p>We also bring people together. {featuredEvent.data.tagline}</p>
             <div class="flex flex-col gap-4 pt-4 sm:flex-row">
               <Button href={`/events/${featuredEvent.id}`} variant="gold">
                 View Details
               </Button>
               <Button href={featuredEvent.data.registrationUrl} variant="secondary">
-                Register Now
+                {featuredEvent.data.registrationLabel}
               </Button>
             </div>
           </SectionHeading>
@@ -152,9 +222,9 @@ const criteria = [
             </p>
             <div class="mb-6 h-px w-8 bg-gold" />
             <div class="space-y-3 text-sm">
-              <p class="text-white/85">{featuredEvent.data.venue}</p>
-              <p class="text-white/65">{featuredEvent.data.city}</p>
-              <p class="text-white/85">{featuredEvent.data.format}</p>
+              {featuredEvent.data.venue && <p class="text-white/85">{featuredEvent.data.venue}</p>}
+              {featuredEvent.data.city && <p class="text-white/65">{featuredEvent.data.city}</p>}
+              {featuredEvent.data.format && <p class="text-white/85">{featuredEvent.data.format}</p>}
               {featuredEvent.data.pricing.length > 0 && (
                 <p class="text-white/65">
                   {featuredEvent.data.pricing.map((price) => `${price.amount} ${price.label}`).join(" • ")}
@@ -173,8 +243,8 @@ const criteria = [
         <div class="grid grid-cols-1 items-center gap-10 md:grid-cols-[3fr_2fr]">
           <SectionHeading eyebrow="Community Events" title="Bringing People Together" tone="light" class="">
             <p>
-              Beyond scholarships, we host community events that celebrate James's legacy and raise the funds that sustain
-              the foundation's work for years to come.
+              We host community events that celebrate James's legacy and raise the funds that sustain the foundation's work
+              for years to come.
             </p>
           </SectionHeading>
           <div class="reveal flex flex-col gap-4 sm:flex-row md:justify-end">

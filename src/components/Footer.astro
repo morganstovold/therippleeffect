@@ -40,6 +40,13 @@ const headingClass = "mb-5 text-[0.7rem] font-semibold tracking-[0.15em] text-wh
         <ul class="m-0 list-none space-y-3 p-0">
           <li><a href={`mailto:${site.email}`} class={linkClass}>{site.email}</a></li>
           <li><a href="/contact" class={linkClass}>Contact Us</a></li>
+          <li>
+            <address class="text-[0.875rem] font-light text-white/75 not-italic">
+              {site.address.street}
+              <br />
+              {site.address.city}
+            </address>
+          </li>
         </ul>
         <SocialLinks class="mt-5" />
       </div>

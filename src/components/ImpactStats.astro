@@ -17,10 +17,16 @@ const count = (value: number, one: string, many: string, sublabel: string) => ({
 // Counted from the scholarship, event, and sponsor data, so they stay current on their own.
 // A count of zero is left out rather than shown.
 const recipients = awarded.reduce((total, year) => total + year.awarded, 0);
+const amountAwarded = awarded.reduce((total, year) => total + year.awarded * (year.amountEach ?? 0), 0);
 const sponsors = businesses.length + families.length;
 const counted = [
   recipients > 0 &&
     count(recipients, "Scholarship Awarded", "Scholarships Awarded", sinceYear(awarded.map((year) => year.deadline))),
+  amountAwarded > 0 && {
+    value: `$${amountAwarded.toLocaleString("en-US")}`,
+    label: "Awarded in Scholarships",
+    sublabel: sinceYear(awarded.map((year) => year.deadline)),
+  },
   past.length > 0 && count(past.length, "Event Hosted", "Events Hosted", sinceYear(past.map((event) => event.data.date))),
   sponsors > 0 && count(sponsors, "Local Sponsor", "Local Sponsors", "Businesses and families"),
 ].filter((stat) => stat !== false);
@@ -33,7 +39,7 @@ const stats = [...counted, ...manual];
   {
     stats.map((stat, i) => (
       <li
-        class={`reveal reveal-d${Math.min(i + 1, 4)} flex-1 basis-[calc(50%-1px)] bg-cream p-8 md:p-10 xl:basis-0`}
+        class={`reveal reveal-d${Math.min(i + 1, 4)} flex-1 basis-[calc(50%-1px)] bg-cream p-8 md:p-10 lg:basis-[calc(33.333%-1px)]`}
       >
         <p class="mb-3 font-playfair text-[2.25rem] leading-none font-bold text-navy-deep md:text-[2.75rem]">
           {stat.value}

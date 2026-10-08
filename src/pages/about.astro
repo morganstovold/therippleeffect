@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Button from "../components/Button.astro";
 import CallToAction from "../components/CallToAction.astro";
+import Eyebrow from "../components/Eyebrow.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Photo from "../components/Photo.astro";
 import Section from "../components/Section.astro";
@@ -18,28 +19,27 @@ const initials = (name: string) =>
 
 <Layout
   title="About Us"
-  description="Kelly Baldwin and Terry Baldwin created The Ripple Effect of Life to honor James Baldwin, a lifelong community leader in Benicia, California."
+  description="The story of The Ripple Effect of Life, founded in February 2026 by Terry and Kelly Baldwin to honor James Baldwin, a lifelong community leader in Benicia, California."
 >
   <PageHeader
     eyebrow="Our Story"
     title="About The Ripple Effect of Life"
-    subtitle="Founded by Kelly Baldwin and Terry Baldwin in honor of a man whose life of service has shaped an entire community."
+    subtitle="Founded in February 2026 by Terry and Kelly Baldwin in honor of a man whose life of service has shaped an entire community."
   />
 
   <!-- Founding story -->
   <Section tone="cream">
     <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
-      <SectionHeading eyebrow="Why This Foundation Exists" title="A Family's Tribute" class="">
+      <SectionHeading eyebrow="Our Story" title="How It Began" class="">
         <p>
-          Kelly Baldwin and her mother Terry Baldwin created The Ripple Effect of Life to honor James Baldwin: husband,
-          father, and lifelong servant of his community. Together, they have watched firsthand the way he has shown up for
-          others: coaching youth sports, mentoring young people, organizing community events, and giving freely of his
-          time without expectation of recognition.
+          The Ripple Effect of Life was founded in February 2026 from a deeply personal journey and a desire to honor a man
+          who has spent his entire life serving others.
         </p>
         <p>
-          This foundation is built on that same principle: that the kindness one person shows creates ripples far beyond
-          what any of us can measure. Through scholarships and community events, The Ripple Effect of Life carries that
-          spirit forward, ensuring James's legacy of service inspires future generations.
+          In October 2022, James Baldwin was diagnosed with kidney cancer. As his journey unfolded, our family was faced
+          with difficult conversations and an uncertain future. Through it all, one thing became abundantly clear: the
+          impact of a life dedicated to helping others cannot be measured by circumstances. It is measured by the lives
+          touched along the way.
         </p>
       </SectionHeading>
       <div class="reveal reveal-d1">
@@ -69,18 +69,16 @@ const initials = (name: string) =>
       </div>
       <SectionHeading eyebrow="The Man" title="James Baldwin" tone="light" class="reveal-d1">
         <p>
-          James Baldwin is a lifelong community leader in Benicia, California. For decades, he has dedicated himself to the
-          people around him: coaching youth sports, mentoring young men and women, and organizing community events that
-          bring neighbors together.
+          For decades, James has been a pillar of the Benicia community. Through countless hours of volunteerism,
+          mentorship, service organizations, community projects, and simply being there when someone needed a helping
+          hand, he has lived a life centered on giving back. His belief has always been that even the smallest act of
+          kindness can create a ripple that extends far beyond what we can see.
         </p>
         <p>
-          What defines James is not grand gestures, but consistency. He shows up. He listens. He gives his time. Year after
-          year, person after person, James has quietly shaped the fabric of his community in ways that are hard to fully
-          capture, but impossible to miss when you've been on the receiving end of his generosity.
-        </p>
-        <p>
-          The Ripple Effect of Life exists because of him, and because of the belief that his example is worth honoring and
-          continuing.
+          During his cancer journey, our family experienced those ripples firsthand. Friends, neighbors, local
+          organizations, service clubs, and community members surrounded us with support, encouragement, and compassion.
+          We witnessed the power of community and were reminded that when people come together with a shared purpose,
+          incredible things can happen.
         </p>
       </SectionHeading>
     </div>
@@ -88,17 +86,49 @@ const initials = (name: string) =>
 
   <!-- Mission -->
   <Section tone="cream">
-    <SectionHeading eyebrow="Our Mission" title="What We Stand For" center class="">
+    <SectionHeading eyebrow="Our Mission" title="Be the Ripple. Create the Change." center>
       <p>
-        We believe that one person's commitment to service can change a community. Through scholarships, community events,
-        and initiatives that bring people together, we work to ensure that James Baldwin's values of generosity,
-        mentorship, and service continue to take root in the next generation.
+        Inspired by James' lifelong commitment to service and the support our family received, Terry Baldwin and Kelly
+        Baldwin founded The Ripple Effect of Life in February 2026. Our mission is simple: to create opportunities, inspire
+        service, and support individuals and families in ways that create lasting impact for generations to come.
       </p>
       <p>
-        Every scholarship awarded, every event organized, every volunteer hour given: these are ripples. And ripples
-        spread.
+        Today, The Ripple Effect of Life helps fund high school scholarships through the James Baldwin Community Service
+        Scholarship, supports students pursuing educational and study abroad opportunities, invests in programs that build
+        life skills, contributes to organizations that assist cancer patients and their families, and partners with
+        community initiatives that strengthen the places we call home.
+      </p>
+      <p>
+        While our roots are firmly planted in Benicia, we believe kindness has no boundaries. Every scholarship awarded,
+        every student encouraged, every family supported, and every community project funded represents another ripple
+        spreading outward into the world.
+      </p>
+      <p>
+        The Ripple Effect of Life is more than an organization. It is a reflection of the values James Baldwin has
+        demonstrated throughout his life: service, generosity, resilience, and a belief that we all have the ability to
+        make a difference.
       </p>
     </SectionHeading>
+    <div class="reveal mx-auto max-w-2xl border-t border-gold/40 pt-10 text-center font-playfair text-[1.35rem] leading-relaxed text-navy-deep italic md:text-[1.6rem]">
+      <p>His journey inspired our mission.</p>
+      <p>His legacy fuels our purpose.</p>
+      <p>And together, we are creating ripples that will continue for generations to come.</p>
+    </div>
+  </Section>
+
+  <!-- Recognition -->
+  <Section tone="white" compact class="border-t border-navy-deep/8">
+    <div class="reveal flex flex-col items-center gap-6 text-center md:flex-row md:text-left">
+      <p class="font-playfair text-[3.5rem] leading-none font-bold text-gold-dark md:text-[4.5rem]">2nd</p>
+      <div>
+        <Eyebrow class="mb-2 justify-center md:justify-start">Best of Benicia 2026</Eyebrow>
+        <p class="mb-1 font-playfair text-[1.5rem] font-bold text-navy-deep">Best Community Foundation/Fundraising</p>
+        <p class="text-text-mid">
+          Just five months after we were founded, we placed second in the Benicia Chamber of Commerce's Best of Benicia
+          awards. Thank you, Benicia! Your support is what makes ripples possible.
+        </p>
+      </div>
+    </div>
   </Section>
 
   <!-- Board -->

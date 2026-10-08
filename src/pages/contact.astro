@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     question: "How do I register for an event?",
-    answer: `<p>Every event has its own page with dates, pricing, and a registration link.</p><a href="/events">See upcoming events →</a>`,
+    answer: `<p>Every event has its own page with dates, details, and a link to register or sign up for updates.</p><a href="/events">See upcoming events →</a>`,
   },
   {
     question: "How can I become a sponsor?",
@@ -36,12 +36,20 @@ const faqs = [
     answer: `<p>Yes. Donations go to the Ripple Effect of Life Fund at the ${site.donationsReceivedBy.name}, a 501(c)(3) nonprofit (EIN ${site.donationsReceivedBy.ein}). Your gift is tax-deductible to the extent allowed by law, and you'll receive a receipt for your records.</p>`,
   },
   {
+    question: "How do I donate sports equipment?",
+    answer: `<p>The Ripple Sports Closet collects new and gently used, game-ready sports equipment and gives it to local kids year-round. Porch drop-off is available anytime at our Benicia address, listed at the bottom of this page.</p><a href="/programs#sports-closet">Learn about the Ripple Sports Closet →</a>`,
+  },
+  {
+    question: "What is Summer of Service?",
+    answer: `<p>A summer challenge for kids and teens ages 5–18 to serve, learn, move, and connect. Every completed packet earns entries into prize drawings.</p><a href="/programs#summer-of-service">Learn about Summer of Service →</a>`,
+  },
+  {
     question: "How can I volunteer?",
     answer: `<p>We're always looking for people who want to help. Whether you can assist with event operations, community outreach, or mentorship, there's a role for you.</p><p>Send us an email at ${email} with your interests and availability.</p>`,
   },
   {
     question: "Who is James Baldwin?",
-    answer: `<p>James Baldwin is a lifelong community leader in Benicia, California (not the famous author of the same name). For decades he has given his time coaching youth sports, mentoring young people, and organizing events that bring the Benicia community together.</p><p>This foundation was created by his wife Terry Baldwin and daughter Kelly Baldwin to honor his legacy of service and ensure it continues to inspire future generations.</p><a href="/about">Read his full story →</a>`,
+    answer: `<p>James Baldwin is a lifelong community leader in Benicia, California (not the famous author of the same name). For decades he has given his time through volunteerism, mentorship, service organizations, and community projects.</p><p>After his kidney cancer diagnosis in 2022, his wife Terry Baldwin and daughter Kelly Baldwin founded this foundation in February 2026 to honor his legacy of service and ensure it continues to inspire future generations.</p><a href="/about">Read his full story →</a>`,
   },
 ];
 
@@ -162,6 +170,25 @@ const errorClass = "mt-2 text-sm text-red-700";
             <a href={`mailto:${site.email}`} class="text-base text-white no-underline transition-colors hover:text-gold">
               {site.email}
             </a>
+          </div>
+
+          <div class="mb-8 border-t border-gold/20 pt-8">
+            <p class="mb-3 text-xs font-semibold tracking-widest text-gold uppercase">Phone</p>
+            <ul class="space-y-2">
+              {
+                site.phones.map((phone) => (
+                  <li class="text-white/75">
+                    {phone.name}, {phone.role}:{" "}
+                    <a
+                      href={`tel:${phone.number.replaceAll("-", "")}`}
+                      class="whitespace-nowrap text-white no-underline transition-colors hover:text-gold"
+                    >
+                      {phone.number}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
           </div>
 
           {

@@ -16,8 +16,22 @@ const event = await getEntry("events", Astro.params.slug!);
 if (!event) {
   return new Response(null, { status: 404 });
 }
-const { title, date, tagline, headline, summary, venue, address, format, pricing, image, imageAlt, registrationUrl } =
-  event.data;
+const {
+  title,
+  date,
+  tagline,
+  headline,
+  summary,
+  venue,
+  address,
+  format,
+  pricing,
+  image,
+  imageAlt,
+  registrationUrl,
+  registrationLabel,
+  sponsorships,
+} = event.data;
 const { Content } = await render(event);
 const relatedPost = event.data.relatedPost && (await getEntry(event.data.relatedPost));
 const upcoming = isUpcoming(event);
@@ -63,9 +77,9 @@ const labelClass = "mb-1 text-[0.7rem] font-semibold tracking-[0.12em] text-navy
           upcoming && (
             <div class="mt-8 flex flex-col gap-4 sm:flex-row">
               <Button href={registrationUrl} variant="gold">
-                Register Now
+                {registrationLabel}
               </Button>
-              <Button href="/contact">Sponsorship Inquiries</Button>
+              {sponsorships && <Button href="/contact">Sponsorship Inquiries</Button>}
             </div>
           )
         }
@@ -80,13 +94,17 @@ const labelClass = "mb-1 text-[0.7rem] font-semibold tracking-[0.12em] text-navy
           </div>
           <div>
             <dt class={labelClass}>Location</dt>
-            <dd>{venue}</dd>
-            <dd class="text-sm text-text-mid">{address}</dd>
+            <dd>{venue ?? "To be announced"}</dd>
+            {address && <dd class="text-sm text-text-mid">{address}</dd>}
           </div>
-          <div>
-            <dt class={labelClass}>Format</dt>
-            <dd>{format}</dd>
-          </div>
+          {
+            format && (
+              <div>
+                <dt class={labelClass}>Format</dt>
+                <dd>{format}</dd>
+              </div>
+            )
+          }
           {
             pricing.length > 0 && (
               <div>
@@ -104,11 +122,13 @@ const labelClass = "mb-1 text-[0.7rem] font-semibold tracking-[0.12em] text-navy
           upcoming && (
             <div class="space-y-3">
               <Button href={registrationUrl} variant="gold" class="w-full text-center">
-                Register Now
+                {registrationLabel}
               </Button>
-              <Button href="/contact" class="w-full text-center">
-                Sponsorship Inquiries
-              </Button>
+              {sponsorships && (
+                <Button href="/contact" class="w-full text-center">
+                  Sponsorship Inquiries
+                </Button>
+              )}
             </div>
           )
         }
@@ -125,7 +145,7 @@ const labelClass = "mb-1 text-[0.7rem] font-semibold tracking-[0.12em] text-navy
             <Eyebrow tone="light" class="mb-3">The Experience</Eyebrow>
             <h2 class="font-playfair text-[2rem] leading-[1.15] font-bold text-white md:text-[2.5rem]">{upcoming ? "What to Expect" : "The Day's Highlights"}</h2>
           </div>
-          <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <div class={`grid grid-cols-1 gap-5 md:grid-cols-2 ${event.data.highlights.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
             {event.data.highlights.map((highlight, i) => (
               <div
                 class={`reveal reveal-d${Math.min(i + 1, 4)} border-t-2 border-gold bg-white/5 p-7 transition-colors duration-300 hover:bg-white/8`}
@@ -196,7 +216,7 @@ const labelClass = "mb-1 text-[0.7rem] font-semibold tracking-[0.12em] text-navy
         {
           upcoming && (
             <Button href={registrationUrl} variant="gold">
-              Register Now
+              {registrationLabel}
             </Button>
           )
         }

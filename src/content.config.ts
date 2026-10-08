@@ -16,14 +16,18 @@ const events = defineCollection({
       tagline: z.string(),
       headline: z.string().default("About the Event"),
       summary: z.string(),
-      venue: z.string(),
-      address: z.string(),
-      city: z.string(),
-      format: z.string(),
+      // Leave venue, address, city, or format out until they're known; the page shows "To be announced".
+      venue: z.string().optional(),
+      address: z.string().optional(),
+      city: z.string().optional(),
+      format: z.string().optional(),
       pricing: z.array(z.object({ amount: z.string(), label: z.string() })).default([]),
       image: photo(image),
       imageAlt: z.string(),
       registrationUrl: z.url(),
+      registrationLabel: z.string().default("Register Now"),
+      /** Show "Sponsorship Inquiries" buttons on this event. */
+      sponsorships: z.boolean().default(false),
       featured: z.boolean().default(false),
       relatedPost: reference("news").optional(),
       highlights: z.array(z.object({ title: z.string(), description: z.string() })).default([]),
@@ -32,6 +36,21 @@ const events = defineCollection({
       results: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
       photos: z.array(z.object({ src: photo(image), alt: z.string(), caption: z.string().optional() })).default([]),
     }),
+});
+
+const programs = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/programs" }),
+  schema: z.object({
+    title: z.string(),
+    eyebrow: z.string(),
+    order: z.number(),
+    /** One sentence for the program cards on the home page. */
+    summary: z.string(),
+    highlights: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
+    /** Key facts shown in the side panel, e.g. ages or deadlines. A `url` makes the value a link. */
+    details: z.array(z.object({ label: z.string(), value: z.string(), url: z.string().optional() })).default([]),
+    links: z.array(z.object({ label: z.string(), url: z.string() })).default([]),
+  }),
 });
 
 const news = defineCollection({
@@ -79,6 +98,10 @@ const scholarships = defineCollection({
     applicationUrl: z.url(),
     /** How many scholarships were given that year. Counts only; recipients are kept confidential. */
     awarded: z.number().int().nonnegative().default(0),
+    /** Dollar amount of each scholarship, used for the "awarded in scholarships" total. */
+    amountEach: z.number().nonnegative().optional(),
+    /** A note to that year's recipients, shown on What We Do. */
+    message: z.string().optional(),
   }),
 });
 
@@ -91,4 +114,4 @@ const sponsors = defineCollection({
     ]),
 });
 
-export const collections = { events, news, board, impact, scholarships, sponsors };
+export const collections = { events, programs, news, board, impact, scholarships, sponsors };

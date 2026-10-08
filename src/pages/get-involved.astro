@@ -8,6 +8,27 @@ import SponsorMarquee from "../components/SponsorMarquee.astro";
 import Layout from "../layouts/Layout.astro";
 import { site } from "../site";
 
+const moreWays = [
+  {
+    title: "Donate Sports Equipment",
+    text: "Drop off new or gently used, game-ready gear for the Ripple Sports Closet. Porch drop-off anytime.",
+    href: "/programs#sports-closet",
+    label: "Ripple Sports Closet",
+  },
+  {
+    title: "Join Summer of Service",
+    text: "Kids and teens ages 5–18 serve, learn, move, and connect all summer, earning prize entries along the way.",
+    href: "/programs#summer-of-service",
+    label: "Summer of Service",
+  },
+  {
+    title: "Come to an Event",
+    text: "Walk with our team, play in our Golf Classic, or join us at our next community gathering.",
+    href: "/events",
+    label: "See Events",
+  },
+];
+
 const donationLevels = [
   { amount: "$500", name: "Champion", text: "Funds a full scholarship award" },
   { amount: "$250", name: "Advocate", text: "Supports event programming" },
@@ -148,6 +169,26 @@ const volunteerRoles = [
     </div>
     <div class="reveal text-center">
       <Button href="/contact">Contact Us to Volunteer</Button>
+    </div>
+  </Section>
+
+  <!-- More ways -->
+  <Section tone="white">
+    <SectionHeading eyebrow="Every Ripple Matters" title="More Ways to Make Ripples" center />
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {
+        moreWays.map((way, i) => (
+          <div class={`reveal reveal-d${i + 1} flex flex-col border-t-2 border-gold bg-cream p-8`}>
+            <h3 class="mb-3 font-playfair text-xl font-bold text-navy-deep">{way.title}</h3>
+            <p class="mb-6 flex-1 text-sm leading-relaxed text-text-mid">{way.text}</p>
+            <div>
+              <Button href={way.href} size="sm">
+                {way.label}
+              </Button>
+            </div>
+          </div>
+        ))
+      }
     </div>
   </Section>
 

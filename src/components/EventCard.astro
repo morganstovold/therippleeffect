@@ -9,9 +9,11 @@ interface Props {
 }
 
 const { event, upcoming } = Astro.props;
-const { title, date, venue, city, format, pricing, tagline, image, imageAlt, registrationUrl } = event.data;
+const { title, date, venue, city, format, pricing, tagline, image, imageAlt, registrationUrl, registrationLabel } =
+  event.data;
 const showRecap = !upcoming && hasRecap(event);
-const details = [format, ...pricing.map((price) => `${price.amount} ${price.label}`)].join(" • ");
+const location = [venue, city].filter(Boolean).join(", ") || "Location to be announced";
+const details = [format, ...pricing.map((price) => `${price.amount} ${price.label}`)].filter(Boolean).join(" • ");
 ---
 
 <article class="reveal overflow-hidden border border-navy-deep/12">
@@ -39,8 +41,8 @@ const details = [format, ...pricing.map((price) => `${price.amount} ${price.labe
 
     <div class="border-l-4 border-gold bg-white p-8 md:p-10">
       <h2 class="mb-2 font-playfair text-[1.75rem] leading-[1.2] font-bold text-navy-deep md:text-[2rem]">{title}</h2>
-      <p class="mb-1 text-sm text-text-mid">{venue}, {city}</p>
-      <p class="mb-6 text-sm text-text-mid">{details}</p>
+      <p class="mb-1 text-sm text-text-mid">{location}</p>
+      {details && <p class="mb-6 text-sm text-text-mid">{details}</p>}
       <p class="mb-8 max-w-2xl text-[0.95rem] leading-relaxed text-text-mid">{tagline}</p>
       <div class="flex flex-col gap-4 sm:flex-row">
         <Button href={showRecap ? `/events/${event.id}#recap` : `/events/${event.id}`} size="sm">
@@ -49,7 +51,7 @@ const details = [format, ...pricing.map((price) => `${price.amount} ${price.labe
         {
           upcoming && (
             <Button href={registrationUrl} variant="gold" size="sm">
-              Register Now
+              {registrationLabel}
             </Button>
           )
         }
